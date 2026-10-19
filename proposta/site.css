@@ -209,3 +209,56 @@ body{color:#243c70;background:#fff}p{color:#5e6b80}.topline{background:#233b74}.
 @media(max-width:1020px){.archive-hero-grid{gap:24px}.archive-hero-art,.archive-hero-art img{min-height:340px;height:340px}.archive-highlights-grid{grid-template-columns:1fr 1fr}.archive-highlights-grid>div{grid-column:span 2}.archive-section-heading{align-items:start;flex-direction:column;gap:10px}.archive-section-sidenote{margin:0}.archive-feature-year .archive-entry{grid-column:span 3}}
 @media(max-width:700px){.archive-hero{padding:47px 0 49px}.archive-hero-grid{grid-template-columns:1fr;gap:28px}.archive-hero h1{font-size:3.4rem}.archive-hero-copy>p:not(.archive-hero-note){font-size:1rem}.archive-hero-art,.archive-hero-art img{height:240px;min-height:240px;border-radius:20px}.archive-hero-stamp{width:169px;padding:10px 15px;right:4px;bottom:-15px;border-radius:13px}.archive-hero-stamp strong{font-size:1.48rem}.archive-hero-stamp small{font-size:.63rem}.archive-jumpnav{top:69px}.archive-jump-inner a{font-size:.75rem;padding:8px 12px}.archive-highlights{padding:24px 0}.archive-highlights-grid{grid-template-columns:1fr;gap:11px}.archive-highlights-grid>div{grid-column:auto}.archive-highlight-item{padding:18px}.archive-feature-year{padding-top:46px}.archive-section-heading h2{font-size:3.9rem}.archive-section-sub{font-size:.95rem}.archive-feature-year .archive-directory{grid-template-columns:1fr;gap:12px}.archive-feature-year .archive-entry,.archive-feature-year .archive-entry:nth-child(-n+2){grid-column:auto;min-height:0}.archive-photo-heading{display:block}.archive-photo-heading>a{display:inline-block;margin-top:13px}.archive-photo-grid{grid-template-columns:1fr 1fr;grid-template-rows:260px 170px;gap:9px}.archive-photo-main{grid-column:span 2;grid-row:auto}.archive-photo-tile{border-radius:15px}.archive-photo-tile span{left:13px;bottom:13px;right:9px}.archive-photo-tile small{font-size:.62rem}.archive-photo-tile strong{font-size:1.08rem}.archive-photo-main strong{font-size:1.55rem}.archive-directory .archive-entry{transition:none}}
 @media(prefers-reduced-motion:reduce){.archive-photo-tile img,.archive-highlight-item,.archive-entry{transition:none!important}}
+
+
+/* Design system 2026-10: hierarquia uniforme nos cartões ilustrados
+   1. mini atalhos; 2. cartão editorial com faixa imagem separada do texto */
+:root{--card-stroke:#dce7f5;--card-divider:#cddcf0;--card-pad:22px;--card-media:#eef5fe}
+.home-feature-card,.project-card,.family-card,.documents-card,.contact-card,.value-card{
+  display:flex;flex-direction:column;align-items:stretch;overflow:hidden;padding:0!important;
+  background:#fff;border:1px solid var(--card-stroke);border-radius:19px;
+  box-shadow:0 7px 22px rgba(27,59,110,.055);min-width:0
+}
+/* As imagens são um cabeçalho claramente delimitado, nunca um fundo atrás do texto */
+.home-feature-image,.project-card-image,.family-card-image,.documents-card-image,.contact-card-image,.value-card-image{
+  display:block;width:100%;height:128px;max-height:128px;object-fit:cover;object-position:center;
+  aspect-ratio:auto;flex:0 0 auto;background:var(--card-media);
+  border:0;border-bottom:2px solid var(--card-divider);
+  box-shadow:inset 0 -1px 0 #fff
+}
+.home-feature-card>h3,.project-card>h3,.family-card>h3,.documents-card>h3,.contact-card>h3,.value-card>h3{
+  margin:0!important;padding:19px var(--card-pad) 0;font-size:1.075rem;
+  line-height:1.42;color:#213d74;letter-spacing:-.025em
+}
+.home-feature-card>p,.project-card>p,.family-card>p,.documents-card>p,.contact-card>p,.value-card>p{
+  margin:0!important;padding:11px var(--card-pad) 0;line-height:1.64;font-size:.91rem;
+  color:#556a84;flex:1;overflow-wrap:anywhere
+}
+.home-feature-card>a,.project-card>.project-cta,.documents-card>a,.contact-card>a{
+  align-self:flex-start;margin:auto var(--card-pad) 0!important;
+  padding:17px 0 22px;color:#214681;text-decoration:none;font-size:.87rem;
+  font-weight:800;border:0;overflow-wrap:anywhere
+}
+.home-feature-card>a:hover,.project-card>.project-cta:hover,.documents-card>a:hover,.contact-card>a:hover{
+  color:#0c68be;text-decoration:underline;text-underline-offset:4px;border:0
+}
+.project-card>.accent,.contact-card>.accent{align-self:flex-start;margin:16px var(--card-pad) 0!important}
+.project-card>.accent+h3{padding-top:10px}
+.contact-card>.accent{margin:auto var(--card-pad) 22px!important}
+.value-card{box-shadow:0 7px 22px rgba(27,59,110,.055)}
+.value-card>p,.family-card>p{padding-bottom:24px}
+.value-card .iconbox,.family-card .iconbox,.documents-card .iconbox,.contact-card .iconbox{display:none}
+.shortcut{border-color:var(--card-stroke);box-shadow:0 7px 20px rgba(27,59,110,.045)}
+.shortcut-illustrated{background:#eff5fd;border:1px solid #dbe6f5;box-shadow:none}
+.shortcut-illustrated img{object-fit:cover}
+@media(max-width:760px){
+  :root{--card-pad:18px}
+  .home-feature-image,.project-card-image,.family-card-image,.documents-card-image,.contact-card-image,.value-card-image{height:114px;max-height:114px}
+  .home-feature-card>h3,.project-card>h3,.family-card>h3,.documents-card>h3,.contact-card>h3,.value-card>h3{
+    padding-top:16px;font-size:1.015rem
+  }
+  .home-feature-card>p,.project-card>p,.family-card>p,.documents-card>p,.contact-card>p,.value-card>p{font-size:.88rem;padding-top:9px}
+  .home-feature-card>a,.project-card>.project-cta,.documents-card>a,.contact-card>a{padding:14px 0 19px}
+  .value-card>p,.family-card>p{padding-bottom:20px}
+  .shortcut{min-height:145px}
+}
