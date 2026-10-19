@@ -70,3 +70,11 @@ body{color:#243c70;background:#fff}p{color:#5e6b80}.topline{background:#233b74}.
   .project-card>.accent{margin-top:15px}
   .project-detail .project-visual{height:205px;aspect-ratio:auto}
 }
+
+
+/* Valores da associação: ilustrações compactas, mesmas proporções dos projetos */
+.value-card{padding:0;overflow:hidden}
+.value-card-image{display:block;width:100%;height:138px;object-fit:cover;object-position:center;background:#eef6ff;border-bottom:1px solid #e5edf8}
+.value-card h3{margin:19px 22px 11px}
+.value-card p{margin:0 22px 24px}
+@media(max-width:760px){.value-card-image{height:125px}.value-card h3{margin:16px 19px 9px}.value-card p{margin:0 19px 20px}}
