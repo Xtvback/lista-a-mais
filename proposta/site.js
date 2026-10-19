@@ -20,3 +20,19 @@ const b=document.getElementById('menuButton'),m=document.getElementById('mainMen
   document.body.appendChild(nav);
   document.body.classList.add('has-mobile-bottom-nav');
 })();
+
+
+/* Agenda discoverable in desktop menu and footer, without replacing any existing link. */
+(function(){
+  const menu=document.querySelector('#mainMenu');
+  if(menu&&!menu.querySelector('a[href="agenda.html"]')){
+    const link=document.createElement('a');link.href='agenda.html';link.textContent='Agenda';
+    if(location.pathname.endsWith('/agenda.html'))link.setAttribute('aria-current','page');
+    const before=menu.querySelector('a[href="familias.html"]');
+    menu.insertBefore(link,before);
+  }
+  const footer=document.querySelector('.foot-links');
+  if(footer&&!footer.querySelector('a[href="agenda.html"]')){
+    const link=document.createElement('a');link.href='agenda.html';link.textContent='Agenda';footer.appendChild(link);
+  }
+})();
