@@ -262,3 +262,50 @@ body{color:#243c70;background:#fff}p{color:#5e6b80}.topline{background:#233b74}.
   .value-card>p,.family-card>p{padding-bottom:20px}
   .shortcut{min-height:145px}
 }
+
+
+/* APEE 2026 — reforço global de contraste e delimitação de cartões */
+:root{
+  --line:#c6d5e8;
+  --card-stroke:#bfcfe4;
+  --card-divider:#bdcfe4;
+  --cream:#edf3fa;
+  --surface-soft:#f0f5fb;
+  --card-shadow:0 10px 24px rgba(24,52,95,.105),0 2px 6px rgba(24,52,95,.045)
+}
+body{background:#f1f5fa}
+.section:not(.tinted):not(.archive-photo-section):not(.archive-feature-year):not(.archive-memories):not(.archive-resources){
+  background:#f1f5fa
+}
+.section.tinted{background:#eaf1f8}
+.home-shortcuts{background:#f1f5fa}
+.archive-highlights,.archive-photo-section{background:#edf3fa}
+.archive-feature-year,.archive-memories,.archive-resources{background:#f1f5fa}
+.card,.home-feature-card,.project-card,.family-card,.documents-card,.contact-card,.value-card,
+.shortcut,.person-card,.preview-person,.archive-entry,.archive-year-grid article,
+.archive-highlight-item,.archive-photo-tile,.archive-card{
+  border:2px solid var(--card-stroke);
+  box-shadow:var(--card-shadow);
+}
+.card,.home-feature-card,.project-card,.family-card,.documents-card,.contact-card,.value-card,
+.shortcut,.person-card,.preview-person,.archive-entry,.archive-year-grid article,.archive-highlight-item{
+  background:#fff
+}
+.grid{gap:24px}
+.shortcut-grid{gap:18px}
+.team-grid,.preview-people{gap:22px}
+.archive-directory{gap:22px}
+.archive-year-grid{gap:17px}
+.home-feature-image,.project-card-image,.family-card-image,.documents-card-image,
+.contact-card-image,.value-card-image{
+  border-bottom:2px solid #b8cce4
+}
+.person-card:hover,.shortcut:hover,.archive-entry:hover,.archive-highlight-item:hover{
+  box-shadow:0 15px 30px rgba(24,52,95,.15),0 2px 6px rgba(24,52,95,.06)
+}
+@media(max-width:760px){
+  .grid{gap:17px}
+  .shortcut-grid{gap:12px}
+  .team-grid,.preview-people,.archive-directory{gap:15px}
+  .archive-year-grid{gap:12px}
+}
