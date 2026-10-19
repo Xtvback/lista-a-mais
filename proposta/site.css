@@ -85,3 +85,12 @@ body{color:#243c70;background:#fff}p{color:#5e6b80}.topline{background:#233b74}.
 .family-card h3{margin:19px 22px 11px}
 .family-card p{margin:0 22px 24px}
 @media(max-width:760px){.family-card-image{height:125px}.family-card h3{margin:16px 19px 9px}.family-card p{margin:0 19px 20px}}
+
+/* Documentos e transparência: imagens institucionais compactas */
+.documents-card{padding:0;overflow:hidden;display:flex;flex-direction:column;align-items:flex-start}
+.documents-card-image{display:block;width:100%;height:138px;object-fit:cover;object-position:center;background:#edf6ff;border-bottom:1px solid #e5edf8;flex-shrink:0}
+.documents-card>h3,.documents-card>p,.documents-card>a{margin-left:22px;margin-right:22px}
+.documents-card>h3{margin-top:19px;margin-bottom:11px}
+.documents-card>p{margin-bottom:16px;flex:1}
+.documents-card>a{margin-top:auto;margin-bottom:24px}
+@media(max-width:760px){.documents-card-image{height:125px}.documents-card>h3,.documents-card>p,.documents-card>a{margin-left:19px;margin-right:19px}.documents-card>h3{margin-top:16px}}
