@@ -309,3 +309,49 @@ body{background:#f1f5fa}
   .team-grid,.preview-people,.archive-directory{gap:15px}
   .archive-year-grid{gap:12px}
 }
+
+
+/* APEE — contornos bem definidos, sem confundir cartões com o fundo */
+:root{
+  --card-stroke:#91aaca;
+  --card-divider:#acbfda;
+  --cream:#e5edf7;
+  --card-shadow:0 12px 0 -7px rgba(31,66,116,.18),0 15px 30px rgba(25,54,100,.14),0 3px 8px rgba(25,54,100,.08)
+}
+body{background:#eaf0f8}
+.section:not(.tinted):not(.archive-photo-section):not(.archive-feature-year):not(.archive-memories):not(.archive-resources),
+.home-shortcuts,.archive-feature-year,.archive-memories,.archive-resources{background:#eaf0f8}
+.section.tinted,.archive-highlights,.archive-photo-section{background:#e2eaf5}
+.grid{gap:27px}
+.shortcut-grid{gap:20px}
+.team-grid,.preview-people,.archive-directory{gap:24px}
+.archive-year-grid{gap:19px}
+.card,.home-feature-card,.project-card,.family-card,.documents-card,.contact-card,.value-card,
+.shortcut,.person-card,.preview-person,.archive-entry,.archive-year-grid article,
+.archive-highlight-item,.archive-card{
+  border:2px solid var(--card-stroke);
+  background:#fff;
+  box-shadow:var(--card-shadow);
+}
+.card:not(.person-card),.home-feature-card,.project-card,.family-card,.documents-card,.contact-card,.value-card,
+.shortcut,.archive-entry,.archive-year-grid article,.archive-highlight-item{
+  border-top:4px solid #edbd39;
+}
+.home-feature-image,.project-card-image,.family-card-image,.documents-card-image,.contact-card-image,.value-card-image{
+  border-bottom:3px solid var(--card-divider)
+}
+.shortcut{border-top-width:4px}
+.archive-entry,.archive-year-grid article{background:#fff}
+.card:hover,.shortcut:hover,.preview-person:hover,.archive-entry:hover,.archive-highlight-item:hover{
+  box-shadow:0 16px 0 -10px rgba(31,66,116,.22),0 19px 36px rgba(25,54,100,.18),0 3px 9px rgba(25,54,100,.1)
+}
+@media(max-width:760px){
+  .grid{gap:20px}
+  .shortcut-grid{gap:14px}
+  .team-grid,.preview-people,.archive-directory{gap:18px}
+  .archive-year-grid{gap:15px}
+  .card,.home-feature-card,.project-card,.family-card,.documents-card,.contact-card,.value-card,
+  .shortcut,.person-card,.preview-person,.archive-entry,.archive-year-grid article,.archive-highlight-item{
+    box-shadow:0 8px 0 -5px rgba(31,66,116,.18),0 12px 20px rgba(25,54,100,.12)
+  }
+}
