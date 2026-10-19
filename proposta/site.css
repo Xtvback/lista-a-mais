@@ -38,3 +38,14 @@ body{color:#243c70;background:#fff}p{color:#5e6b80}.topline{background:#233b74}.
 @media(max-width:1050px){.shortcut-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.project-detail{grid-template-columns:1fr}.project-detail .sidebar{position:static}}
 @media(max-width:760px){.brand-icon-logo{width:45px;height:45px}.hero{min-height:0;padding:64px 0 72px;background-position:59% center}.home-shortcuts{padding:33px 0 23px}.shortcuts-intro h2{font-size:1.65rem;margin-bottom:16px}.shortcut-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.shortcut{padding:16px 13px;min-height:150px;border-radius:16px}.shortcut-icon{width:37px;height:37px;font-size:1.25rem;margin-bottom:14px}.shortcut strong{font-size:.96rem}.shortcut small{font-size:.72rem}.shortcut-arr{right:12px;top:13px;font-size:.9rem}.home-news-strip .container{align-items:flex-start;flex-direction:column;gap:9px;padding-block:14px}.home-news-strip .container>div{gap:10px}.home-news-strip .container>div span:last-child{width:100%;padding-left:18px}.person-photo{aspect-ratio:1/1.2}.team-section .section-head h2:before{height:26px}.project-detail{display:block}.project-nav{gap:7px}.project-nav a{padding:9px 11px}.foot-grid{gap:18px}.foot-links{gap:13px}}
 @media(prefers-reduced-motion:reduce){.shortcut{transition:none}}
+
+
+/* Acabamento de retratos inspirado no cartaz oficial */
+.team-section .person-card{background:#fff;border-radius:22px;box-shadow:0 10px 23px #213a7110;overflow:visible;padding:18px 13px 15px;text-align:center}
+.team-section .person-photo{aspect-ratio:1/1;border:3px solid #ffbc19!important;border-radius:50%;width:min(100%,175px);height:auto;margin:0 auto 8px;overflow:hidden;background:#e8f0fb;box-shadow:0 4px 14px #1c3a7017}
+.team-section .person-photo img{border-radius:50%;object-position:center 28%}
+.team-section .person-photo:after{display:none}
+.team-section .person-meta{padding:8px 2px}.team-section .person-meta h3{font-family:Georgia,serif;font-weight:600;font-size:1.08rem;letter-spacing:-.025em}.team-section .person-role{color:#bb8200;font-weight:900}.team-section .person-meta p{color:#6c7585}
+.card .project-cta{display:inline-flex;margin-top:22px;font-size:.9rem;color:#223f79;text-decoration:none;border-bottom:1px solid #e0b42a;padding-bottom:4px}
+.card .project-cta:hover{text-decoration:none;border-bottom-color:#233b74}
+@media(max-width:760px){.team-section .person-card{padding:12px 10px 13px;border-radius:18px}.team-section .person-photo{max-width:140px;border-width:2px!important}.team-section .person-meta h3{font-size:.92rem}.team-section .person-role{font-size:.62rem}.team-section .person-meta p{font-size:.72rem}.brand-copy strong{font-size:.88rem}}
