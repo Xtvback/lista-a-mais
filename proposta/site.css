@@ -49,3 +49,11 @@ body{color:#243c70;background:#fff}p{color:#5e6b80}.topline{background:#233b74}.
 .card .project-cta{display:inline-flex;margin-top:22px;font-size:.9rem;color:#223f79;text-decoration:none;border-bottom:1px solid #e0b42a;padding-bottom:4px}
 .card .project-cta:hover{text-decoration:none;border-bottom-color:#233b74}
 @media(max-width:760px){.team-section .person-card{padding:12px 10px 13px;border-radius:18px}.team-section .person-photo{max-width:140px;border-width:2px!important}.team-section .person-meta h3{font-size:.92rem}.team-section .person-role{font-size:.62rem}.team-section .person-meta p{font-size:.72rem}.brand-copy strong{font-size:.88rem}}
+
+/* Ilustrações de projetos: composição editorial mobile-first */
+.project-card{padding:0;overflow:hidden;display:flex;flex-direction:column;align-items:flex-start}
+.project-card-image{display:block;width:100%;aspect-ratio:16/11;object-fit:cover;background:#eff6ff;border-bottom:1px solid #e4edf8}
+.project-card>.iconbox{display:none}.project-card>.accent,.project-card>h3,.project-card>p,.project-card>.project-cta{margin-left:25px;margin-right:25px}
+.project-card>.accent{margin-top:22px}.project-card>h3{font-size:1.22rem;margin-bottom:13px}.project-card>p{margin-bottom:18px;flex:1}.project-card>.project-cta{margin-top:auto;margin-bottom:25px}
+.project-detail .project-visual{width:100%;aspect-ratio:16/9;object-fit:cover;display:block;border-radius:22px;box-shadow:0 10px 30px #21457b18;margin-bottom:20px}
+@media(max-width:760px){.project-card-image{aspect-ratio:16/10}.project-card>.accent,.project-card>h3,.project-card>p,.project-card>.project-cta{margin-left:20px;margin-right:20px}.project-card>.accent{margin-top:19px}.project-card>.project-cta{margin-bottom:23px}.project-detail .project-visual{aspect-ratio:16/10;border-radius:16px}}
