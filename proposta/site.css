@@ -57,3 +57,16 @@ body{color:#243c70;background:#fff}p{color:#5e6b80}.topline{background:#233b74}.
 .project-card>.accent{margin-top:22px}.project-card>h3{font-size:1.22rem;margin-bottom:13px}.project-card>p{margin-bottom:18px;flex:1}.project-card>.project-cta{margin-top:auto;margin-bottom:25px}
 .project-detail .project-visual{width:100%;aspect-ratio:16/9;object-fit:cover;display:block;border-radius:22px;box-shadow:0 10px 30px #21457b18;margin-bottom:20px}
 @media(max-width:760px){.project-card-image{aspect-ratio:16/10}.project-card>.accent,.project-card>h3,.project-card>p,.project-card>.project-cta{margin-left:20px;margin-right:20px}.project-card>.accent{margin-top:19px}.project-card>.project-cta{margin-bottom:23px}.project-detail .project-visual{aspect-ratio:16/10;border-radius:16px}}
+
+
+/* Ajuste de proporção: imagens de projeto deliberadamente compactas */
+.project-card-image{height:145px;aspect-ratio:auto;object-fit:cover;object-position:center 49%;flex-shrink:0}
+.project-card>.accent{margin-top:17px}
+.project-card>h3{margin-bottom:9px}
+.project-card>p{margin-bottom:12px}
+.project-detail .project-visual{height:270px;aspect-ratio:auto;object-fit:contain;background:#f1f7ff}
+@media(max-width:760px){
+  .project-card-image{height:124px;aspect-ratio:auto;object-position:center 48%}
+  .project-card>.accent{margin-top:15px}
+  .project-detail .project-visual{height:205px;aspect-ratio:auto}
+}
