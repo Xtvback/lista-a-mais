@@ -94,3 +94,13 @@ body{color:#243c70;background:#fff}p{color:#5e6b80}.topline{background:#233b74}.
 .documents-card>p{margin-bottom:16px;flex:1}
 .documents-card>a{margin-top:auto;margin-bottom:24px}
 @media(max-width:760px){.documents-card-image{height:125px}.documents-card>h3,.documents-card>p,.documents-card>a{margin-left:19px;margin-right:19px}.documents-card>h3{margin-top:16px}}
+
+
+/* Contactos: cartões ilustrados, compactos e acessíveis */
+.contact-card{padding:0;overflow:hidden;display:flex;flex-direction:column;align-items:flex-start}
+.contact-card-image{display:block;width:100%;height:138px;object-fit:cover;object-position:center;background:#edf6ff;border-bottom:1px solid #e5edf8;flex-shrink:0}
+.contact-card>h3,.contact-card>p,.contact-card>a,.contact-card>.accent{margin-left:22px;margin-right:22px}
+.contact-card>h3{margin-top:19px;margin-bottom:10px}
+.contact-card>p{margin-bottom:18px;flex:1}
+.contact-card>a,.contact-card>.accent{margin-top:auto;margin-bottom:24px;overflow-wrap:anywhere}
+@media(max-width:760px){.contact-card-image{height:125px}.contact-card>h3,.contact-card>p,.contact-card>a,.contact-card>.accent{margin-left:19px;margin-right:19px}.contact-card>h3{margin-top:16px}}
