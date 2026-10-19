@@ -116,3 +116,20 @@ body{color:#243c70;background:#fff}p{color:#5e6b80}.topline{background:#233b74}.
 .home-feature-card>p{flex:1;margin-bottom:16px}
 .home-feature-card>a{margin-top:auto;margin-bottom:23px}
 @media(max-width:760px){.shortcut-illustrated{height:43px;width:43px;margin-bottom:10px}.home-feature-image{height:125px}.home-feature-card>h3,.home-feature-card>p,.home-feature-card>a{margin-left:19px;margin-right:19px}.home-feature-card>h3{margin-top:15px}.home-feature-card>a{margin-bottom:20px}}
+
+
+/* Arquivo histórico editorial da Associação */
+.archive-directory{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:17px;margin-top:27px}
+.archive-entry{background:#fff;border:1px solid #e1ebf6;border-radius:21px;padding:24px 26px;box-shadow:0 8px 25px #2445770a;display:flex;flex-direction:column;align-items:start}
+.archive-entry-heading{margin-bottom:11px}.archive-entry h3{font-size:1.24rem;color:#243e75;margin:8px 0 4px}
+.archive-entry p{font-size:.95rem;line-height:1.75;margin:0 0 20px;color:#536780;flex:1}
+.archive-label{display:inline-flex;border-radius:50px;background:#fff2c6;color:#765402;padding:7px 11px;font-weight:800;font-size:.71rem;letter-spacing:.02em}
+.archive-sources{display:flex;flex-wrap:wrap;gap:9px 14px;font-size:.82rem;font-weight:800;margin-top:auto}
+.archive-sources a{color:#26549b;text-decoration:none;border-bottom:1px solid #e3b644;padding-bottom:3px}
+.archive-sources a:hover{border-bottom-color:#21447d}.archive-info{margin-top:25px;background:#fff6df;border-left:4px solid #ffc02f;color:#4a5670;padding:20px 22px;border-radius:11px;line-height:1.7}
+.archive-year-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:13px;margin-top:27px}
+.archive-year-grid article{background:#fff;padding:19px;border:1px solid #e1ebf6;border-radius:15px}
+.archive-year-grid strong{display:block;color:#243e75;font-size:1.04rem;margin-bottom:13px}
+.archive-year-grid .archive-sources{font-size:.75rem}
+@media(max-width:930px){.archive-year-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:690px){.archive-directory,.archive-year-grid{grid-template-columns:1fr}.archive-entry{padding:20px}.archive-entry h3{font-size:1.11rem}.archive-entry p{font-size:.9rem}.archive-year-grid{gap:10px}}
