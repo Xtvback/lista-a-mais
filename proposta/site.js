@@ -49,3 +49,20 @@ const b=document.getElementById('menuButton'),m=document.getElementById('mainMen
   }
  }
 })();
+
+
+/* Renovação visual: descarregar as ilustrações mais recentes, sem alterar fotografias reais. */
+(function(){
+ const version='diversidade-20261022';
+ const images=document.querySelectorAll('img[src*="ilustracoes/"]');
+ images.forEach(img=>{
+  try{
+   const url=new URL(img.getAttribute('src'),document.baseURI);
+   if(!url.pathname.endsWith('.svg'))return;
+   url.searchParams.set('v',version);
+   const rel=url.pathname.split('/proposta/').pop()||url.pathname;
+   img.setAttribute('src',rel+url.search);
+   img.setAttribute('decoding','async');
+  }catch(_){}
+ });
+})();
