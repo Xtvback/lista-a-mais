@@ -529,3 +529,10 @@ a:focus-visible,button:focus-visible{outline:3px solid #bc8a00;outline-offset:3p
 @media(prefers-reduced-motion:reduce){
  *,*::before,*::after{scroll-behavior:auto!important;transition:none!important;animation:none!important}
 }
+
+/* Fotografia genuína da escola, com filtro de leitura adequado. */
+.v2-hero{
+ background-image:linear-gradient(105deg,rgba(13,43,80,.97),rgba(23,75,127,.94) 58%,rgba(26,86,139,.89)),url('../_external/d2ol7oe51mr4n9.cloudfront.net/user_3EbWYhy0t8ty8Wz9RPVrhpDHVlB/c0c15b28-2d40-484b-b7d1-211c664a1a48.jpg');
+ background-position:center center;background-size:cover;
+}
+@media(min-width:761px){.v2-hero-aside{box-shadow:0 18px 46px rgba(3,25,55,.28)}}
