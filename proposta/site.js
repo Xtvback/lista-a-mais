@@ -36,3 +36,16 @@ const b=document.getElementById('menuButton'),m=document.getElementById('mainMen
     const link=document.createElement('a');link.href='agenda.html';link.textContent='Agenda';footer.appendChild(link);
   }
 })();
+
+
+/* Recursos autónomos disponíveis de qualquer página, sem recurso ao site anterior. */
+(function(){
+ const links=document.querySelector('.foot-links');
+ if(links){
+  for(const item of [{href:'guia-familias.html',label:'Guia das famílias'},{href:'historia-escola.html',label:'História da escola'},{href:'arquivo-historico.html',label:'Arquivo de mandatos anteriores'}]){
+   if(!links.querySelector('a[href="'+item.href+'"]')){
+    const a=document.createElement('a');a.href=item.href;a.textContent=item.label;links.appendChild(a);
+   }
+  }
+ }
+})();
