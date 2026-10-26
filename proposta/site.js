@@ -1,3 +1,5 @@
+/* Endereços antigos da proposta encaminhados para o site oficial. */
+if(location.pathname==='/proposta/'||location.pathname==='/proposta/index.html'){location.replace('/'+location.search+location.hash)}else if(/^\/proposta\/[a-z0-9-]+\.html$/i.test(location.pathname)){location.replace('/'+location.pathname.split('/').pop()+location.search+location.hash)}
 const b=document.getElementById('menuButton'),m=document.getElementById('mainMenu');if(b&&m){b.addEventListener('click',()=>{const open=m.classList.toggle('open');b.setAttribute('aria-expanded',String(open));b.textContent=open?'✕  Fechar':'☰  Menu'});document.addEventListener('keydown',e=>{if(e.key==='Escape'){m.classList.remove('open');b.setAttribute('aria-expanded','false');b.textContent='☰  Menu'}});}
 
 /* Acesso rápido mobile partilhado por todas as páginas institucionais. */
