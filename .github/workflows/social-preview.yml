@@ -1,0 +1,30 @@
+name: Criar imagem de partilha APEE
+on:
+  push:
+    paths:
+      - '.github/workflows/social-preview.yml'
+      - 'scripts/create-social-preview.py'
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  gerar:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python -m pip install Pillow
+      - run: python scripts/create-social-preview.py
+      - name: Publicar ficheiro
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add partilha-apee.png
+          if ! git diff --cached --quiet; then
+            git commit -m "Publicar imagem oficial de partilha"
+            git push
+          fi
