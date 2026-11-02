@@ -1,0 +1,67 @@
+"""Produz imagens locais WebP para os cartões institucionais.
+Fotografias ilustrativas de Unsplash (licença: https://unsplash.com/license).
+Créditos e fotografias de origem documentados em CREDITOS-FOTOGRAFIAS.md.
+"""
+from PIL import Image, ImageOps, ImageEnhance
+from pathlib import Path
+import io
+import time
+import urllib.request
+
+PHOTOS = {
+    "aec-caf": "photo-1719159381916-062fa9f435a6",
+    "aplicacao": "photo-1760199789464-7d3989e22758",
+    "apoio-social": "photo-1558366361-557c7a4b31b8",
+    "biblioteca": "photo-1767356326735-2da0a10cf1f0",
+    "cartao": "photo-1718010571964-bac048b9ded0",
+    "contactos-canal": "photo-1763810021881-49b45b0717d5",
+    "contactos-email": "photo-1763810021881-49b45b0717d5",
+    "contactos-instagram": "photo-1760199789464-7d3989e22758",
+    "documentos-arquivo": "photo-1583521214690-73421a1829a9",
+    "documentos-atas": "photo-1768055104910-8c8d213835fb",
+    "documentos-estatutos": "photo-1654124803050-57ec5e258437",
+    "documentos-orgaos": "photo-1781246212288-7fa538344718",
+    "etica": "photo-1768055104910-8c8d213835fb",
+    "familias-acolhimento": "photo-1558366361-557c7a4b31b8",
+    "familias-aec-caf": "photo-1719159381916-062fa9f435a6",
+    "familias-apoio-social": "photo-1558366361-557c7a4b31b8",
+    "familias-cultura": "photo-1605627079912-97c3810a11a4",
+    "familias-parceiros": "photo-1781246212288-7fa538344718",
+    "familias-refeitorio": "photo-1543353071-c953d88f7033",
+    "horta-recreios": "photo-1611843467160-25afb8df1074",
+    "linha-aberta": "photo-1763810021881-49b45b0717d5",
+    "valor-colaborar": "photo-1781246212288-7fa538344718",
+    "valor-contas": "photo-1762427907123-c7ab022a5de7",
+    "valor-representar": "photo-1781246212288-7fa538344718",
+}
+
+def download(photo):
+    url = f"https://images.unsplash.com/{photo}?fit=crop&w=1000&q=84&auto=format"
+    req = urllib.request.Request(url, headers={"User-Agent": "Mozilla/5.0 (compatible; APEE-Web/1.0)"})
+    last = None
+    for i in range(4):
+        try:
+            with urllib.request.urlopen(req, timeout=35) as resp:
+                return resp.read()
+        except Exception as err:
+            last = err
+            time.sleep(i+1)
+    raise RuntimeError(f"Falhou download: {photo}: {last}")
+
+def main():
+    dest = Path("imagens/cartoes")
+    dest.mkdir(parents=True, exist_ok=True)
+    cache = {}
+    for slug, photo in PHOTOS.items():
+        if photo not in cache:
+            image = Image.open(io.BytesIO(download(photo))).convert("RGB")
+            image = ImageOps.fit(image, (760, 470), method=Image.Resampling.LANCZOS)
+            image = ImageEnhance.Color(image).enhance(1.04)
+            cache[photo] = image
+        path = dest / f"{slug}.webp"
+        cache[photo].save(path, "WEBP", quality=77, method=6)
+        print(f"{path} ({path.stat().st_size // 1024} kB)", flush=True)
+    print(f"{len(PHOTOS)} fotografias prontas.", flush=True)
+
+if __name__ == "__main__":
+    main()
