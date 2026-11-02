@@ -617,3 +617,20 @@ a:focus-visible,button:focus-visible{outline:3px solid #bc8a00;outline-offset:3p
   .home-shortcuts .shortcut,.home-shortcuts .shortcut-illustrated img{transition:none!important}
   .home-shortcuts .shortcut:hover .shortcut-illustrated img{transform:none}
 }
+
+
+/* Fotografias verdadeiras como referência visual dos acessos rápidos. */
+.v2-hero-aside a{grid-template-columns:46px 1fr 18px}
+.v2-hero-aside a>.quick-photo{
+  display:block;width:46px;height:46px;overflow:hidden;
+  border:1px solid #d9e4f0;border-radius:12px;
+  background:#edf4fb;box-shadow:0 2px 8px rgba(9,40,73,.09)
+}
+.v2-hero-aside a>.quick-photo img{display:block;width:100%;height:100%;object-fit:cover}
+.project-detail .project-visual{object-fit:cover;background:#eaf2f8}
+.photo-note{font-size:.72rem;color:#75849a;margin:13px 2px 0}
+@media(max-width:760px){
+  .v2-hero-aside a{grid-template-columns:42px 1fr 18px}
+  .v2-hero-aside a>.quick-photo{width:42px;height:42px}
+  .photo-note{font-size:.68rem;margin-top:12px}
+}
