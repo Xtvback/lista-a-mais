@@ -536,3 +536,84 @@ a:focus-visible,button:focus-visible{outline:3px solid #bc8a00;outline-offset:3p
  background-position:center center;background-size:cover;
 }
 @media(min-width:761px){.v2-hero-aside{box-shadow:0 18px 46px rgba(3,25,55,.28)}}
+
+
+/* ============================================================
+   APEE · 2026-11-02
+   Cartões fotográficos realistas — identidade editorial moderna.
+   Preserva menus, imagens oficiais e fotografias dos órgãos sociais.
+   ============================================================ */
+.home-shortcuts .shortcut-grid{gap:clamp(12px,1.5vw,20px)}
+.home-shortcuts .shortcut{
+  padding:clamp(12px,1.5vw,19px);
+  border-radius:24px;
+  min-height:0;
+  gap:0;
+  overflow:hidden;
+  border:1px solid #d5e1ef;
+  background:#fff;
+  box-shadow:0 12px 30px rgba(25,62,110,.105);
+  transition:transform .24s ease,box-shadow .24s ease;
+}
+.home-shortcuts .shortcut-icon.shortcut-illustrated{
+  display:block;
+  width:100%;
+  height:auto;
+  aspect-ratio:1.48 / 1;
+  margin:0 0 17px;
+  border:0;
+  border-radius:17px;
+  overflow:hidden;
+  background:#e7f0f8;
+  box-shadow:none;
+}
+.home-shortcuts .shortcut-illustrated img{
+  width:100%;height:100%;object-fit:cover;object-position:center;
+  display:block;
+  transition:transform .4s cubic-bezier(.2,.8,.2,1);
+}
+.home-shortcuts .shortcut strong{font-size:clamp(1.08rem,1.65vw,1.35rem);line-height:1.25;letter-spacing:-.035em;color:#142f55}
+.home-shortcuts .shortcut small{font-size:.88rem;color:#657791;margin-top:6px;line-height:1.42}
+.home-shortcuts .shortcut-arr{
+  right:clamp(19px,2vw,27px);top:clamp(19px,2vw,27px);
+  z-index:1;color:#bc8103;background:#fffefa;
+  width:30px;height:30px;border-radius:10px;
+  display:grid;place-items:center;
+  font-size:1.12rem;box-shadow:0 3px 13px rgba(10,39,71,.16);
+}
+.home-shortcuts .shortcut:hover{transform:translateY(-4px);box-shadow:0 21px 36px rgba(25,62,110,.16)}
+.home-shortcuts .shortcut:hover .shortcut-illustrated img{transform:scale(1.065)}
+.home-feature-image,.project-card-image,.family-card-image,
+.documents-card-image,.contact-card-image,.value-card-image{
+  height:168px;max-height:168px;object-fit:cover;
+  border-bottom:1px solid #d5e0eb;
+  filter:none;
+}
+.editorial-story img,.editorial-news-card img{object-fit:cover;filter:none}
+.v2-principles .visual{
+  background-image:linear-gradient(90deg,rgba(20,62,108,.06),rgba(20,62,108,.13)),
+    url('/imagens/cartoes/familias-parceiros.webp');
+  background-size:cover;background-position:center;
+}
+@media(max-width:760px){
+  .home-shortcuts .shortcut-grid{gap:12px}
+  .home-shortcuts .shortcut{padding:12px;border-radius:20px}
+  .home-shortcuts .shortcut-icon.shortcut-illustrated{aspect-ratio:1.47 / 1;margin-bottom:12px;border-radius:14px}
+  .home-shortcuts .shortcut strong{font-size:1.03rem}
+  .home-shortcuts .shortcut small{font-size:.82rem;margin-top:4px}
+  .home-shortcuts .shortcut-arr{width:26px;height:26px;right:18px;top:18px;font-size:1rem;border-radius:9px}
+  .home-feature-image,.project-card-image,.family-card-image,
+  .documents-card-image,.contact-card-image,.value-card-image{height:148px;max-height:148px}
+}
+@media(max-width:420px){
+  .home-shortcuts .shortcut-grid{gap:10px}
+  .home-shortcuts .shortcut{padding:10px;border-radius:18px}
+  .home-shortcuts .shortcut-icon.shortcut-illustrated{margin-bottom:10px;border-radius:13px}
+  .home-shortcuts .shortcut strong{font-size:.98rem}
+  .home-shortcuts .shortcut small{font-size:.76rem}
+  .home-shortcuts .shortcut-arr{right:16px;top:16px}
+}
+@media(prefers-reduced-motion:reduce){
+  .home-shortcuts .shortcut,.home-shortcuts .shortcut-illustrated img{transition:none!important}
+  .home-shortcuts .shortcut:hover .shortcut-illustrated img{transform:none}
+}
