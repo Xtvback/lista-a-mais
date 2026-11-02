@@ -1,0 +1,32 @@
+name: Publicar fotografias dos cartões APEE
+on:
+  push:
+    paths:
+      - '.github/workflows/photo-cards.yml'
+      - 'scripts/create-photo-cards.py'
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  fotografias:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Instalar Pillow
+        run: python -m pip install Pillow
+      - name: Descarregar e otimizar fotografias
+        run: python scripts/create-photo-cards.py
+      - name: Guardar imagens no site
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add imagens/cartoes/*.webp
+          if ! git diff --cached --quiet; then
+            git commit -m "Publicar fotografias reais dos cartões da APEE"
+            git push
+          fi
