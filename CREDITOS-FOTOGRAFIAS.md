@@ -20,3 +20,23 @@ Banco de imagens: Unsplash. Licença: https://unsplash.com/license. As imagens f
 - **Cartão APEE / parceiros**: Ali Mkumbwa — https://unsplash.com/photos/a-person-holding-a-credit-card-in-their-hand-AEz70PS5eSU
 
 As fotografias são ilustrativas e não pretendem retratar as instalações, pessoas ou acontecimentos reais da escola.
+
+
+## Atualização de 2 de novembro de 2026 — fontes únicas
+
+As seguintes fotografias substituem imagens repetidas na versão anterior. Cada fotografia da lista corresponde a um ficheiro WebP diferente. As imagens de membros dos órgãos sociais têm origem nos retratos já publicados no site e não são fotografias de banco de imagens.
+
+| Ficheiro | Autor / fonte |
+| --- | --- |
+| contactos-email.webp | Brett Wharton — https://unsplash.com/photos/vMuA-OoDReo |
+| contactos-instagram.webp | Swello — https://unsplash.com/photos/20jJiCvIbl0 |
+| etica.webp | Jess Bailey — https://unsplash.com/photos/gAwYPv2XzV4 |
+| familias-acolhimento.webp | Parabol — https://unsplash.com/photos/CS0D08N2n9M |
+| familias-aec-caf.webp | NHN — https://unsplash.com/photos/P5gIcKQBETM |
+| familias-apoio-social.webp | The Design Lady — https://unsplash.com/photos/-vEt5QioBcM |
+| familias-parceiros.webp | Parabol — https://unsplash.com/photos/XklL9zyYa6Y |
+| linha-aberta.webp | Swello — https://unsplash.com/photos/-UtJxTRAndY |
+| valor-colaborar.webp | Swello — https://unsplash.com/photos/A5IRQtQEDI0 |
+| valor-representar.webp | The Design Lady — https://unsplash.com/photos/TH7I7LPdNLk |
+
+As fotografias dos cartões são sempre ilustrativas; não devem ser descritas como fotografias da escola, dos seus alunos ou das atividades da APEE.
