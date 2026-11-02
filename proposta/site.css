@@ -634,3 +634,64 @@ a:focus-visible,button:focus-visible{outline:3px solid #bc8a00;outline-offset:3p
   .v2-hero-aside a>.quick-photo{width:42px;height:42px}
   .photo-note{font-size:.68rem;margin-top:12px}
 }
+
+
+/* APEE — cartaz original dos 13 órgãos sociais, acessível e adaptativo.
+   Inspirado no cartaz oficial enviado pela Associação. */
+.team-board-section{background:#f4f7fc!important;padding:55px 0 76px}
+.team-board{background:#161b38;color:#fff;border-radius:26px;overflow:hidden;
+  padding:clamp(22px,4.2vw,52px);border-bottom:7px solid #e5b744;
+  box-shadow:0 17px 44px rgba(19,30,69,.18)}
+.team-board__top{display:flex;align-items:center;justify-content:space-between;
+  gap:18px;margin-bottom:30px;flex-wrap:wrap}
+.team-board__top>span:first-child{font-size:.76rem;letter-spacing:.14em;text-transform:uppercase;color:#e6ebf5;font-weight:700}
+.team-board__motto{font-size:clamp(.79rem,1.45vw,1.08rem);text-transform:uppercase;letter-spacing:.045em;display:flex;gap:9px;align-items:center;flex-wrap:wrap}
+.team-board__motto b:nth-of-type(1){color:#65a2dc}
+.team-board__motto b:nth-of-type(2){color:#f5b548}
+.team-board__motto b:nth-of-type(3){color:#42b475}
+.team-board__motto i{color:#b6a677;font-style:normal}
+.team-board__main-title{color:#fff;font-size:clamp(1.8rem,3.2vw,2.6rem);margin:0 0 19px}
+.team-board__block h3{font:italic 400 clamp(1.9rem,3.2vw,2.8rem) Georgia,'Times New Roman',serif;
+  letter-spacing:-.02em;color:#fff;margin:0 0 23px}
+.team-board__grid{display:grid;align-items:start;gap:17px 12px}
+.team-board__grid--direction{grid-template-columns:repeat(7,minmax(0,1fr))}
+.team-board__grid--trio{grid-template-columns:repeat(3,minmax(0,1fr))}
+.team-board__person{display:flex;flex-direction:column;align-items:center;text-align:center;
+  min-width:0;gap:7px}
+.team-board__person img{width:clamp(75px,8vw,112px);height:clamp(75px,8vw,112px);
+  object-fit:cover;object-position:center 26%;border-radius:50%;
+  border:3px solid #e7be59;background:#edf3fb;box-shadow:0 4px 13px rgba(0,0,0,.3);
+  margin-bottom:9px}
+.team-board__role{font-size:clamp(.67rem,.9vw,.83rem);color:#eac46b;text-transform:uppercase;
+  font-weight:800;letter-spacing:.035em;line-height:1.28}
+.team-board__person strong{color:#f5f7ff;font-weight:500;
+  font-family:Georgia,'Times New Roman',serif;font-size:clamp(.79rem,1.15vw,1.04rem);
+  line-height:1.3;overflow-wrap:break-word}
+.team-board__lower{display:grid;grid-template-columns:1fr 1fr;gap:clamp(18px,5vw,85px);margin-top:48px}
+.team-board__footer{display:flex;justify-content:space-between;align-items:center;gap:18px;
+  flex-wrap:wrap;margin-top:45px;padding-top:21px;border-top:1px solid #ffffff25}
+.team-board__footer>span{color:#d4deee;font-size:.9rem}
+.team-board__footer a{color:#182647;text-decoration:none;background:#f7c957;padding:11px 16px;
+  border-radius:11px;font-weight:800;font-size:.9rem}
+.team-board__footer a:hover,.team-board__footer a:focus-visible{background:#ffe08c}
+@media(max-width:950px){
+  .team-board__grid--direction{grid-template-columns:repeat(4,minmax(0,1fr));row-gap:26px}
+  .team-board__lower{grid-template-columns:1fr;gap:35px;margin-top:40px}
+  .team-board__grid--trio{grid-template-columns:repeat(3,minmax(0,1fr))}
+}
+@media(max-width:540px){
+  .team-board-section{padding:28px 0 49px}
+  .team-board{padding:20px 14px 25px;border-radius:20px}
+  .team-board__top{gap:10px;margin-bottom:24px}
+  .team-board__motto{font-size:.72rem;gap:6px;letter-spacing:0}
+  .team-board__main-title{font-size:1.7rem}
+  .team-board__block h3{font-size:2rem;margin-bottom:20px}
+  .team-board__grid--direction{grid-template-columns:repeat(2,minmax(0,1fr));row-gap:24px}
+  .team-board__grid--trio{grid-template-columns:repeat(2,minmax(0,1fr));row-gap:24px}
+  .team-board__person img{width:98px;height:98px;margin-bottom:5px}
+  .team-board__role{font-size:.72rem}
+  .team-board__person strong{font-size:.89rem}
+  .team-board__footer{margin-top:33px}
+  .team-board__footer a{width:100%;text-align:center}
+}
+@media(prefers-reduced-motion:reduce){.team-board__footer a{transition:none}}
