@@ -17,6 +17,12 @@
       "Trago para a presidência da Associação de Pais a minha experiência profissional, capacidade de gestão, espírito de iniciativa e sentido de responsabilidade, aliados à perspetiva de mãe e à vontade de transformar ideias em ações concretas.",
       "Acredito numa escola pública mais inclusiva, inovadora, participativa e exigente na qualidade da educação, onde cada criança tenha oportunidades para desenvolver todo o seu potencial.",
       "Quero uma Associação de Pais presente, ativa e capaz de fazer acontecer, porque acredito que a experiência, o compromisso e o trabalho em equipa fazem a diferença."
+    ],
+    'Patrícia Jorge': [
+      "Patrícia Jorge, 43 anos, casada e mãe de dois filhos fantásticos! Licenciada em Publicidade e Marketing, com pós-graduação em Marketing Desportivo.",
+      "Adoro fazer exercício físico e cozinhar!",
+      "Vivo em Belém há 10 anos e há 5 que faço parte da comunidade escolar do Bairro do Restelo.",
+      "Ao integrar a Associação de Pais, procuro trazer ideias que se transformem em momentos fantásticos e proporcionem as melhores memórias às nossas crianças."
     ]
   };
 
