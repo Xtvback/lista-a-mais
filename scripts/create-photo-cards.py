@@ -9,6 +9,7 @@ import time
 import urllib.request
 
 PHOTOS = {
+    "recreios-felizes": "photo-1771169204750-3b1b20d98053",
     "aec-caf": "photo-1719159381916-062fa9f435a6",
     "aplicacao": "photo-1760199789464-7d3989e22758",
     "apoio-social": "photo-1558366361-557c7a4b31b8",
