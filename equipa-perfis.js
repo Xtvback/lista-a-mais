@@ -77,6 +77,14 @@
       "A minha entrada na Associação de Pais nasce da vontade de contribuir de forma ativa e construtiva para uma comunidade educativa mais próxima, participativa e colaborativa. Acredito profundamente na importância da ligação entre a escola e a família, numa relação de confiança, proximidade e cooperação, onde a comunicação e a participação de todos fazem a diferença.",
       "Acredito que a escola não se constrói apenas dentro das suas paredes e que, quando famílias e escola caminham lado a lado, criamos melhores condições para o crescimento, desenvolvimento e felicidade das nossas crianças.",
       "É com este espírito de partilha, compromisso e vontade de fazer acontecer que abraço este desafio"
+    ],
+    'Sara Vilar': [
+      "43 anos, sou licenciada em Psicologia e pós-graduada em Gestão de Recursos Humanos. Profissionalmente, trabalho como assistente de bordo em aviação privada.",
+      "Sou mãe de 5 filhos e tenho 2 enteados — uma casa cheia, com crianças e jovens de todas as idades, muita energia, alguma confusão e, acima de tudo, muito amor.",
+      "Sou uma pessoa divertida, dinâmica, comunicativa e cheia de energia. Gosto de pessoas, de novos desafios e de contribuir para fazer a diferença.",
+      "Acredito que a escola é um prolongamento da nossa casa, um lugar onde os nossos filhos crescem, aprendem e criam memórias para a vida.",
+      "Gostava de contribuir para que a Associação de Pais fosse uma ponte simples, próxima e direta entre as famílias e a comunidade escolar, onde todos se sentissem ouvidos, envolvidos e à vontade para participar.",
+      "Porque acredito que, quando pais e escola caminham juntos, os nossos filhos são os maiores beneficiados."
     ]
   };
 
