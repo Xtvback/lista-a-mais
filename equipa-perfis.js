@@ -43,6 +43,16 @@
       "Nos tempos livres jogo andebol, onde aprendi que nenhuma vitória se conquista sozinho, e os meus melhores momentos são sempre passados em família.",
       "Juntei-me à Associação de Pais para retribuir à escola tudo o que tem dado aos meus filhos, com energia e espírito de equipa.",
       "Uma escola feliz faz crianças felizes, e é isso que queremos construir juntos."
+    ],
+    'Joana Telhada': [
+      "40 anos, tenho o Mestrado em Ciências Farmacêuticas e sou Diretora Técnica da Farmácia Moura, na Ajuda.",
+      "Sou mãe de dois rapazes, um dos quais frequenta a Escola Básica do Bairro do Restelo. Sou uma pessoa dinâmica, determinada e persistente. Adoro estar com a família e os amigos, jogar padel e aproveitar os pequenos momentos da vida.",
+      "Gosto de desafios, de conhecer pessoas, de criar pontes e, sobretudo, de ajudar. Não gosto de ficar à espera que as coisas aconteçam. Gosto de fazer com que aconteçam!",
+      "A minha entrada na Associação de Pais nasce da vontade de contribuir ativamente para uma escola mais próxima, participativa e feliz, onde as famílias e a comunidade escolar caminhem lado a lado.",
+      "Acredito que, com dedicação, criatividade, espírito de equipa e muita vontade, conseguimos transformar ideias em projetos e criar oportunidades que façam a diferença na vida das nossas crianças.",
+      "É com entusiasmo, compromisso e muita vontade de fazer acontecer que abraço este desafio.",
+      "Porque acredito que, quando nos unimos por aquilo que realmente importa, conseguimos ir muito mais longe!",
+      "Acredito verdadeiramente que Juntos, Somamos Mais!"
     ]
   };
 
