@@ -1795,3 +1795,204 @@ a:focus-visible,button:focus-visible{outline:3px solid #bc8a00;outline-offset:3p
 .apee-profile-close{margin:10px 10px -49px -50px}
 }
 @media(prefers-reduced-motion:reduce){.person-card--profile,.person-card--profile .person-card-hint{transition:none!important}}
+
+/* APEE — apresentação premium: substitui regras anteriores do diálogo.
+   Janela com foto de retrato compacta, cabeçalho estável e texto legível. */
+dialog#apeeProfileDialog.apee-profile-dialog {
+  position: fixed !important;
+  inset: 0 !important;
+  margin: auto !important;
+  width: min(94vw, 610px) !important;
+  max-width: 610px !important;
+  height: auto !important;
+  max-height: min(86dvh, 750px) !important;
+  padding: 0 !important;
+  border: 1px solid rgba(214,226,240,.96) !important;
+  border-radius: 22px !important;
+  background: #fff !important;
+  box-shadow: 0 25px 80px rgba(7,31,72,.32) !important;
+  overflow: hidden !important;
+  box-sizing: border-box !important;
+  color: #173b69 !important;
+}
+dialog#apeeProfileDialog.apee-profile-dialog::backdrop {
+  background: rgba(7,21,43,.64) !important;
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+}
+#apeeProfileDialog .apee-profile-panel {
+  position: relative !important;
+  display: flex !important;
+  flex-direction: column !important;
+  width: 100% !important;
+  min-width: 0 !important;
+  min-height: 0 !important;
+  max-height: min(86dvh, 750px) !important;
+  overflow: hidden !important;
+  background: #fff !important;
+}
+#apeeProfileDialog .apee-profile-header {
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: center !important;
+  gap: 22px !important;
+  padding: 32px 56px 25px 30px !important;
+  background: linear-gradient(125deg, #f5f9ff 0%, #fff 92%) !important;
+  border-bottom: 1px solid #e3ebf5 !important;
+  flex: 0 0 auto !important;
+  min-width: 0 !important;
+}
+#apeeProfileDialog .apee-profile-photo {
+  display: block !important;
+  flex: 0 0 104px !important;
+  position: relative !important;
+  width: 104px !important;
+  height: 104px !important;
+  min-width: 104px !important;
+  min-height: 104px !important;
+  max-width: 104px !important;
+  max-height: 104px !important;
+  aspect-ratio: 1 / 1 !important;
+  overflow: hidden !important;
+  border-radius: 18px !important;
+  background: #e5edf7 !important;
+  border: 3px solid #fff !important;
+  box-shadow: 0 7px 22px rgba(20,64,117,.15) !important;
+}
+#apeeProfileDialog .apee-profile-photo img {
+  display: block !important;
+  width: 100% !important;
+  height: 100% !important;
+  max-width: 100% !important;
+  min-width: 0 !important;
+  min-height: 0 !important;
+  max-height: 100% !important;
+  object-fit: cover !important;
+  object-position: center 25% !important;
+  border-radius: 0 !important;
+  margin: 0 !important;
+}
+#apeeProfileDialog .apee-profile-heading {
+  flex: 1 1 auto !important;
+  min-width: 0 !important;
+}
+#apeeProfileDialog .apee-profile-group {
+  display: block !important;
+  margin: 0 0 8px !important;
+  color: #3174b8 !important;
+  font-size: .68rem !important;
+  line-height: 1.4 !important;
+  letter-spacing: .065em !important;
+  font-weight: 850 !important;
+  text-transform: uppercase !important;
+}
+#apeeProfileDialog #apeeProfileTitle {
+  font-size: clamp(1.45rem, 3.5vw, 2.05rem) !important;
+  line-height: 1.14 !important;
+  margin: 0 0 9px !important;
+  font-weight: 850 !important;
+  letter-spacing: -.035em !important;
+  color: #143c73 !important;
+}
+#apeeProfileDialog #apeeProfileRole {
+  font-size: .87rem !important;
+  margin: 0 !important;
+  line-height: 1.4 !important;
+  font-weight: 750 !important;
+  color: #18724c !important;
+}
+#apeeProfileDialog .apee-profile-content {
+  padding: 25px 32px 28px !important;
+  min-width: 0 !important;
+  min-height: 0 !important;
+  flex: 1 1 auto !important;
+  overflow-x: hidden !important;
+  overflow-y: auto !important;
+  -webkit-overflow-scrolling: touch;
+}
+#apeeProfileDialog .apee-profile-body p {
+  margin: 0 0 16px !important;
+  font-size: .96rem !important;
+  font-weight: 450 !important;
+  line-height: 1.73 !important;
+  color: #3b5573 !important;
+  letter-spacing: 0 !important;
+}
+#apeeProfileDialog .apee-profile-body p:last-child {
+  margin-bottom: 0 !important;
+  font-weight: 650 !important;
+  color: #1a5288 !important;
+}
+#apeeProfileDialog .apee-profile-footer {
+  flex: 0 0 auto !important;
+  display: flex !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+  gap: 10px !important;
+  padding: 13px 30px !important;
+  border-top: 1px solid #e5edf6 !important;
+  background: #f7faff !important;
+  font-size: .72rem !important;
+  color: #52708e !important;
+}
+#apeeProfileDialog .apee-profile-footer strong { color:#215e9c !important; font-weight: 800 !important; }
+#apeeProfileDialog .apee-profile-close {
+  position: absolute !important;
+  top: 12px !important;
+  right: 12px !important;
+  left: auto !important;
+  bottom: auto !important;
+  z-index: 20 !important;
+  float: none !important;
+  display: grid !important;
+  place-items: center !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  width: 38px !important;
+  height: 38px !important;
+  border: 1px solid #d9e5f0 !important;
+  border-radius: 50% !important;
+  background: #fff !important;
+  color: #245483 !important;
+  font-size: 25px !important;
+  line-height: 1 !important;
+  cursor: pointer !important;
+  box-shadow: 0 2px 10px rgba(16,51,93,.10) !important;
+}
+#apeeProfileDialog .apee-profile-close:hover { background: #eaf3ff !important; }
+#apeeProfileDialog .apee-profile-close:focus-visible { outline: 3px solid #efc042 !important; outline-offset: 2px !important; }
+@media (max-width: 630px) {
+  dialog#apeeProfileDialog.apee-profile-dialog {
+    width: calc(100vw - 28px) !important;
+    max-width: 440px !important;
+    max-height: min(82dvh, 680px) !important;
+    border-radius: 19px !important;
+  }
+  #apeeProfileDialog .apee-profile-panel { max-height: min(82dvh, 680px) !important; }
+  #apeeProfileDialog .apee-profile-header {
+    gap: 14px !important;
+    padding: 23px 47px 20px 18px !important;
+  }
+  #apeeProfileDialog .apee-profile-photo {
+    flex-basis: 80px !important;
+    width: 80px !important;
+    height: 80px !important;
+    min-width: 80px !important;
+    min-height: 80px !important;
+    max-width: 80px !important;
+    max-height: 80px !important;
+    border-radius: 14px !important;
+  }
+  #apeeProfileDialog .apee-profile-group { font-size: .60rem !important; letter-spacing: .035em !important; }
+  #apeeProfileDialog #apeeProfileTitle { font-size: 1.4rem !important; margin-bottom: 5px !important; }
+  #apeeProfileDialog #apeeProfileRole { font-size: .77rem !important; }
+  #apeeProfileDialog .apee-profile-content { padding: 21px 20px 25px !important; }
+  #apeeProfileDialog .apee-profile-body p { font-size: .91rem !important; line-height: 1.65 !important; margin-bottom: 13px !important; }
+  #apeeProfileDialog .apee-profile-footer { padding: 12px 20px !important; font-size: .67rem !important; }
+  #apeeProfileDialog .apee-profile-close { top: 9px !important; right: 9px !important; width: 33px !important; height: 33px !important; }
+}
+@media (max-width: 355px) {
+  #apeeProfileDialog .apee-profile-header { gap: 10px !important; padding-left: 14px !important; }
+  #apeeProfileDialog .apee-profile-photo { flex-basis: 66px !important; width: 66px !important; height: 66px !important; min-width: 66px !important; min-height: 66px !important; max-width: 66px !important; max-height: 66px !important; }
+  #apeeProfileDialog #apeeProfileTitle { font-size: 1.2rem !important; }
+}
