@@ -12,9 +12,11 @@
 
   const profiles = {
     'Matilde Lino': [
-      '34 anos, mãe de cinco filhos, Licenciada em Contabilidade, CEO e Coordenadora Operacional. Há seis anos que faço parte da comunidade escolar do Bairro do Restelo, conhecendo de perto os seus desafios, necessidades e potencial.',
-      'Assumo a presidência da Associação de Pais com a vontade de contribuir para uma escola pública mais inclusiva, participativa, acolhedora e cheia de oportunidades, onde todas as crianças tenham espaço para crescer e todas as famílias sintam que têm voz.',
-      'Acredito que, com união, dedicação e espírito de comunidade, podemos fazer a diferença.'
+      "34 anos, mãe de cinco filhos, licenciada em Contabilidade, CEO e Coordenadora Operacional, com experiência em gestão, liderança de equipas, organização e desenvolvimento de projetos.",
+      "Ao longo de seis anos de envolvimento ativo na comunidade escolar do Bairro do Restelo, adquiri um conhecimento profundo da realidade educativa, dos desafios enfrentados pelas famílias e da importância de uma ligação sólida entre pais, escola e comunidade.",
+      "Trago para a presidência da Associação de Pais a minha experiência profissional, capacidade de gestão, espírito de iniciativa e sentido de responsabilidade, aliados à perspetiva de mãe e à vontade de transformar ideias em ações concretas.",
+      "Acredito numa escola pública mais inclusiva, inovadora, participativa e exigente na qualidade da educação, onde cada criança tenha oportunidades para desenvolver todo o seu potencial.",
+      "Quero uma Associação de Pais presente, ativa e capaz de fazer acontecer, porque acredito que a experiência, o compromisso e o trabalho em equipa fazem a diferença."
     ]
   };
 
