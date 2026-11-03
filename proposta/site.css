@@ -1174,3 +1174,14 @@ a:focus-visible,button:focus-visible{outline:3px solid #bc8a00;outline-offset:3p
 @media(max-width:780px){.guide-home .guide-jump-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.guide-chapter-links{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:540px){.guide-home .guide-start{padding:34px 0 36px}.guide-home .guide-jump{padding:20px 0 31px}.guide-home .guide-jump-grid{gap:12px}.guide-home .guide-jump-grid a{min-height:114px;padding:15px 26px 15px 13px;border-radius:17px}.guide-home .guide-jump-grid a strong{font-size:1.03rem}.guide-home .guide-jump-grid a small{font-size:.78rem}.guide-chapter-hero{padding:31px 0 37px}.guide-chapter-links{grid-template-columns:1fr}.guide-chapter-nav{padding:34px 20px 49px}.guide-breadcrumb{padding-top:13px;padding-bottom:13px}}
 @media(prefers-reduced-motion:reduce){.guide-home .guide-jump-grid a{transition:none}.guide-home .guide-jump-grid a:hover{transform:none}}
+
+/* Linha Aberta APEE — acesso WhatsApp ativo */
+.wa-join-card{border:1px solid #bcebd0!important;background:linear-gradient(145deg,#f2fff7,#fff 72%)!important}
+.wa-join-overline{color:#127b48;font-weight:800;text-transform:uppercase;font-size:.77rem;letter-spacing:.07em}
+.wa-join-card h2{font-size:clamp(1.45rem,2.5vw,2rem);color:#17406c;margin:14px 0}
+.wa-join-card p{color:#465c72;line-height:1.62}
+.wa-join-button{display:inline-flex;align-items:center;justify-content:center;gap:12px;padding:16px 22px;background:#168b52;color:white!important;font-weight:800;text-decoration:none;border-radius:13px;min-height:52px;margin:9px 0;box-shadow:0 9px 21px #08713d25}
+.wa-join-button:hover,.wa-join-button:focus-visible{background:#0e6c3e;color:white!important}
+.wa-join-note{color:#637589!important;font-size:.82rem!important;line-height:1.55!important;margin:12px 0 0!important}
+.project-cta-whatsapp{color:#087c45!important;font-weight:800}
+@media(max-width:550px){.wa-join-button{display:flex;width:100%;font-size:.95rem;text-align:center;padding:15px 12px}}
