@@ -19,10 +19,10 @@
       "Quero uma Associação de Pais presente, ativa e capaz de fazer acontecer, porque acredito que a experiência, o compromisso e o trabalho em equipa fazem a diferença."
     ],
     'Patrícia Jorge': [
-      "Patrícia Jorge, 43 anos, casada e mãe de dois filhos fantásticos! Licenciada em Publicidade e Marketing, com pós-graduação em Marketing Desportivo.",
+      "43 anos, casada e mãe de dois filhos fantásticos! Licenciada em publicidade e marketing com pós-graduação em marketing desportivo.",
       "Adoro fazer exercício físico e cozinhar!",
       "Vivo em Belém há 10 anos e há 5 que faço parte da comunidade escolar do Bairro do Restelo.",
-      "Ao integrar a Associação de Pais, procuro trazer ideias que se transformem em momentos fantásticos e proporcionem as melhores memórias às nossas crianças."
+      "Ao integrar a associação de pais procuro trazer ideias que se transformem em momentos fantásticos e proporcionem as melhores memórias às nossas crianças."
     ]
   };
 
