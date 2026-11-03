@@ -1731,3 +1731,34 @@ a:focus-visible,button:focus-visible{outline:3px solid #bc8a00;outline-offset:3p
   color:#15579f;text-decoration:underline;font-weight:800;
   overflow-wrap:anywhere;
 }
+
+/* Formulário Google oficial: integrado sem expor o serviço de envio anterior */
+.signup-google-intro{
+ display:flex;align-items:flex-start;gap:13px;
+ border:1px solid #c9e5d6;border-radius:17px;
+ background:linear-gradient(125deg,#f0fff6,#f6fbff);
+ padding:17px 19px;margin:16px 0 20px;color:#24466a;
+}
+.signup-google-intro-icon{
+ width:33px;height:33px;flex:0 0 33px;display:grid;place-items:center;
+ border-radius:50%;background:#148d52;color:#fff;font-weight:900;font-size:20px;
+}
+.signup-google-intro strong{display:block;color:#164b78;font-size:1.03rem;margin-bottom:6px}
+.signup-google-intro p{font-size:.88rem;line-height:1.6;margin:0;color:#466179}
+.signup-google-frame-wrap{
+ position:relative;width:100%;border:1px solid #e1eaf2;border-radius:18px;
+ background:#fff;overflow:hidden;
+ box-shadow:0 6px 28px rgba(17,62,105,.07);
+}
+.signup-google-frame{width:100%;min-height:1260px;height:1260px;border:0;display:block;background:#fff}
+.signup-google-alternative{margin:17px 0 8px;font-size:.95rem;line-height:1.6}
+.signup-google-alternative a{color:#145ba3;font-weight:850;text-decoration:underline}
+.signup-google-privacy{font-size:.84rem;color:#526c88;line-height:1.65;margin:0 0 13px}
+.signup-google-privacy a{color:#165fa5;text-decoration:underline;font-weight:700}
+@media(max-width:760px){
+ .signup-google-frame-wrap{border-radius:12px}
+ .signup-google-frame{height:1470px;min-height:1470px}
+ .signup-google-intro{padding:14px 12px;gap:10px}
+ .signup-google-intro strong{font-size:.94rem}
+}
+@media(max-width:390px){.signup-google-frame{height:1620px;min-height:1620px}}
