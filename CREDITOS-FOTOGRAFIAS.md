@@ -40,3 +40,9 @@ As seguintes fotografias substituem imagens repetidas na versão anterior. Cada 
 | valor-representar.webp | The Design Lady — https://unsplash.com/photos/TH7I7LPdNLk |
 
 As fotografias dos cartões são sempre ilustrativas; não devem ser descritas como fotografias da escola, dos seus alunos ou das atividades da APEE.
+
+## Redesign de 3 de novembro de 2026
+
+- `imagens/cartoes/alimentacao-nova.webp`: imagem ilustrativa gerada por IA para a APEE; **não representa uma refeição real servida na escola**.
+- `imagens/cartoes/familias-refeitorio.webp`: fotografia ilustrativa de Declan Sun, Unsplash (licença Unsplash), https://unsplash.com/photos/roasted-chicken-with-rice-and-fresh-vegetables-on-a-plate-uUXUfoa-Opo.
+- A página inicial tem fotografias diferentes em cada cartão, preservando o logótipo verdadeiro da Associação.
