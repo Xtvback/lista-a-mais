@@ -65,6 +65,10 @@
       "Licenciada em Design Multimédia, trabalho na área da comunicação e do design, onde faço um pouco de tudo: design, gestão de projetos, área comercial… o chamado canivete suíço!",
       "Tenho um fraquinho pelo mundo das artes e da cultura, seja através de um bom filme, de um livro ou de outras formas de expressão. Gosto de fazer bolos e tenho uma tendência quase irresistível para me disponibilizar para ajudar, mesmo quando provavelmente não devia ou não podia. Sou também um bocadinho stressada por natureza — mesmo sem beber café!",
       "Faço parte da APEE porque acredito que podemos fazer mais e melhor pela nossa escola e pelas nossas crianças. Quero contribuir, ouvir as famílias, dar voz às suas preocupações e ajudar a encontrar soluções, com dedicação, diálogo e vontade de fazer acontecer."
+    ],
+    'Mariana Perry': [
+      "42 anos, sou licenciada em Design de Comunicação e Mestre em Ensino das Artes Visuais. Sou professora de EV e ET.",
+      "Sou mãe de 2 filhos e gosto de ajudar onde posso."
     ]
   };
 
