@@ -27,7 +27,7 @@ PHOTOS = {
     "familias-apoio-social": "photo-1726726192155-fefdf941459a",
     "familias-cultura": "photo-1605627079912-97c3810a11a4",
     "familias-parceiros": "photo-1646066490241-d386dbb63539",
-    "familias-refeitorio": "photo-1543353071-c953d88f7033",
+    "familias-refeitorio": "photo-1778996525694-e87e5eff7a76",
     "horta-recreios": "photo-1611843467160-25afb8df1074",
     "linha-aberta": "photo-1759215524500-8834e4935603",
     "valor-colaborar": "photo-1746014602298-c03abf9840c3",
