@@ -36,6 +36,13 @@
       "Sou pai de cinco filhos e tenho duas filhas na EB Bairro do Restelo. A nossa ligação à escola já dura há 6 anos. Acredito que a cooperação e o envolvimento de todos na comunidade escolar pode fazer a diferença na vida das crianças.",
       "Acredito que a escola pública deve ser um local seguro, de aprendizagem e de boas memórias, onde todas as crianças têm acesso às mesmas oportunidades. A minha experiência na gestão de rotinas diárias, e a vida de uma família numerosa, ensinaram-me a organizar, a priorizar e a fazer render cada recurso. É isso que quero levar para a associação, com rigor e transparência.",
       "Valorizo o trabalho em equipa, a comunicação aberta e as pessoas com boa disposição."
+    ],
+    'Gonçalo Ramos': [
+      "41 anos, sou consultor na área dos seguros.",
+      "Há cerca de 7 anos que a EB1+JI Bairro do Restelo faz parte da minha vida. Foi aqui que o meu filho deu os primeiros passos na escola e é aqui que a minha filha continua hoje essa caminhada.",
+      "Nos tempos livres jogo andebol, onde aprendi que nenhuma vitória se conquista sozinho, e os meus melhores momentos são sempre passados em família.",
+      "Juntei-me à Associação de Pais para retribuir à escola tudo o que tem dado aos meus filhos, com energia e espírito de equipa.",
+      "Uma escola feliz faz crianças felizes, e é isso que queremos construir juntos."
     ]
   };
 
