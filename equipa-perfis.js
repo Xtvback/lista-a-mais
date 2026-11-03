@@ -53,6 +53,12 @@
       "É com entusiasmo, compromisso e muita vontade de fazer acontecer que abraço este desafio.",
       "Porque acredito que, quando nos unimos por aquilo que realmente importa, conseguimos ir muito mais longe!",
       "Acredito verdadeiramente que Juntos, Somamos Mais!"
+    ],
+    'Margarida Fernandes': [
+      "44 anos, mãe de duas meninas que frequentam a EB Bairro do Restelo, escola que faz parte da nossa vida há três anos.",
+      "Sou licenciada em Terapia da Fala e exerço a minha atividade profissional nesta área, nomeadamente no âmbito da Intervenção Precoce.",
+      "Este ano decidi abraçar o desafio de integrar a Associação de Pais, por acreditar que o envolvimento das famílias é fundamental para construir uma comunidade escolar inclusiva, mais participativa, próxima e colaborativa.",
+      "Vejo esta participação como uma oportunidade de dar voz às famílias, contribuir com ideias e ajudar a encontrar soluções que possam melhorar a escola e promover o bem-estar das nossas crianças."
     ]
   };
 
