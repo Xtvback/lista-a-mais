@@ -1141,3 +1141,36 @@ a:focus-visible,button:focus-visible{outline:3px solid #bc8a00;outline-offset:3p
 @media(max-width:900px){.guide-access-grid,.guide-facts-grid,.guide-activity-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.guide-jump-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
 @media(max-width:620px){.guide-start{padding:42px 0 46px}.guide-intro-actions .guide-button{width:100%}.guide-jump-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.guide-jump-grid a{padding:14px 29px 14px 12px}.guide-jump-grid a strong{font-size:.92rem}.guide-jump-grid a small{font-size:.74rem}.guide-jump-grid a>span{right:9px;top:14px}.guide-section{padding:33px 0 39px!important}.guide-access-grid,.guide-facts-grid,.guide-activity-grid,.guide-two-grid{grid-template-columns:1fr}.guide-schedule-item{grid-template-columns:100px 1fr;gap:8px}.guide-access-card,.guide-fact,.guide-activity,.guide-panel,.guide-table-wrap{padding:18px}.guide-discount-row{grid-template-columns:repeat(3,1fr)}.guide-contact-row .guide-button{width:100%}}
 @media(prefers-reduced-motion:reduce){.guide-button{transition:none}.guide-button:hover{transform:none}}
+
+
+/* Guia das Famílias · páginas independentes por categoria (novembro 2026) */
+.guide-home .guide-start{padding:55px 0 49px}
+.guide-home .guide-jump{padding:31px 0 40px}
+.guide-home .guide-jump-grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:17px}
+.guide-home .guide-jump-grid a{min-height:143px;justify-content:center;padding:24px 46px 22px 21px;border-radius:21px;box-shadow:0 8px 23px #17457412;transition:transform .2s ease,box-shadow .2s ease}
+.guide-home .guide-jump-grid a:hover,.guide-home .guide-jump-grid a:focus-visible{transform:translateY(-3px);box-shadow:0 14px 25px #17457422}
+.guide-home .guide-jump-grid a strong{font-size:clamp(1.1rem,1.6vw,1.35rem);line-height:1.2}
+.guide-home .guide-jump-grid a small{font-size:.89rem}
+.guide-home-end{background:#fff;padding:43px 0 60px}
+.guide-home-end h2{font-size:1.55rem;color:#173c72;letter-spacing:-.035em}
+.guide-home-end p{max-width:730px;color:#556c86;line-height:1.65}
+.guide-breadcrumb{display:flex;flex-wrap:wrap;gap:10px;align-items:center;font-size:.86rem;padding-top:18px;padding-bottom:18px}
+.guide-breadcrumb a{color:#1c5c96;font-weight:750}
+.guide-breadcrumb strong{color:#3f526d;font-weight:650}
+.guide-breadcrumb>span{color:#9badc2}
+.guide-chapter-hero{padding:44px 0 48px;background:linear-gradient(112deg,#123d70,#20689f);color:#fff}
+.guide-chapter-hero .eyebrow{color:#ffd66f}
+.guide-chapter-hero h1{margin:9px 0 12px;color:#fff;font-size:clamp(2.1rem,4.6vw,3.8rem);letter-spacing:-.05em}
+.guide-chapter-hero p{font-size:clamp(1rem,1.6vw,1.19rem);max-width:760px;color:#e6f0fa;line-height:1.62;margin:0}
+.guide-chapter .guide-section{border-bottom:1px solid #e2eaf3}
+.guide-chapter-nav{padding-top:40px;padding-bottom:64px}
+.guide-chapter-nav h2{font-size:1.6rem;color:#174375;letter-spacing:-.025em}
+.guide-chapter-links{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.guide-chapter-links a{display:flex;align-items:center;justify-content:space-between;gap:12px;background:#f5f9fe;color:#1c4778;text-decoration:none;font-weight:800;padding:16px 18px;border-radius:14px;border:1px solid #d8e5f3}
+.guide-chapter-links a:hover,.guide-chapter-links a:focus-visible{background:#eaf3ff;border-color:#85afe0}
+.guide-chapter-links a span{color:#b98004}
+.guide-back{display:inline-block;font-weight:750;color:#115ba3;margin-top:25px}
+.guide-back:hover,.guide-back:focus-visible{text-decoration-thickness:2px}
+@media(max-width:780px){.guide-home .guide-jump-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.guide-chapter-links{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:540px){.guide-home .guide-start{padding:34px 0 36px}.guide-home .guide-jump{padding:20px 0 31px}.guide-home .guide-jump-grid{gap:12px}.guide-home .guide-jump-grid a{min-height:114px;padding:15px 26px 15px 13px;border-radius:17px}.guide-home .guide-jump-grid a strong{font-size:1.03rem}.guide-home .guide-jump-grid a small{font-size:.78rem}.guide-chapter-hero{padding:31px 0 37px}.guide-chapter-links{grid-template-columns:1fr}.guide-chapter-nav{padding:34px 20px 49px}.guide-breadcrumb{padding-top:13px;padding-bottom:13px}}
+@media(prefers-reduced-motion:reduce){.guide-home .guide-jump-grid a{transition:none}.guide-home .guide-jump-grid a:hover{transform:none}}
