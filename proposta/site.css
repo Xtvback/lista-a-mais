@@ -1406,3 +1406,11 @@ a:focus-visible,button:focus-visible{outline:3px solid #bc8a00;outline-offset:3p
 @media(max-width:640px){
  .editorial-news-card img.election-thanks-thumbnail{height:225px!important}
 }
+
+/* Comunidade WhatsApp — Cartão de contactos */
+.contact-whatsapp-card{border-color:#bfe6d0!important;background:linear-gradient(180deg,#fff 0%,#f8fffb 100%)}
+.contact-whatsapp-card h3{color:#163d71}
+.contact-whatsapp-join{display:inline-flex;align-items:center;justify-content:center;gap:8px;background:#14884e;color:#fff!important;text-decoration:none!important;border-radius:12px;padding:13px 18px;font-weight:800;margin:5px 0 12px;min-height:46px}
+.contact-whatsapp-join:hover,.contact-whatsapp-join:focus-visible{background:#0b6d3b;color:#fff!important}
+.contact-whatsapp-card .contact-whatsapp-privacy{color:#66758b;font-size:.81rem;line-height:1.58;margin:8px 0 0}
+@media(max-width:620px){.contact-whatsapp-join{display:flex;text-align:center;width:100%;font-size:.93rem}}
