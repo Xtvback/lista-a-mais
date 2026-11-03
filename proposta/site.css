@@ -1524,3 +1524,70 @@ a:focus-visible,button:focus-visible{outline:3px solid #bc8a00;outline-offset:3p
  .halloween-hero-web{opacity:.2}
  .halloween-hero-hill::before{font-size:74px}
 }
+
+/* APEE · Barra móvel renovada: utilidade, legibilidade e cores institucionais */
+.mobile-bottom-nav--apee{display:none}
+@media(max-width:700px){
+  body.has-mobile-bottom-nav{padding-bottom:calc(106px + env(safe-area-inset-bottom))!important}
+  .mobile-bottom-nav.mobile-bottom-nav--apee{
+    position:fixed;inset:auto 0 0;z-index:70;display:grid;
+    grid-template-columns:repeat(4,minmax(0,1fr));
+    align-items:stretch;gap:clamp(3px,1.3vw,10px);
+    padding:10px max(10px,env(safe-area-inset-right))
+      calc(10px + env(safe-area-inset-bottom))
+      max(10px,env(safe-area-inset-left));
+    background:rgba(255,255,255,.975)!important;
+    border-top:1px solid #d8e6f3!important;
+    box-shadow:0 -8px 28px rgba(14,43,91,.12);
+    backdrop-filter:blur(16px);
+    -webkit-backdrop-filter:blur(16px);
+    border-radius:19px 19px 0 0;
+  }
+  .mobile-bottom-nav--apee .mobile-quick-link{
+    min-width:0;display:flex;flex-direction:column;align-items:center;
+    justify-content:center;gap:5px;
+    padding:6px 2px 7px;
+    color:#25466d!important;font-size:clamp(.65rem,2.7vw,.79rem);
+    line-height:1.15;font-weight:800;
+    border:1px solid transparent;
+    border-radius:15px;
+    text-decoration:none;transition:background .18s ease,transform .18s ease;
+  }
+  .mobile-bottom-nav--apee .mobile-quick-icon{
+    width:clamp(38px,10vw,48px);height:clamp(38px,10vw,48px);
+    border-radius:14px;display:grid;place-items:center;
+    box-shadow:inset 0 0 0 1px rgba(10,55,103,.07);
+  }
+  .mobile-bottom-nav--apee .mobile-quick-link svg{
+    width:clamp(22px,5.8vw,27px)!important;
+    height:clamp(22px,5.8vw,27px)!important;
+    display:block;stroke:currentColor;fill:none;
+    stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round;
+  }
+  .mobile-bottom-nav--apee .mobile-quick-link--blue .mobile-quick-icon{background:#e7f1ff;color:#135ca6}
+  .mobile-bottom-nav--apee .mobile-quick-link--green .mobile-quick-icon{background:#e1f8e9;color:#149250}
+  .mobile-bottom-nav--apee .mobile-quick-link--red .mobile-quick-icon{background:#fff0f0;color:#dc3849}
+  .mobile-bottom-nav--apee .mobile-quick-link--yellow .mobile-quick-icon{background:#fff3cb;color:#9c6a08}
+  .mobile-bottom-nav--apee .mobile-quick-link[aria-current="page"]{
+    color:#0b4184!important;background:#edf4ff!important;border-color:#d4e5fa;
+  }
+  .mobile-bottom-nav--apee .mobile-quick-link:hover,
+  .mobile-bottom-nav--apee .mobile-quick-link:focus-visible{
+    background:#f0f6ff;transform:translateY(-2px);
+    outline-offset:2px;
+  }
+  .mobile-bottom-nav--apee .mobile-quick-label{
+    display:block;max-width:100%;text-align:center;white-space:nowrap;
+    overflow:hidden;text-overflow:ellipsis;
+    font-size:inherit;font-weight:inherit;
+  }
+  .main-menu a[href="/guia-familias.html"]{font-weight:800}
+}
+@media(max-width:360px){
+ .mobile-bottom-nav.mobile-bottom-nav--apee{gap:2px;padding-left:5px;padding-right:5px}
+ .mobile-bottom-nav--apee .mobile-quick-link{font-size:.64rem}
+}
+@media(prefers-reduced-motion:reduce){
+ .mobile-bottom-nav--apee .mobile-quick-link{transition:none!important}
+ .mobile-bottom-nav--apee .mobile-quick-link:hover{transform:none!important}
+}
