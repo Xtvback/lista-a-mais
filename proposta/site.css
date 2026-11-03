@@ -1709,3 +1709,25 @@ a:focus-visible,button:focus-visible{outline:3px solid #bc8a00;outline-offset:3p
   .apee-menu-trigger{padding:10px 13px!important}
 }
 @media(prefers-reduced-motion:reduce){.apee-menu-trigger{transition:none!important}}
+
+/* Formulário de associados: estado da entrega sempre explícito */
+.signup-delivery-status{
+  display:block;padding:15px 18px;border-radius:13px;
+  font-weight:700;line-height:1.55;font-size:.93rem;
+  border:1px solid #dce4ef;background:#f2f6fc;color:#234669;
+}
+.signup-delivery-status[hidden]{display:none!important}
+.signup-delivery-status--loading{
+  border-color:#cddcf1;background:#edf5ff;color:#184d85;
+}
+.signup-delivery-status--error{
+  border-color:#f0c5bd;background:#fff4f0;color:#872e27;
+}
+.signup-delivery-status--success{
+  border-color:#b9e0c7;background:#f0fff5;color:#17663b;
+}
+.signup-submit:disabled{opacity:.65;cursor:progress}
+.signup-form .signup-submission-note a{
+  color:#15579f;text-decoration:underline;font-weight:800;
+  overflow-wrap:anywhere;
+}
