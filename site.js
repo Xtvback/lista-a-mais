@@ -26,12 +26,12 @@ const b=document.getElementById('menuButton'),m=document.getElementById('mainMen
 (function(){
  const nav=document.querySelector('#mainMenu');
  if(nav&&!nav.querySelector('a[href="/inscricao.html"]')){
-  const a=document.createElement('a');a.href='/inscricao.html';a.textContent='Inscrição';a.className='signup-nav-link';
+  const a=document.createElement('a');a.href='/inscricao.html';a.textContent='Inscrição de Associados';a.className='signup-nav-link';
   if(location.pathname.endsWith('/inscricao.html'))a.setAttribute('aria-current','page');
   const before=nav.querySelector('a[href="/contactos.html"]');nav.insertBefore(a,before);
  }
  const footer=document.querySelector('.foot-links');
- if(footer){for(const link of [{href:'/inscricao.html',text:'Inscrição gratuita'},{href:'/privacidade.html',text:'Privacidade'}]){
+ if(footer){for(const link of [{href:'/inscricao.html',text:'Inscrição de Associados'},{href:'/privacidade.html',text:'Privacidade'}]){
   if(!footer.querySelector('a[href="'+link.href+'"]')){const a=document.createElement('a');a.href=link.href;a.textContent=link.text;footer.appendChild(a)}
  }}
 })();
