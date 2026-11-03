@@ -695,3 +695,277 @@ a:focus-visible,button:focus-visible{outline:3px solid #bc8a00;outline-offset:3p
   .team-board__footer a{width:100%;text-align:center}
 }
 @media(prefers-reduced-motion:reduce){.team-board__footer a{transition:none}}
+
+
+/* ==========================================================================
+   APEE · Design aprovado 2026-11-03
+   Esboço de cartões editoriais com fotografia à direita e faixa familiar.
+   Apenas a homepage; estilos internos existentes são preservados.
+   ========================================================================== */
+.home-design-band {
+  height: 52px;
+  background:
+    linear-gradient(116deg,transparent 0 23%,rgba(255,255,255,.05) 23% 38%,transparent 38% 51%,rgba(255,255,255,.045) 51% 68%,transparent 68%),
+    repeating-linear-gradient(35deg,transparent 0 51px,rgba(5,36,79,.10) 51px 53px),
+    linear-gradient(100deg,#11487f,#1f64a0 61%,#0e4a88);
+  border-bottom: 1px solid #c9dcee;
+}
+.home-shortcuts {
+  background:linear-gradient(160deg,#f8fbff 0%,#fff 63%,#f3f7ff 100%)!important;
+  padding: 35px 0 51px!important;
+}
+.home-shortcuts .shortcuts-intro {margin:0 0 27px!important}
+.home-shortcuts .shortcuts-intro .eyebrow {
+  color:#215f9d;
+  font-size:clamp(.75rem,1.2vw,.94rem);
+  font-weight:800;
+  letter-spacing:.18em;
+  text-transform:uppercase;
+}
+.home-shortcuts .shortcuts-intro h1 {
+  position:relative;
+  display:table;
+  color:#11365f;
+  font-family:"Manrope","DM Sans",sans-serif;
+  font-size:clamp(2rem,4vw,3.55rem);
+  line-height:1.15;
+  font-weight:800;
+  letter-spacing:-.052em;
+  margin:13px 0 11px;
+}
+.home-shortcuts .shortcuts-intro h1::after {
+  content:"";
+  position:absolute;
+  bottom:-10px;right:0;width:58%;height:7px;
+  border-radius:999px;
+  transform:rotate(-1.2deg);
+  background:linear-gradient(90deg,#f4b30a,#ffca1f);
+}
+.home-shortcuts .shortcut-grid {
+  display:grid!important;
+  grid-template-columns:repeat(2,minmax(0,1fr))!important;
+  gap:18px!important;
+  margin-top:43px;
+}
+.home-shortcuts .shortcut {
+  display:flex!important;
+  position:relative;
+  flex-direction:column!important;
+  align-items:flex-start!important;
+  justify-content:center!important;
+  isolation:isolate;
+  min-height:212px!important;
+  padding:24px!important;
+  gap:0!important;
+  overflow:hidden;
+  border:1px solid #c8def3!important;
+  border-radius:25px!important;
+  box-shadow:0 12px 24px rgba(31,70,122,.09)!important;
+  background:#fff!important;
+  text-decoration:none;
+  color:#15385f;
+  transition:transform .22s ease,box-shadow .22s ease,border-color .22s ease;
+}
+.home-shortcuts .shortcut::before {
+  content:"";
+  position:absolute;
+  z-index:0;
+  inset:0;
+  pointer-events:none;
+  background:linear-gradient(90deg,#fff 0%,#fff 34%,rgba(255,255,255,.98) 42%,rgba(255,255,255,.70) 58%,rgba(255,255,255,.04) 84%);
+}
+.home-shortcuts .shortcut-scene {
+  position:absolute;
+  z-index:-1;
+  inset:0 0 0 auto;
+  width:74%;
+  border-radius:inherit;
+  overflow:hidden;
+}
+.home-shortcuts .shortcut-scene img {
+  display:block;
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  object-position:center;
+  transition:transform .42s ease;
+}
+.home-shortcuts .shortcut-icon {
+  position:relative;
+  z-index:2;
+  display:grid!important;
+  place-items:center;
+  flex:0 0 auto;
+  width:48px!important;
+  height:48px!important;
+  min-width:48px;
+  margin:0 0 14px!important;
+  border:0!important;
+  border-radius:16px!important;
+  box-shadow:none!important;
+}
+.home-shortcuts .shortcut-icon svg {width:27px;height:27px;display:block;stroke:currentColor}
+.home-shortcuts .shortcut--news .shortcut-icon{background:#e8f0ff;color:#145ba9}
+.home-shortcuts .shortcut--team .shortcut-icon{background:#e0f4e8;color:#198250}
+.home-shortcuts .shortcut--projects .shortcut-icon{background:#fff0cf;color:#b37a0b}
+.home-shortcuts .shortcut--food .shortcut-icon{background:#ffeced;color:#a83542}
+.home-shortcuts .shortcut-copy {
+  position:relative;z-index:2;
+  display:flex;flex-direction:column;
+  gap:5px;max-width:59%;
+  text-align:left;
+}
+.home-shortcuts .shortcut-copy strong {
+  font-family:"Manrope","DM Sans",sans-serif;
+  color:#102e5d!important;
+  font-weight:800!important;
+  line-height:1.18;
+  font-size:clamp(1.25rem,2.1vw,1.85rem)!important;
+  letter-spacing:-.035em!important;
+}
+.home-shortcuts .shortcut-copy small {
+  color:#405673!important;
+  font-weight:500;
+  font-size:clamp(.83rem,1.15vw,1.03rem)!important;
+  line-height:1.35;
+  margin:0!important;
+}
+.home-shortcuts .shortcut-arr {
+  display:grid!important;place-items:center;
+  position:absolute;top:16px!important;right:16px!important;
+  z-index:3;
+  width:35px!important;height:35px!important;
+  border-radius:10px!important;
+  color:#966509!important;
+  background:#fffefa!important;
+  box-shadow:0 3px 13px rgba(12,54,99,.14)!important;
+  font-size:1.45rem!important;
+  line-height:1;
+}
+.home-shortcuts .shortcut:hover,
+.home-shortcuts .shortcut:focus-visible {
+  transform:translateY(-3px);
+  box-shadow:0 20px 35px rgba(19,65,113,.16)!important;
+  border-color:#7eb2e4!important;
+}
+.home-shortcuts .shortcut:hover .shortcut-scene img,
+.home-shortcuts .shortcut:focus-visible .shortcut-scene img{transform:scale(1.055)}
+.home-shortcuts .photo-note {margin:17px 3px 0;color:#72829b;font-size:.73rem}
+
+/* Faixa informação às famílias, com o logótipo oficial num único campo. */
+.home-news-strip {
+  background:linear-gradient(115deg,#fff9e9,#fffbf2 62%,#fff) !important;
+  border-top:1px solid #e9c866!important;
+  border-bottom:1px solid #e9c866!important;
+}
+.home-news-strip .container.home-family-content {
+  display:grid!important;
+  grid-template-columns:minmax(0,1fr) minmax(128px,235px);
+  justify-content:space-between;
+  align-items:center!important;
+  gap:38px;
+  min-height:212px;
+  padding-top:23px!important;
+  padding-bottom:23px!important;
+}
+.home-news-strip .home-family-info{
+  display:block!important;
+  min-width:0;
+}
+.home-news-strip .home-family-heading {
+  display:flex!important;
+  align-items:center!important;
+  gap:14px!important;
+}
+.home-news-strip .home-family-heading h2 {
+  margin:0;
+  color:#163f76;
+  font-family:"Manrope",sans-serif;
+  font-size:clamp(1.3rem,2.3vw,1.85rem);
+  line-height:1.24;
+  letter-spacing:-.03em;
+}
+.home-news-strip .news-dot {flex:0 0 auto;margin:0!important;width:13px;height:13px}
+.home-news-strip .home-family-info p {
+  margin:13px 0 14px;
+  font-size:clamp(1rem,1.7vw,1.14rem);
+  line-height:1.52;
+  color:#314b77;
+}
+.home-news-strip .home-family-info a{
+  display:inline-flex;
+  align-items:center;
+  gap:10px;
+  font-size:1rem;
+  font-weight:800;
+  color:#143d76;
+  text-decoration:none;
+}
+.home-news-strip .home-family-info a:hover,.home-news-strip .home-family-info a:focus-visible{text-decoration:underline}
+.home-news-strip .home-family-logo {
+  display:flex!important;
+  justify-content:center;
+  align-items:center;
+  border-left:1px solid #ecc85c;
+  padding-left:31px;
+}
+.home-news-strip .home-family-logo img {
+  display:block;max-width:100%;width:min(190px,100%);height:auto;
+  max-height:178px;object-fit:contain;background:#fff;
+  mix-blend-mode:multiply;
+}
+
+/* Cabeçalho e menu inferior seguem a mesma identidade */
+.site-header .brand-icon-logo {border-radius:15px}
+.mobile-bottom-nav {background:rgba(255,255,255,.98)}
+.mobile-bottom-nav a[aria-current="page"] {background:#e9f0ff;color:#1254ac}
+
+@media(min-width:1250px){
+  .home-shortcuts .shortcut {min-height:236px!important}
+  .home-shortcuts .shortcut-copy {max-width:55%}
+}
+@media(max-width:760px){
+  .home-design-band{height:46px}
+  .home-shortcuts{padding:26px 0 37px!important}
+  .home-shortcuts .shortcuts-intro h1{font-size:clamp(1.9rem,6vw,2.65rem)}
+  .home-shortcuts .shortcut-grid{gap:13px!important;margin-top:33px}
+  .home-shortcuts .shortcut{min-height:181px!important;padding:17px!important;border-radius:20px!important}
+  .home-shortcuts .shortcut-icon{width:40px!important;height:40px!important;min-width:40px;margin-bottom:10px!important;border-radius:13px!important}
+  .home-shortcuts .shortcut-icon svg{width:24px;height:24px}
+  .home-shortcuts .shortcut-copy strong{font-size:1.18rem!important}
+  .home-shortcuts .shortcut-copy small{font-size:.79rem!important}
+  .home-shortcuts .shortcut-arr{right:11px!important;top:11px!important;width:29px!important;height:29px!important;font-size:1.2rem!important}
+  .home-news-strip .container.home-family-content{gap:15px;grid-template-columns:minmax(0,1fr) 130px;min-height:176px;padding-block:18px!important}
+  .home-news-strip .home-family-logo{padding-left:14px}
+  .home-news-strip .home-family-logo img{max-height:135px}
+  .home-news-strip .home-family-info p{font-size:.94rem}
+}
+@media(max-width:640px){
+  .home-shortcuts .shortcut-grid{grid-template-columns:minmax(0,1fr)!important;gap:12px!important}
+  .home-shortcuts .shortcut{min-height:157px!important;padding:17px!important}
+  .home-shortcuts .shortcut-scene{width:69%}
+  .home-shortcuts .shortcut::before{
+    background:linear-gradient(90deg,#fff 0%,#fff 36%,rgba(255,255,255,.96) 45%,rgba(255,255,255,.52) 63%,rgba(255,255,255,.02) 95%)
+  }
+  .home-shortcuts .shortcut-copy{max-width:56%}
+  .home-shortcuts .shortcut-copy strong{font-size:1.38rem!important}
+  .home-shortcuts .shortcut-copy small{font-size:.84rem!important}
+  .home-shortcuts .shortcut-icon{width:39px!important;height:39px!important}
+  .home-news-strip .container.home-family-content{grid-template-columns:minmax(0,1fr) 110px;gap:11px}
+  .home-news-strip .home-family-logo{padding-left:11px}
+  .home-news-strip .home-family-logo img{max-height:112px}
+  .home-news-strip .home-family-heading h2{font-size:1.14rem}
+}
+@media(max-width:360px){
+  .home-shortcuts .shortcut{min-height:153px!important}
+  .home-shortcuts .shortcut-copy{max-width:61%}
+  .home-shortcuts .shortcut-copy strong{font-size:1.15rem!important}
+  .home-news-strip .container.home-family-content{grid-template-columns:1fr;gap:13px}
+  .home-news-strip .home-family-logo{border-left:0;padding:0;justify-content:flex-start}
+  .home-news-strip .home-family-logo img{width:110px}
+}
+@media(prefers-reduced-motion:reduce){
+  .home-shortcuts .shortcut,
+  .home-shortcuts .shortcut-scene img{transition:none!important}
+  .home-shortcuts .shortcut:hover .shortcut-scene img{transform:none!important}
+}
