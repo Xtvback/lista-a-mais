@@ -85,6 +85,10 @@
       "Acredito que a escola é um prolongamento da nossa casa, um lugar onde os nossos filhos crescem, aprendem e criam memórias para a vida.",
       "Gostava de contribuir para que a Associação de Pais fosse uma ponte simples, próxima e direta entre as famílias e a comunidade escolar, onde todos se sentissem ouvidos, envolvidos e à vontade para participar.",
       "Porque acredito que, quando pais e escola caminham juntos, os nossos filhos são os maiores beneficiados."
+    ],
+    'Luís Martins': [
+      "45 anos, licenciado em Design e há 20 anos a trabalhar em pós-produção de imagem para cinema e televisão.",
+      "Estou nesta escola há 3 anos a acompanhar a viagem da minha filha, e aceitei o desafio de integrar a associação de pais com o objetivo de a tornar mais presente na vida escolar das nossas famílias."
     ]
   };
 
