@@ -69,6 +69,14 @@
     'Mariana Perry': [
       "42 anos, sou licenciada em Design de Comunicação e Mestre em Ensino das Artes Visuais. Sou professora de EV e ET.",
       "Sou mãe de 2 filhos e gosto de ajudar onde posso."
+    ],
+    'Andrea Gaudêncio': [
+      "44 anos. Licenciada em Enfermagem, a exercer funções na área das Especialidades Cirúrgicas, e Mestre em Cuidados Paliativos.",
+      "Sou mãe de duas crianças e estou ligada à comunidade escolar há cerca de 7 anos, acompanhando de perto o seu percurso, crescimento e os desafios da vida escolar.",
+      "Gosto muito de música e de literatura e, acima de tudo, de aproveitar o tempo em família, valorizando os pequenos momentos e as experiências.",
+      "A minha entrada na Associação de Pais nasce da vontade de contribuir de forma ativa e construtiva para uma comunidade educativa mais próxima, participativa e colaborativa. Acredito profundamente na importância da ligação entre a escola e a família, numa relação de confiança, proximidade e cooperação, onde a comunicação e a participação de todos fazem a diferença.",
+      "Acredito que a escola não se constrói apenas dentro das suas paredes e que, quando famílias e escola caminham lado a lado, criamos melhores condições para o crescimento, desenvolvimento e felicidade das nossas crianças.",
+      "É com este espírito de partilha, compromisso e vontade de fazer acontecer que abraço este desafio"
     ]
   };
 
