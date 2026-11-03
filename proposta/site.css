@@ -1393,3 +1393,16 @@ a:focus-visible,button:focus-visible{outline:3px solid #bc8a00;outline-offset:3p
 @media(prefers-reduced-motion:reduce){
   .signup-page-hero *{scroll-behavior:auto}
 }
+
+/* Cartaz oficial de agradecimento eleitoral: preservar o cartaz inteiro */
+.editorial-news-card img.election-thanks-thumbnail{
+  width:100%!important;
+  height:210px!important;
+  object-fit:contain!important;
+  object-position:center!important;
+  background:linear-gradient(120deg,#f2f8ff,#ffffff);
+  padding:8px;
+}
+@media(max-width:640px){
+ .editorial-news-card img.election-thanks-thumbnail{height:225px!important}
+}
