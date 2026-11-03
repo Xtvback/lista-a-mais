@@ -969,3 +969,8 @@ a:focus-visible,button:focus-visible{outline:3px solid #bc8a00;outline-offset:3p
   .home-shortcuts .shortcut-scene img{transition:none!important}
   .home-shortcuts .shortcut:hover .shortcut-scene img{transform:none!important}
 }
+
+/* Camadas das imagens sobre o fundo do cartão, sob o texto */
+.home-shortcuts .shortcut-scene{z-index:0!important}
+.home-shortcuts .shortcut::before{z-index:1!important}
+.home-shortcuts .shortcut-icon,.home-shortcuts .shortcut-copy{z-index:2!important}
