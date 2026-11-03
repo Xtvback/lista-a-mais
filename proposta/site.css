@@ -1414,3 +1414,113 @@ a:focus-visible,button:focus-visible{outline:3px solid #bc8a00;outline-offset:3p
 .contact-whatsapp-join:hover,.contact-whatsapp-join:focus-visible{background:#0b6d3b;color:#fff!important}
 .contact-whatsapp-card .contact-whatsapp-privacy{color:#66758b;font-size:.81rem;line-height:1.58;margin:8px 0 0}
 @media(max-width:620px){.contact-whatsapp-join{display:flex;text-align:center;width:100%;font-size:.93rem}}
+
+/* Halloween Surpresa APEE — identidade final aprovada (03/11/2026).
+   Exclusivo do topo da página; preserva restantes conteúdos e fotografias. */
+.page-hero.halloween-event-hero--revamp{
+  position:relative!important;isolation:isolate;overflow:hidden!important;
+  background:
+    radial-gradient(ellipse at 94% 93%,rgba(255,154,43,.92) 0%,rgba(233,103,50,.55) 23%,transparent 53%),
+    radial-gradient(ellipse at 67% 41%,rgba(137,68,163,.54),transparent 60%),
+    linear-gradient(110deg,#191d51 0%,#35245a 44%,#5c3568 78%,#74416b 100%)!important;
+  border:0!important;
+  padding:0!important;
+  min-height:550px;
+}
+.halloween-event-hero--revamp::after{content:none!important}
+.halloween-hero-inner{position:relative!important;z-index:5!important;padding-top:clamp(37px,6vw,66px)!important;padding-bottom:clamp(150px,15vw,205px)!important}
+.halloween-hero-back{
+  display:inline-block;
+  font-size:clamp(.88rem,1.35vw,1.18rem);
+  color:#ffcf54!important;
+  font-weight:850;
+  letter-spacing:.07em;
+  text-transform:none;
+  text-decoration:none;
+  margin-bottom:clamp(29px,4vw,42px);
+}
+.halloween-hero-back:hover,.halloween-hero-back:focus-visible{text-decoration:underline}
+.page-hero.halloween-event-hero--revamp h1{
+  color:#fff!important;
+  font-family:Manrope,'DM Sans',Arial,sans-serif!important;
+  font-weight:900!important;
+  font-size:clamp(2.65rem,6vw,5.25rem)!important;
+  letter-spacing:-.055em;
+  line-height:1.08!important;
+  max-width:1000px!important;
+  text-shadow:0 3px 7px rgba(10,12,38,.12);
+  margin:0 0 clamp(17px,2vw,26px)!important;
+}
+.halloween-event-hero--revamp h1>span{display:block}
+.halloween-event-hero--revamp h1 em{font-style:normal;color:#ffc338!important}
+.halloween-hero-pumpkin{display:inline!important;font-size:.75em;white-space:nowrap}
+.page-hero.halloween-event-hero--revamp .halloween-hero-inner>p{
+  max-width:800px;
+  color:#fff!important;
+  line-height:1.55!important;
+  font-size:clamp(1.1rem,2vw,1.55rem)!important;
+  margin:0 0 clamp(22px,3vw,36px)!important;
+  text-shadow:0 2px 4px rgba(22,16,47,.18);
+}
+.halloween-hero-date{
+  position:relative;z-index:7;
+  display:inline-flex;gap:10px;align-items:center;
+  padding:12px 23px;
+  border-radius:100px;
+  color:#18502e!important;
+  background:linear-gradient(120deg,#fff6c9,#fff2b2)!important;
+  font-size:clamp(.86rem,1.45vw,1.18rem);
+  font-weight:850;
+  box-shadow:0 6px 20px rgba(22,11,49,.18);
+}
+.halloween-hero-date>span{color:#14783d;font-size:1.3em;line-height:1}
+.halloween-hero-glow{
+  position:absolute;inset:-100px -150px -200px auto;width:75%;
+  background:radial-gradient(circle at 82% 77%,rgba(255,143,30,.46),transparent 47%);
+  pointer-events:none;z-index:0;
+}
+.halloween-hero-web{
+  position:absolute;right:-13px;top:-10px;width:clamp(140px,25vw,275px);
+  color:#f4d6ed;opacity:.48;z-index:1;pointer-events:none;
+}
+.halloween-hero-web svg{display:block;width:100%;height:auto}
+.halloween-hero-bat{position:absolute;z-index:1;color:#19183d;opacity:.81;pointer-events:none}
+.halloween-hero-bat svg{width:100%;height:auto;display:block}
+.halloween-hero-bat-one{width:105px;right:23%;top:20%;transform:rotate(-13deg)}
+.halloween-hero-bat-two{width:64px;right:15%;top:34%;transform:rotate(16deg)}
+.halloween-hero-hill{
+  position:absolute;z-index:3;bottom:-2px;left:-4%;right:-4%;height:110px;
+  background:#201d54;
+  border-radius:47% 43% 0 0 / 70% 80% 0 0;
+  pointer-events:none;
+}
+.halloween-hero-hill::before{
+  content:"🎃";
+  position:absolute;right:8%;bottom:22px;
+  font-size:clamp(85px,11vw,142px);
+  filter:drop-shadow(0 4px 18px #ff9e375a);
+}
+.halloween-event-intro .eyebrow{color:#1d672e!important;letter-spacing:.13em!important}
+.halloween-event-intro .eyebrow::after{
+  content:"";display:block;width:74px;height:5px;border-radius:20px;background:#ffbf19;margin:11px 0 21px;
+}
+.halloween-event-intro h2{color:#092f66!important;letter-spacing:-.035em;line-height:1.2}
+@media(max-width:760px){
+ .page-hero.halloween-event-hero--revamp{min-height:0}
+ .halloween-hero-inner{padding-top:36px!important;padding-bottom:144px!important}
+ .halloween-hero-back{margin-bottom:28px;font-size:.91rem}
+ .page-hero.halloween-event-hero--revamp h1{font-size:clamp(2.38rem,8vw,4.1rem)!important}
+ .page-hero.halloween-event-hero--revamp .halloween-hero-inner>p{font-size:clamp(1.03rem,3.4vw,1.3rem)!important}
+ .halloween-hero-date{font-size:.89rem;padding:11px 15px}
+ .halloween-hero-web{width:145px;opacity:.35}
+ .halloween-hero-bat-one{width:70px;right:12%;top:25%}
+ .halloween-hero-bat-two{width:40px;right:8%;top:37%}
+ .halloween-hero-hill{height:80px}
+ .halloween-hero-hill::before{font-size:85px;bottom:15px;right:9%}
+}
+@media(max-width:390px){
+ .page-hero.halloween-event-hero--revamp h1{font-size:clamp(2.06rem,9.2vw,2.55rem)!important}
+ .halloween-hero-date{font-size:.79rem;padding:10px 12px}
+ .halloween-hero-web{opacity:.2}
+ .halloween-hero-hill::before{font-size:74px}
+}
