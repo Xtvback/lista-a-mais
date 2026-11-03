@@ -46,3 +46,13 @@ As fotografias dos cartões são sempre ilustrativas; não devem ser descritas c
 - `imagens/cartoes/alimentacao-nova.webp`: imagem ilustrativa gerada por IA para a APEE; **não representa uma refeição real servida na escola**.
 - `imagens/cartoes/familias-refeitorio.webp`: fotografia ilustrativa de Declan Sun, Unsplash (licença Unsplash), https://unsplash.com/photos/roasted-chicken-with-rice-and-fresh-vegetables-on-a-plate-uUXUfoa-Opo.
 - A página inicial tem fotografias diferentes em cada cartão, preservando o logótipo verdadeiro da Associação.
+
+## Fotografias do design da página inicial (novembro de 2026)
+
+- **Notícias:** Esra Afşar, [Unsplash](https://unsplash.com/photos/newspaper-and-coffee-on-a-wooden-table-Yh7Dt7FD4CE) — ficheiro `inicio-noticias.webp`.
+- **Equipa:** Creatopy, [Unsplash](https://unsplash.com/photos/a-group-of-people-putting-their-hands-together-h43DFZjMcDw) — `inicio-equipa.webp`.
+- **Projetos:** Aden So, [Unsplash](https://unsplash.com/photos/a-single-light-bulb-glows-amidst-green-foliage-4l_JOI3HF8E) — `inicio-projetos.webp`.
+- **Contactos:** lonely blue, [Unsplash](https://unsplash.com/photos/a-close-up-of-a-cell-phone-with-whatsapp-on-the-screen-z3jCMSm4Rrc) — `inicio-contactos.webp`.
+- **Recreios Mais Felizes:** Colin Tan, [Unsplash](https://unsplash.com/photos/playground-with-colorful-slides-and-jungle-gym-equipment-0xsxbrXNN3g) — `recreios-felizes.webp`.
+
+As imagens destes cartões são meramente ilustrativas e não retratam atividades reais da associação.
