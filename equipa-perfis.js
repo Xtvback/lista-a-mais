@@ -59,6 +59,12 @@
       "Sou licenciada em Terapia da Fala e exerço a minha atividade profissional nesta área, nomeadamente no âmbito da Intervenção Precoce.",
       "Este ano decidi abraçar o desafio de integrar a Associação de Pais, por acreditar que o envolvimento das famílias é fundamental para construir uma comunidade escolar inclusiva, mais participativa, próxima e colaborativa.",
       "Vejo esta participação como uma oportunidade de dar voz às famílias, contribuir com ideias e ajudar a encontrar soluções que possam melhorar a escola e promover o bem-estar das nossas crianças."
+    ],
+    'Margarida Almeida': [
+      "48 anos, mãe de uma menina de 7 anos, na Escola do Bairro desde os 5.",
+      "Licenciada em Design Multimédia, trabalho na área da comunicação e do design, onde faço um pouco de tudo: design, gestão de projetos, área comercial… o chamado canivete suíço!",
+      "Tenho um fraquinho pelo mundo das artes e da cultura, seja através de um bom filme, de um livro ou de outras formas de expressão. Gosto de fazer bolos e tenho uma tendência quase irresistível para me disponibilizar para ajudar, mesmo quando provavelmente não devia ou não podia. Sou também um bocadinho stressada por natureza — mesmo sem beber café!",
+      "Faço parte da APEE porque acredito que podemos fazer mais e melhor pela nossa escola e pelas nossas crianças. Quero contribuir, ouvir as famílias, dar voz às suas preocupações e ajudar a encontrar soluções, com dedicação, diálogo e vontade de fazer acontecer."
     ]
   };
 
