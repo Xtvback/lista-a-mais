@@ -23,6 +23,13 @@
       "Adoro fazer exercício físico e cozinhar!",
       "Vivo em Belém há 10 anos e há 5 que faço parte da comunidade escolar do Bairro do Restelo.",
       "Ao integrar a associação de pais procuro trazer ideias que se transformem em momentos fantásticos e proporcionem as melhores memórias às nossas crianças."
+    ],
+    'Miguel Boavida': [
+      "40 anos. Formado em gestão de marketing, com mestrado em gestão empresarial.",
+      "Tenho 2 filhos, um deles frequenta a EB Bairro do Restelo desde o ano passado. Este ano está no 1.º ano.",
+      "Aceitei o desafio de integrar a associação de pais porque acredito que a cooperação e o envolvimento de todos na comunidade escolar podem fazer a diferença na vida das crianças.",
+      "Acredito que a escola pública deve ser um local seguro, de aprendizagem, onde se possam construir boas memórias e onde todos possam ter acesso às mesmas oportunidades.",
+      "Valorizo muito o trabalho em equipa e pessoas comunicativas e com boa disposição."
     ]
   };
 
