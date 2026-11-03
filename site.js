@@ -1,26 +1,35 @@
 const b=document.getElementById('menuButton'),m=document.getElementById('mainMenu');if(b&&m){b.addEventListener('click',()=>{const open=m.classList.toggle('open');b.setAttribute('aria-expanded',String(open));b.textContent=open?'✕  Fechar':'☰  Menu'});document.addEventListener('keydown',e=>{if(e.key==='Escape'){m.classList.remove('open');b.setAttribute('aria-expanded','false');b.textContent='☰  Menu'}});}
 
-/* Acesso rápido mobile partilhado por todas as páginas institucionais. */
+/* Barra móvel APEE · atalhos relevantes com identidade visual consistente. */
 (function(){
-  const path=location.pathname.split('/').pop()||'index.html';
+  const path=location.pathname;
+  const whatsapp='https://chat.whatsapp.com/FZplXzSkR070aoK6Q6TWVz';
   const items=[
-    {href:'/',text:'Início',icon:'<path d="m3 10 9-7 9 7v10a1 1 0 0 1-1 1h-5v-7H9v7H4a1 1 0 0 1-1-1z"/>'},
-    {href:'/agenda.html',text:'Agenda',icon:'<rect x="3" y="5" width="18" height="16" rx="2"/><path d="M7 3v4m10-4v4M3 10h18"/>'},
-    {href:'/noticias.html',text:'Notícias',icon:'<rect x="3" y="4" width="18" height="16" rx="2"/><path d="M7 8h6m-6 4h10m-10 4h10"/>'},
-    {href:'/contactos.html',text:'Contactos',icon:'<rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 7 9-7"/>'}
+    {href:'/inscricao.html',text:'Associados',label:'Inscrição de Associados',tone:'blue',active:path.endsWith('/inscricao.html'),
+      icon:'<path d="M15 19a6 6 0 0 0-12 0v2h12v-2Z"/><circle cx="9" cy="8" r="4"/><path d="M19 8v8m-4-4h8"/>'},
+    {href:whatsapp,text:'Comunidade',label:'Aderir à comunidade WhatsApp da APEE',tone:'green',external:true,
+      icon:'<path d="M20 11.5a8.5 8.5 0 0 1-12.5 7.5L3 20l1.2-4.4a8.5 8.5 0 1 1 15.8-4.1Z"/><path d="M9 9.1c.6 2.2 2.1 3.7 4.3 4.3l1.7-1.3"/>'},
+    {href:'/contactos.html',text:'Contactos',label:'Contactos da APEE',tone:'red',active:path.endsWith('/contactos.html'),
+      icon:'<rect x="2.5" y="5" width="19" height="14" rx="3"/><path d="m3.5 7 8.5 6 8.5-6"/>'},
+    {href:'/agenda.html',text:'Agenda',label:'Agenda da APEE',tone:'yellow',active:path.endsWith('/agenda.html'),
+      icon:'<rect x="3" y="5" width="18" height="16" rx="2.5"/><path d="M7 3v4m10-4v4M3 10h18m-12 5h5"/>'}
   ];
+  if(document.querySelector('.mobile-bottom-nav'))return;
   const nav=document.createElement('nav');
-  nav.className='mobile-bottom-nav';nav.setAttribute('aria-label','Acesso rápido no telemóvel');
+  nav.className='mobile-bottom-nav mobile-bottom-nav--apee';
+  nav.setAttribute('aria-label','Acessos rápidos da APEE');
   items.forEach(item=>{
-    const a=document.createElement('a');a.href=item.href;
-    if(path===(item.href==='/'?'index.html':item.href.split('/').pop()))a.setAttribute('aria-current','page');
-    a.innerHTML='<svg viewBox="0 0 24 24" aria-hidden="true">'+item.icon+'</svg><span>'+item.text+'</span>';
+    const a=document.createElement('a');
+    a.href=item.href;a.className='mobile-quick-link mobile-quick-link--'+item.tone;
+    a.setAttribute('aria-label',item.label);
+    if(item.active)a.setAttribute('aria-current','page');
+    if(item.external){a.target='_blank';a.rel='noopener noreferrer'}
+    a.innerHTML='<span class="mobile-quick-icon" aria-hidden="true"><svg viewBox="0 0 24 24">'+item.icon+'</svg></span><span class="mobile-quick-label">'+item.text+'</span>';
     nav.appendChild(a);
   });
   document.body.appendChild(nav);
   document.body.classList.add('has-mobile-bottom-nav');
 })();
-
 
 /* Inscrição gratuita visível em todas as páginas, mesmo em menus antigos. */
 (function(){
@@ -34,6 +43,25 @@ const b=document.getElementById('menuButton'),m=document.getElementById('mainMen
  if(footer){for(const link of [{href:'/inscricao.html',text:'Inscrição de Associados'},{href:'/privacidade.html',text:'Privacidade'}]){
   if(!footer.querySelector('a[href="'+link.href+'"]')){const a=document.createElement('a');a.href=link.href;a.textContent=link.text;footer.appendChild(a)}
  }}
+})();
+
+/* Guia das Famílias acessível no menu principal de todas as páginas. */
+(function(){
+ const nav=document.getElementById('mainMenu');
+ if(!nav)return;
+ const path=location.pathname;
+ const isGuide=/\/(guia-(familias|plataformas|aaaf-caf|horarios|refeicoes|mensalidades|contactos)\.html)$/.test(path);
+ let link=nav.querySelector('a[href="/guia-familias.html"]');
+ if(!link){
+  link=document.createElement('a');link.href='/guia-familias.html';link.textContent='Guia das Famílias';
+  const after=nav.querySelector('a[href="/familias.html"]');
+  if(after)after.insertAdjacentElement('afterend',link);
+  else nav.appendChild(link);
+ }
+ if(isGuide){
+  nav.querySelectorAll('a[aria-current="page"]').forEach(a=>a.removeAttribute('aria-current'));
+  link.setAttribute('aria-current','page');
+ }
 })();
 
 /* Agenda discoverable in desktop menu and footer, without replacing any existing link. */
