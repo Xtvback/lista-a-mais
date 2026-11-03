@@ -1197,3 +1197,34 @@ a:focus-visible,button:focus-visible{outline:3px solid #bc8a00;outline-offset:3p
 .news-assembly-document .btn{flex:0 0 auto;white-space:nowrap}
 .news-assembly-disclaimer{font-size:.88rem;color:#677891;border-top:1px solid #e2e9f1;padding-top:13px}
 @media(max-width:650px){.news-assembly-document{flex-direction:column;align-items:stretch;padding:19px}.news-assembly-document .btn{text-align:center;white-space:normal}.news-assembly-agenda{padding:15px 18px 15px 39px}}
+
+/* Halloween Surpresa APEE · Agenda 30 de outubro de 2026 */
+.agenda-past-grid>.agenda-event-halloween{grid-column:1/-1}
+.agenda-event-halloween{border:1px solid #ead5b6!important;background:linear-gradient(125deg,#fffaf2,#fff 65%)!important}
+.agenda-event-halloween .agenda-event-content{min-width:0}
+.halloween-agenda-media{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:25px;margin:21px 0 2px}
+.halloween-agenda-media h4{margin:0 0 13px;color:#163b72;font-size:1rem}
+.halloween-agenda-media video{display:block;width:100%;max-height:400px;aspect-ratio:9/16;object-fit:contain;background:#17213c;border-radius:15px}
+.halloween-agenda-previews{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin:0 0 14px}
+.halloween-agenda-previews a{display:block;overflow:hidden;border-radius:12px}
+.halloween-agenda-previews img{display:block;width:100%;height:155px;object-fit:cover;transition:transform .2s}
+.halloween-agenda-previews a:hover img{transform:scale(1.04)}
+.halloween-all-photos{font-weight:800;color:#165aa1;text-decoration:underline}
+.halloween-event-hero{background:linear-gradient(107deg,#292044,#603b57 57%,#b3612c)!important}
+.halloween-event-hero .eyebrow,.halloween-event-hero .accent{color:#ffd37d!important}
+.halloween-event-hero p{color:#f5eaf1!important}
+.halloween-event-intro-grid{display:grid;grid-template-columns:minmax(0,1.08fr) minmax(0,.92fr);gap:30px;align-items:center}
+.halloween-event-intro-grid>img{display:block;width:100%;max-height:425px;aspect-ratio:4/3;object-fit:cover;border-radius:22px}
+.halloween-event-intro-grid h2,.halloween-gallery-section h2,.halloween-video-section h2{color:#163b69;font-size:clamp(1.7rem,3vw,2.5rem)}
+.halloween-video-holder{background:#15182b;border-radius:23px;padding:17px;display:flex;justify-content:center;align-items:center;max-width:740px;margin:24px auto}
+.halloween-video-holder video{display:block;max-height:680px;width:100%;max-width:380px;aspect-ratio:9/16;object-fit:contain;border-radius:12px}
+.halloween-photo-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px;margin:25px 0}
+.halloween-photo{margin:0;background:#fff;border:1px solid #dce5f0;border-radius:17px;overflow:hidden;box-shadow:0 7px 18px #102f5a14}
+.halloween-photo a{display:block;overflow:hidden;aspect-ratio:4/3}
+.halloween-photo img{display:block;width:100%;height:100%;object-fit:cover;transition:transform .2s}
+.halloween-photo a:hover img{transform:scale(1.035)}
+.halloween-photo figcaption{font-size:.84rem;line-height:1.45;color:#516581;padding:11px 14px}
+.halloween-privacy-note{font-size:.81rem;color:#60758f;margin-bottom:23px}
+@media(max-width:780px){.halloween-event-intro-grid{grid-template-columns:1fr}.halloween-photo-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.halloween-agenda-media{grid-template-columns:1fr}}
+@media(max-width:470px){.halloween-photo-grid{grid-template-columns:1fr}.halloween-agenda-previews img{height:100px}.halloween-event-intro-grid>img{max-height:320px}}
+@media(prefers-reduced-motion:reduce){.halloween-photo img,.halloween-agenda-previews img{transition:none}}
