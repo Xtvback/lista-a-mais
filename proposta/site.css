@@ -1185,3 +1185,15 @@ a:focus-visible,button:focus-visible{outline:3px solid #bc8a00;outline-offset:3p
 .wa-join-note{color:#637589!important;font-size:.82rem!important;line-height:1.55!important;margin:12px 0 0!important}
 .project-cta-whatsapp{color:#087c45!important;font-weight:800}
 @media(max-width:550px){.wa-join-button{display:flex;width:100%;font-size:.95rem;text-align:center;padding:15px 12px}}
+
+/* Notícias: Assembleia Geral 30/10/2026 — convocatória */
+.news-assembly-lead{border-left:5px solid #edbb3c;padding-left:19px;margin-bottom:19px}
+.news-assembly-lead h2{margin:5px 0 17px;color:#133967;font-size:clamp(1.6rem,3vw,2.2rem)}
+.news-assembly-agenda{padding:16px 21px 16px 49px;background:#f5f9ff;border:1px solid #dce9f6;border-radius:16px;color:#24476b;margin:23px 0 26px;line-height:1.65}
+.news-assembly-agenda li{padding:5px 1px}
+.news-assembly-document{margin:27px 0;background:#f5f8fd;border:1px solid #dbe5f2;border-radius:18px;padding:24px;display:flex;align-items:center;justify-content:space-between;gap:18px}
+.news-assembly-document h3{color:#153a6f;margin:9px 0}
+.news-assembly-document p{margin:0;color:#526983}
+.news-assembly-document .btn{flex:0 0 auto;white-space:nowrap}
+.news-assembly-disclaimer{font-size:.88rem;color:#677891;border-top:1px solid #e2e9f1;padding-top:13px}
+@media(max-width:650px){.news-assembly-document{flex-direction:column;align-items:stretch;padding:19px}.news-assembly-document .btn{text-align:center;white-space:normal}.news-assembly-agenda{padding:15px 18px 15px 39px}}
