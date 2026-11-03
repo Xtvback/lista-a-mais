@@ -1228,3 +1228,168 @@ a:focus-visible,button:focus-visible{outline:3px solid #bc8a00;outline-offset:3p
 @media(max-width:780px){.halloween-event-intro-grid{grid-template-columns:1fr}.halloween-photo-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.halloween-agenda-media{grid-template-columns:1fr}}
 @media(max-width:470px){.halloween-photo-grid{grid-template-columns:1fr}.halloween-agenda-previews img{height:100px}.halloween-event-intro-grid>img{max-height:320px}}
 @media(prefers-reduced-motion:reduce){.halloween-photo img,.halloween-agenda-previews img{transition:none}}
+
+
+/* Inscrição de Associados · Hero nas cores oficiais APEE, aprovado 03-11-2026
+   Apenas para a página de inscrição. Mantém funcionalidade do formulário. */
+.page-hero.signup-page-hero{
+  position:relative!important;
+  isolation:isolate;
+  overflow:hidden!important;
+  min-height:355px;
+  padding:clamp(34px,5vw,72px) 0 clamp(58px,7vw,100px)!important;
+  border:0!important;
+  background:linear-gradient(112deg,#f5faff 0%,#ffffff 52%,#eaf5ff 100%)!important;
+}
+.page-hero.signup-page-hero::after{
+  content:none!important;
+}
+.signup-page-hero .signup-hero-inner{
+  position:relative;
+  z-index:2!important;
+  display:grid;
+  grid-template-columns:minmax(0,1.24fr) minmax(220px,.76fr);
+  align-items:center;
+  gap:clamp(16px,4vw,70px);
+}
+.signup-page-hero .signup-hero-copy{min-width:0}
+.signup-page-hero .signup-hero-copy .eyebrow{
+  display:block;
+  color:#12549d!important;
+  font-size:clamp(.8rem,1.25vw,1.02rem)!important;
+  line-height:1.3;
+  letter-spacing:.16em;
+  font-weight:850;
+  text-transform:uppercase;
+  margin:0 0 7px;
+}
+.signup-hero-stroke{
+  display:block;
+  width:150px;
+  height:6px;
+  border-radius:50% 60% 30% 70%;
+  transform:rotate(-2deg);
+  background:linear-gradient(90deg,#ffbc15 0%,#ffbc15 84%,#159b50 86%,#159b50 100%);
+  margin:12px 0 19px;
+}
+.page-hero.signup-page-hero h1{
+  color:#0c356c!important;
+  font-family:Manrope,'DM Sans',Arial,sans-serif!important;
+  font-weight:850!important;
+  letter-spacing:-.055em;
+  font-size:clamp(2.55rem,5.2vw,4.65rem)!important;
+  line-height:1.06!important;
+  max-width:none!important;
+  margin:0 0 23px!important;
+  text-shadow:none!important;
+}
+.page-hero.signup-page-hero .signup-hero-copy>p{
+  color:#3f4b62!important;
+  font-size:clamp(1.05rem,1.7vw,1.42rem)!important;
+  line-height:1.56!important;
+  letter-spacing:-.012em;
+  max-width:570px;
+  margin:0!important;
+}
+.signup-page-hero .signup-hero-copy>p strong{
+  color:#20334f;
+  font-weight:850;
+}
+.signup-hero-brand{
+  display:grid;
+  place-items:center;
+  align-self:center;
+  width:min(100%,365px);
+  justify-self:center;
+  aspect-ratio:1/1;
+  border-radius:50%;
+  background:radial-gradient(circle at 45% 42%,#fff 54%,#f4f8ff 100%);
+  box-shadow:0 12px 40px rgba(29,79,133,.10);
+  padding:clamp(14px,2.7vw,34px);
+  border:1px solid rgba(24,91,160,.1);
+}
+.signup-hero-brand img{
+  width:100%!important;
+  height:100%!important;
+  display:block;
+  object-fit:contain!important;
+  mix-blend-mode:multiply;
+  filter:none!important;
+}
+.signup-hero-wave{
+  position:absolute;
+  pointer-events:none;
+  z-index:0;
+  bottom:-115px;
+  border-radius:50% 50% 0 0;
+}
+.signup-hero-wave-blue{
+  width:73%;height:220px;
+  right:-6%;
+  background:linear-gradient(115deg,#195fa4,#0e4f9d);
+  transform:rotate(-8deg);
+}
+.signup-hero-wave-green{
+  width:53%;height:180px;
+  right:-21%;
+  background:linear-gradient(110deg,#169a4e,#49bf61);
+  transform:rotate(-12deg);
+}
+.signup-hero-accent{
+  position:absolute;
+  z-index:0;
+  pointer-events:none;
+  border-radius:50%;
+}
+.signup-hero-accent-yellow{
+  width:275px;height:275px;
+  top:-184px;right:15%;
+  background:#ffc319;
+}
+.signup-hero-accent-red{
+  width:22px;height:22px;
+  right:8%;top:20%;
+  background:#e52d3b;
+  opacity:.9;
+}
+.signup-page-hero + .signup-section{
+  background:linear-gradient(180deg,#f8fbff,#f3f7fd)!important;
+}
+@media(max-width:760px){
+  .page-hero.signup-page-hero{
+    min-height:0;
+    padding:35px 0 70px!important;
+  }
+  .signup-page-hero .signup-hero-inner{
+    grid-template-columns:minmax(0,1fr) minmax(110px,.37fr);
+    gap:11px;
+    align-items:center;
+  }
+  .page-hero.signup-page-hero h1{
+    font-size:clamp(1.72rem,5.4vw,2.8rem)!important;
+    margin:0 0 14px!important;
+  }
+  .signup-page-hero .signup-hero-copy>p{
+    font-size:clamp(.86rem,2.4vw,1.1rem)!important;
+    line-height:1.4!important;
+  }
+  .signup-page-hero .signup-hero-copy .eyebrow{
+    font-size:clamp(.67rem,1.7vw,.87rem)!important;
+    letter-spacing:.11em;
+  }
+  .signup-hero-stroke{width:92px;height:5px;margin:10px 0 16px}
+  .signup-hero-brand{padding:10px;box-shadow:0 6px 19px rgba(24,70,119,.09)}
+  .signup-hero-accent-yellow{width:155px;height:155px;top:-108px;right:5%}
+  .signup-hero-wave-blue{height:140px;bottom:-98px}
+  .signup-hero-wave-green{height:115px;bottom:-85px}
+}
+@media(max-width:390px){
+  .signup-page-hero .signup-hero-inner{grid-template-columns:minmax(0,1fr) 103px;gap:8px}
+  .page-hero.signup-page-hero h1{font-size:clamp(1.6rem,7vw,1.98rem)!important}
+  .signup-page-hero .signup-hero-copy>p{font-size:.83rem!important}
+  .signup-hero-brand{padding:7px}
+  .signup-page-hero .signup-hero-copy .eyebrow{font-size:.65rem!important}
+}
+@media(prefers-reduced-motion:reduce){
+  .signup-page-hero *{scroll-behavior:auto}
+}
