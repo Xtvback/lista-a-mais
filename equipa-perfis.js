@@ -30,6 +30,12 @@
       "Aceitei o desafio de integrar a associação de pais porque acredito que a cooperação e o envolvimento de todos na comunidade escolar podem fazer a diferença na vida das crianças.",
       "Acredito que a escola pública deve ser um local seguro, de aprendizagem, onde se possam construir boas memórias e onde todos possam ter acesso às mesmas oportunidades.",
       "Valorizo muito o trabalho em equipa e pessoas comunicativas e com boa disposição."
+    ],
+    'André M. Fernandes': [
+      "39 anos. Office manager, com 17 anos de experiência na área da saúde, Escritor.",
+      "Sou pai de cinco filhos e tenho duas filhas na EB Bairro do Restelo. A nossa ligação à escola já dura há 6 anos. Acredito que a cooperação e o envolvimento de todos na comunidade escolar pode fazer a diferença na vida das crianças.",
+      "Acredito que a escola pública deve ser um local seguro, de aprendizagem e de boas memórias, onde todas as crianças têm acesso às mesmas oportunidades. A minha experiência na gestão de rotinas diárias, e a vida de uma família numerosa, ensinaram-me a organizar, a priorizar e a fazer render cada recurso. É isso que quero levar para a associação, com rigor e transparência.",
+      "Valorizo o trabalho em equipa, a comunicação aberta e as pessoas com boa disposição."
     ]
   };
 
