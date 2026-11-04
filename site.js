@@ -91,6 +91,32 @@ if(b&&m){
 })();
 
 
+/* Parcerias: nova página autónoma no menu de todas as páginas. */
+(function(){
+  const href='/parcerias.html';
+  const nav=document.getElementById('mainMenu');
+  if(nav){
+    let link=nav.querySelector('a[href="'+href+'"]');
+    if(!link){
+      link=document.createElement('a');
+      link.href=href;
+      link.textContent='Parcerias';
+      const before=nav.querySelector('a[href="/noticias.html"]') || nav.querySelector('a[href="/contactos.html"]');
+      if(before)nav.insertBefore(link,before); else nav.appendChild(link);
+    }
+    if(location.pathname.endsWith(href)){
+      nav.querySelectorAll('a[aria-current="page"]').forEach(a=>a.removeAttribute('aria-current'));
+      link.setAttribute('aria-current','page');
+    }
+  }
+  const footer=document.querySelector('.foot-links');
+  if(footer&&!footer.querySelector('a[href="'+href+'"]')){
+    const a=document.createElement('a');a.href=href;a.textContent='Parcerias';
+    const before=footer.querySelector('a[href="/contactos.html"]');
+    if(before)footer.insertBefore(a,before);else footer.appendChild(a);
+  }
+})();
+
 /* Recursos autónomos disponíveis de qualquer página, sem recurso ao site anterior. */
 (function(){
  const links=document.querySelector('.foot-links');
@@ -115,6 +141,7 @@ if(b&&m){
   '/':'<path d="m3 10 9-7 9 7v10a1 1 0 0 1-1 1h-5v-7H9v7H4a1 1 0 0 1-1-1z"/>',
   '/associacao.html':'<circle cx="9" cy="8" r="3"/><path d="M3 21v-2a6 6 0 0 1 12 0v2M17 11a3 3 0 1 0-1-5.8M17 15a5 5 0 0 1 4 5"/>',
   '/projetos.html':'<rect x="3" y="4" width="18" height="17" rx="3"/><path d="M7 10l3 3 7-7M7 17h10"/>',
+  '/parcerias.html':'<path d="M8 12l3 3 5-6"/><path d="M12 2 14.7 4.3l3.5.3.7 3.4L21 11l-2.1 3 .1 3.5-3.4.8L12 21l-3.5-2.7-3.4-.8.1-3.5L3 11l2.1-3 .7-3.4 3.5-.3z"/>',
   '/noticias.html':'<rect x="3" y="3" width="18" height="18" rx="2"/><path d="M8 8h8M8 12h8M8 16h5"/>',
   '/agenda.html':'<rect x="3" y="5" width="18" height="16" rx="2"/><path d="M7 3v4M17 3v4M3 10h18m-12 5h6"/>',
   '/familias.html':'<path d="M3 20v-5a5 5 0 0 1 10 0v5M15 20v-4a4 4 0 0 1 6 0v4"/><circle cx="8" cy="7" r="3"/><circle cx="18" cy="9" r="2"/>',
