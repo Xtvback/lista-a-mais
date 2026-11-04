@@ -2090,3 +2090,11 @@ dialog#apeeProfileDialog.apee-profile-dialog::backdrop {
 .partnership-page .partner-next-mark{flex-basis:42px;width:42px;height:42px;font-size:2rem}
 }
 @media(max-width:380px){.partnership-page .partner-category{font-size:.69rem}.partnership-page .partner-number{font-size:.68rem}.partnership-page .partner-identity h3{font-size:1.65rem}.partnership-page .partner-discount-number{font-size:5.2rem}.partnership-page .partner-promo-footer{font-size:.75rem}}
+
+/* Menu principal com Parcerias: sem cortar links em computadores médios. */
+@media(min-width:761px) and (max-width:1420px){
+  .site-header .header-inner{gap:14px}
+  .site-header .brand{flex:0 0 auto}
+  .site-header .main-menu{flex:1 1 auto;min-width:0;flex-wrap:wrap;justify-content:flex-end;gap:2px 13px;padding:9px 0}
+  .site-header .main-menu a{flex:0 0 auto;white-space:nowrap;font-size:.76rem;padding:7px 0}
+}
