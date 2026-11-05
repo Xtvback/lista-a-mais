@@ -2098,3 +2098,146 @@ dialog#apeeProfileDialog.apee-profile-dialog::backdrop {
   .site-header .main-menu{flex:1 1 auto;min-width:0;flex-wrap:wrap;justify-content:flex-end;gap:2px 13px;padding:9px 0}
   .site-header .main-menu a{flex:0 0 auto;white-space:nowrap;font-size:.76rem;padding:7px 0}
 }
+
+
+/* APEE · Sistema visual transversal v20261105 — páginas institucionais */
+:root{
+  --apee-navy:#153b6d;--apee-royal:#1768aa;--apee-sky:#ebf5ff;
+  --apee-gold:#f9c949;--apee-surface:#ffffff;--apee-ink:#173854;
+  --apee-soft:#f7faff;--apee-border:#dce8f2;
+  --apee-ease:cubic-bezier(.2,.8,.2,1)
+}
+html{scroll-padding-top:100px}
+body{background:var(--apee-soft);color:var(--apee-ink)}
+::selection{background:#ffdd80;color:#133e6d}
+.site-header{
+  background:rgba(255,255,255,.975);
+  box-shadow:0 4px 22px rgba(20,60,108,.055);
+  border-bottom:1px solid var(--apee-border)
+}
+.site-header .brand{gap:13px}
+.site-header .brand-copy strong{letter-spacing:-.035em;color:#164776}
+.site-header .brand-copy small{color:#6b8094}
+.site-header .main-menu a{
+  border-radius:8px;
+  transition:color .2s var(--apee-ease),background .2s var(--apee-ease)
+}
+.site-header .main-menu a:hover{color:#145b9c}
+.site-header .main-menu a:focus-visible{outline:3px solid #edbc35;outline-offset:3px}
+main > .page-hero:not(.signup-page-hero):not(.halloween-event-hero--revamp){
+  position:relative;
+  isolation:isolate;
+  overflow:hidden;
+  background:radial-gradient(ellipse at 100% -10%,#cde5fb 0,transparent 43%),linear-gradient(115deg,#fff 0%,#f0f7ff 95%);
+  border-bottom:1px solid #dce9f5;
+  padding:70px 0 65px
+}
+main > .page-hero:not(.signup-page-hero):not(.halloween-event-hero--revamp):before{
+  content:"";position:absolute;z-index:-1;right:-90px;bottom:-215px;
+  width:390px;height:390px;border-radius:50%;
+  border:60px solid rgba(39,123,183,.045);
+  pointer-events:none
+}
+main > .page-hero:not(.signup-page-hero):not(.halloween-event-hero--revamp) .eyebrow{
+  color:#3577a7;letter-spacing:.15em
+}
+main > .page-hero:not(.signup-page-hero):not(.halloween-event-hero--revamp) h1{
+  color:#173e71;letter-spacing:-.065em;
+  font-size:clamp(2.55rem,5.9vw,4.65rem);
+  line-height:1.1;margin:15px 0 17px;max-width:950px;
+  text-wrap:balance
+}
+main > .page-hero:not(.signup-page-hero):not(.halloween-event-hero--revamp) h1:after{
+  content:"";display:block;width:108px;height:6px;
+  border-radius:999px;background:#fbc746;margin-top:16px;
+  transform:rotate(-1.2deg)
+}
+main > .page-hero:not(.signup-page-hero):not(.halloween-event-hero--revamp) p{
+  color:#53718b;max-width:790px;font-size:clamp(1rem,1.6vw,1.13rem);
+  line-height:1.65
+}
+main > .section:not(.tinted),main > .section:not(.tinted) .container{min-width:0}
+.section.tinted{background:#edf5fd}
+.section:not(.team-section) .section-head h2{
+  font-family:Manrope,'DM Sans',system-ui,sans-serif;
+  font-style:normal;font-weight:800;letter-spacing:-.055em;color:#173e70
+}
+.section:not(.team-section) > .container > h2{
+  font-family:Manrope,'DM Sans',system-ui,sans-serif;
+  font-style:normal;letter-spacing:-.05em;color:#173e70
+}
+.eyebrow{letter-spacing:.13em;color:#2a6ba3}
+.card:not(.person-card),.editorial-news-card,.editorial-story,
+.ref-quick-card,.ref-priority-card,.guide-jump-grid a,
+.shortcut,.agenda-event,.archive-entry{
+  border:1px solid #dee8f3;
+  border-radius:22px;
+  box-shadow:0 8px 28px rgba(18,54,89,.07);
+  transition:transform .22s var(--apee-ease),box-shadow .22s var(--apee-ease),border-color .22s var(--apee-ease)
+}
+.card:not(.person-card):hover,.editorial-news-card:hover,.editorial-story:hover,
+.ref-quick-card:hover,.ref-priority-card:hover,.guide-jump-grid a:hover,
+.shortcut:hover,.archive-entry:hover{
+  border-color:#b8d5ed;
+  box-shadow:0 13px 34px rgba(18,54,89,.12)
+}
+.card:not(.person-card) h3,.editorial-news-card h3{font-family:Manrope,'DM Sans',sans-serif;letter-spacing:-.04em;color:#1a416c}
+.card:not(.person-card) p{line-height:1.68}
+.btn,.guide-button,.ref-signup-button{
+  transition:transform .2s var(--apee-ease),box-shadow .2s var(--apee-ease),background .2s var(--apee-ease)
+}
+.btn:hover,.guide-button:hover,.ref-signup-button:hover{transform:translateY(-2px)}
+.btn:focus-visible,.guide-button:focus-visible,.ref-signup-button:focus-visible{
+  outline:3px solid #e5aa00;outline-offset:3px
+}
+a[href^="mailto:"],a[href^="tel:"]{overflow-wrap:anywhere}
+.project-card-image,.documents-card-image,.family-card-image{
+  display:block;width:100%;object-fit:cover;
+  background:#f0f6fc
+}
+.project-card,.family-card,.documents-card{overflow:hidden}
+.project-card > .project-cta,.documents-card > a{margin-bottom:22px}
+.project-card > .accent{background:#e8f3ff;color:#1d6097}
+.editorial-news-card{overflow:hidden;background:#fff}
+.editorial-news-card > div{padding:22px}
+.editorial-news-card img{background:#eff6ff}
+.editorial-news-card h3{font-size:1.17rem;line-height:1.36}
+.editorial-news-card p{font-size:.94rem;color:#546f86}
+.guide-home .guide-jump-grid a{background:#fff;border-color:#dce9f5}
+.guide-home .guide-jump-grid a strong{color:#164e81}
+.ref-quick-card,.ref-priority-card{overflow:hidden}
+.ref-quick-card img,.ref-priority-card img{object-fit:cover}
+.ref-quick-card:focus-visible,.ref-priority-card:focus-visible{
+  outline:3px solid #ebb931;outline-offset:3px
+}
+.foot{background:#12365d;color:#fff}
+.foot a:focus-visible{outline:3px solid #ffd44c;outline-offset:3px}
+.foot-links a{text-decoration:none}
+.foot-links a:hover{text-decoration:underline;text-decoration-color:#ffd44c;text-underline-offset:5px}
+main :target{scroll-margin-top:110px}
+@media(max-width:850px){
+  main > .page-hero:not(.signup-page-hero):not(.halloween-event-hero--revamp){padding:52px 0 48px}
+  main > .page-hero:not(.signup-page-hero):not(.halloween-event-hero--revamp) h1{
+    font-size:clamp(2.35rem,7vw,3.5rem)
+  }
+}
+@media(max-width:590px){
+  :root{--apee-radius-mobile:17px}
+  .container{width:min(100% - 28px,1150px)}
+  main > .page-hero:not(.signup-page-hero):not(.halloween-event-hero--revamp){padding:39px 0 36px}
+  main > .page-hero:not(.signup-page-hero):not(.halloween-event-hero--revamp) h1{
+    font-size:clamp(2.25rem,9vw,3.2rem);letter-spacing:-.055em
+  }
+  main > .page-hero:not(.signup-page-hero):not(.halloween-event-hero--revamp) h1:after{width:83px;margin-top:12px}
+  .card:not(.person-card),.editorial-news-card,.editorial-story,
+  .ref-quick-card,.ref-priority-card,.shortcut,.agenda-event{border-radius:var(--apee-radius-mobile)}
+  .editorial-news-card > div{padding:17px}
+  .ref-quick-card:hover,.ref-priority-card:hover{transform:none}
+  main > .section:not(.team-section){padding-top:42px;padding-bottom:47px}
+}
+@media(prefers-reduced-motion:reduce){
+  .card:not(.person-card),.editorial-news-card,.editorial-story,
+  .ref-quick-card,.ref-priority-card,.shortcut,.agenda-event,
+  .btn,.guide-button,.ref-signup-button{transition:none!important}
+  .btn:hover,.guide-button:hover,.ref-signup-button:hover{transform:none}
+}
