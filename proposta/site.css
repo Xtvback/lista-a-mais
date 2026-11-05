@@ -2149,3 +2149,60 @@ main :target{scroll-margin-top:110px}
   .btn,.guide-button,.ref-signup-button{transition:none!important}
   .btn:hover,.guide-button:hover,.ref-signup-button:hover{transform:none}
 }
+
+
+/* APEE · Fase 2 — reforço da experiência iPhone / Android, novembro 2026 */
+html,body{max-width:100%}
+main,section,article,.container{min-width:0}
+img,video,iframe{max-width:100%}
+img{height:auto}
+iframe{border:0}
+a,button,summary{touch-action:manipulation}
+main :target{scroll-margin-top:calc(92px + env(safe-area-inset-top,0px))}
+@media(max-width:760px){
+  :root{--mobile-edge:14px}
+  .container{width:calc(100% - (var(--mobile-edge) * 2));max-width:1150px}
+  .site-header{top:0;z-index:80}
+  .site-header .brand-copy strong{font-size:clamp(.83rem,3.5vw,1rem)}
+  .site-header .brand-copy small{font-size:clamp(.51rem,2.05vw,.66rem);letter-spacing:.015em}
+  .site-header .header-inner{gap:8px;min-height:68px}
+  .apee-menu-trigger{flex:0 0 auto;min-height:44px}
+  .main-menu.apee-menu-modern{max-height:calc(100dvh - 100px);overflow-y:auto;overscroll-behavior:contain;-webkit-overflow-scrolling:touch}
+  .main-menu.apee-menu-modern a{min-height:44px}
+  .card:not(.person-card),.project-card,.documents-card,.family-card{max-width:100%;min-width:0}
+  .section .grid>*{min-width:0}
+  .foot-links a{display:inline-flex;align-items:center;min-height:36px}
+  .guide-jump-grid a,.guide-button{min-height:44px}
+  .px-redesign .px-partner>summary{min-height:72px}
+  .px-redesign .px-expanded,.px-redesign .pr-card{min-width:0;max-width:100%}
+  .px-redesign .pr-card *{overflow-wrap:break-word}
+  .signup-main,.signup-layout,.signup-google-frame-wrap{min-width:0;max-width:100%}
+  .signup-google-alternative a{display:inline-block;max-width:100%;overflow-wrap:anywhere;line-height:1.5}
+  .signup-google-frame{display:block;width:100%;max-width:100%;border:0}
+  dialog#apeeProfileDialog.apee-profile-dialog{z-index:1000}
+  dialog#apeeProfileDialog.apee-profile-dialog::backdrop{background:rgba(11,32,61,.64)}
+  .mobile-bottom-nav.mobile-bottom-nav--apee{z-index:75}
+  .mobile-bottom-nav--apee .mobile-quick-link{min-height:60px}
+  .mobile-bottom-nav--apee .mobile-quick-label{font-size:clamp(.62rem,2.5vw,.75rem)}
+  body.apee-editing .mobile-bottom-nav.mobile-bottom-nav--apee{display:none!important}
+  body.apee-editing.has-mobile-bottom-nav{padding-bottom:24px!important}
+}
+@media(max-width:375px){
+  .site-header .brand{gap:7px;min-width:0}
+  .site-header .brand-copy{min-width:0}
+  .site-header .brand-copy strong{font-size:.82rem}
+  .site-header .brand-copy small{font-size:.49rem}
+  .apee-menu-trigger{gap:6px!important;padding:10px 12px!important}
+  .mobile-bottom-nav--apee .mobile-quick-icon{width:38px;height:38px}
+  .mobile-bottom-nav.mobile-bottom-nav--apee{gap:2px}
+  .mobile-bottom-nav--apee .mobile-quick-label{font-size:.61rem}
+}
+@media(orientation:landscape) and (max-height:530px) and (max-width:900px){
+  .mobile-bottom-nav.mobile-bottom-nav--apee{padding-top:3px;padding-bottom:calc(3px + env(safe-area-inset-bottom))}
+  .mobile-bottom-nav--apee .mobile-quick-icon{width:28px;height:28px;border-radius:8px}
+  .mobile-bottom-nav--apee .mobile-quick-link{min-height:43px;gap:2px;padding:2px}
+  .mobile-bottom-nav--apee .mobile-quick-link svg{width:19px!important;height:19px!important}
+}
+@media(prefers-reduced-motion:reduce){
+  .main-menu.apee-menu-modern,.mobile-bottom-nav--apee .mobile-quick-link{scroll-behavior:auto;transition:none!important}
+}
