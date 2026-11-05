@@ -2206,3 +2206,50 @@ main :target{scroll-margin-top:calc(92px + env(safe-area-inset-top,0px))}
 @media(prefers-reduced-motion:reduce){
   .main-menu.apee-menu-modern,.mobile-bottom-nav--apee .mobile-quick-link{scroll-behavior:auto;transition:none!important}
 }
+
+
+/* APEE · Fase 3 — Transparência documental, agenda e acompanhamento */
+.phase3-lead{display:flex;justify-content:space-between;align-items:end;gap:22px;margin-bottom:22px}
+.phase3-lead h2{margin:8px 0 12px;color:#173e70}
+.phase3-lead p{max-width:650px;margin-bottom:0}
+.phase3-lead .btn{flex:0 0 auto}
+.phase3-legend,.phase3-project-legend{display:flex;flex-wrap:wrap;gap:14px 24px;margin:24px 0 19px;color:#52738a;font-size:.85rem}
+.phase3-legend>span,.phase3-project-legend>span{display:inline-flex;align-items:center;gap:8px}
+.phase3-dot{display:inline-block;width:10px;height:10px;border-radius:50%;flex:0 0 10px}
+.phase3-dot-live{background:#299a67;box-shadow:0 0 0 4px #dff6e9}
+.phase3-dot-wait{background:#d6a437;box-shadow:0 0 0 4px #fff3d6}
+.phase3-doc-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:17px}
+.phase3-doc-card{min-width:0;overflow:hidden;display:grid;grid-template-columns:146px minmax(0,1fr);border:1px solid #dce8f3;border-radius:22px;background:#fff;box-shadow:0 9px 26px #123a6710}
+.phase3-doc-card img{width:146px;height:100%;min-height:220px;object-fit:cover;display:block;background:#eff6fd}
+.phase3-doc-card>div{min-width:0;padding:23px 22px;display:flex;align-items:start;flex-direction:column}
+.phase3-doc-card h3{font-size:1.24rem;color:#173e70;margin:14px 0 9px;letter-spacing:-.045em}
+.phase3-doc-card p{font-size:.9rem;line-height:1.65;margin:0 0 18px}
+.phase3-doc-card a{margin-top:auto;font-weight:800;text-decoration:none;color:#1767a5;font-size:.88rem}
+.phase3-doc-card a:hover,.phase3-publish-links a:hover,.phase3-inline-actions a:hover{text-decoration:underline;text-underline-offset:4px}
+.phase3-status{display:inline-flex;align-items:center;padding:6px 11px;border-radius:999px;font-size:.69rem;font-weight:850;letter-spacing:.01em;line-height:1.4}
+.phase3-status-live{background:#e4f7eb;color:#166840}
+.phase3-status-wait{background:#fff2d5;color:#755016}
+.phase3-publish-panel{margin-top:30px;padding:28px 30px;border:1px solid #cbdff3;background:linear-gradient(115deg,#e9f3ff,#f7fbff);border-radius:24px}
+.phase3-publish-panel h2{font-size:clamp(1.45rem,2.5vw,2rem);color:#154478;margin:12px 0}
+.phase3-publish-panel p{max-width:850px;line-height:1.65;margin-bottom:18px}
+.phase3-publish-links{display:flex;flex-wrap:wrap;gap:10px 23px}
+.phase3-publish-links a{color:#145e9d;font-weight:800}
+.phase3-footnote{margin:22px 0 0;padding:15px 20px;border-left:4px solid #eec354;background:#fffaed;border-radius:0 12px 12px 0;font-size:.88rem}
+.phase3-agenda-empty{display:flex;align-items:start;gap:22px;border:1px solid #d8e6f3;border-radius:24px;padding:27px 29px;background:#fff;box-shadow:0 9px 28px #21496b0d}
+.phase3-calendar-icon{display:grid;place-items:center;width:64px;height:64px;flex:0 0 64px;background:#e9f3ff;border-radius:18px;color:#195b98;font-size:3rem}
+.phase3-agenda-empty h3{font-size:1.45rem;color:#173d70;margin:14px 0 8px}
+.phase3-agenda-empty p{margin:0 0 16px;max-width:720px}
+.phase3-inline-actions{display:flex;flex-wrap:wrap;gap:10px 24px}
+.phase3-inline-actions a{font-size:.9rem;color:#1768ab;font-weight:800}
+.phase3-project-summary{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:15px;margin-top:28px}
+.phase3-summary-item{display:flex;flex-direction:column;align-items:flex-start;gap:9px;border-radius:21px;border:1px solid #d9e6f2;padding:21px 22px;background:#fff;min-width:0;box-shadow:0 7px 24px #20456c0b}
+.phase3-summary-mark{display:grid;place-items:center;min-width:45px;height:45px;border-radius:15px;font-size:1.38rem;font-weight:900}
+.phase3-summary-live{background:#e4f7eb;color:#166c45}
+.phase3-summary-plan{background:#fff1d4;color:#8d651e}
+.phase3-summary-item strong{font-size:1.03rem;color:#153d70}
+.phase3-summary-item>span:not(.phase3-summary-mark){color:#5d788d;font-size:.87rem;line-height:1.5}
+.phase3-summary-item a{margin-top:auto;color:#1465a5;font-size:.87rem;font-weight:800}
+#compromissos{scroll-margin-top:110px}
+@media(max-width:960px){.phase3-doc-card{grid-template-columns:116px minmax(0,1fr)}.phase3-doc-card img{width:116px}.phase3-doc-card>div{padding:18px 16px}.phase3-project-summary{gap:10px}.phase3-summary-item{padding:18px}}
+@media(max-width:700px){.phase3-lead{display:block}.phase3-lead .btn{margin-top:18px}.phase3-doc-grid{grid-template-columns:1fr}.phase3-doc-card{grid-template-columns:110px minmax(0,1fr)}.phase3-doc-card img{width:110px;min-height:205px}.phase3-publish-panel{padding:21px 18px;border-radius:19px}.phase3-agenda-empty{padding:19px 16px;gap:14px}.phase3-calendar-icon{width:44px;height:44px;flex-basis:44px;font-size:2rem}.phase3-agenda-empty h3{font-size:1.23rem}.phase3-project-summary{grid-template-columns:1fr}.phase3-summary-item{padding:17px 19px}.phase3-legend,.phase3-project-legend{font-size:.77rem;gap:10px 16px}}
+@media(max-width:390px){.phase3-doc-card{grid-template-columns:92px minmax(0,1fr)}.phase3-doc-card img{width:92px;min-height:235px}.phase3-doc-card h3{font-size:1.12rem}.phase3-doc-card>div{padding:14px 11px}.phase3-status{font-size:.61rem;padding:5px 8px}.phase3-doc-card p{font-size:.81rem}.phase3-doc-card a{font-size:.79rem}}
