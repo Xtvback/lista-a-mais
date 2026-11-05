@@ -89,6 +89,12 @@
     'Luís Martins': [
       "45 anos, licenciado em Design e há 20 anos a trabalhar em pós-produção de imagem para cinema e televisão.",
       "Estou nesta escola há 3 anos a acompanhar a viagem da minha filha, e aceitei o desafio de integrar a associação de pais com o objetivo de a tornar mais presente na vida escolar das nossas famílias."
+    ],
+    'Rui Fernandes': [
+      "46 anos, pai de três filhos maravilhosos, um dos quais frequenta atualmente o 3.º ano na EB Bairro do Restelo.",
+      "Licenciado em Gestão, trabalho atualmente como Gestor de Projetos.",
+      "Acredito na escola pública como um espaço seguro, inclusivo e de aprendizagem, onde todas as crianças devem ter as mesmas oportunidades para crescer e desenvolver o seu potencial.",
+      "Integrar a Associação de Pais é uma forma de retribuir o empenho e a dedicação de toda a comunidade escolar no percurso dos meus filhos. Quero contribuir e fazer parte de uma equipa que dá voz às famílias e promove uma participação ativa, ajudando a construir uma escola cada vez melhor."
     ]
   };
 
