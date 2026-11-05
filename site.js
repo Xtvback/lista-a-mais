@@ -9,6 +9,24 @@ if(b&&m){
   b.addEventListener('click',()=>renderButton(m.classList.toggle('open')));
   document.addEventListener('keydown',e=>{if(e.key==='Escape'&&m.classList.contains('open')){m.classList.remove('open');renderButton(false);b.focus();}});
   m.addEventListener('click',e=>{if(e.target.closest('a')&&m.classList.contains('open')){m.classList.remove('open');renderButton(false);}});
+  /* Fechar menus abertos ao tocar fora, sem impedir a navegação normal. */
+  document.addEventListener('pointerdown',e=>{
+    if(m.classList.contains('open')&&!m.contains(e.target)&&!b.contains(e.target)){
+      m.classList.remove('open');renderButton(false);
+    }
+  });
+  /* A navegação por teclado deve regressar ao botão do menu após saída. */
+  document.addEventListener('focusin',e=>{
+    if(m.classList.contains('open')&&!m.contains(e.target)&&e.target!==b){
+      m.classList.remove('open');renderButton(false);
+    }
+  });
+  const setMobileMenuState=()=>{
+    if(window.matchMedia('(min-width: 761px)').matches&&m.classList.contains('open')){
+      m.classList.remove('open');renderButton(false);
+    }
+  };
+  window.addEventListener('resize',setMobileMenuState,{passive:true});
 }
 
 /* Barra móvel APEE · atalhos relevantes com identidade visual consistente. */
@@ -40,6 +58,16 @@ if(b&&m){
   });
   document.body.appendChild(nav);
   document.body.classList.add('has-mobile-bottom-nav');
+  /* Evitar que o teclado virtual cubra formulários e botões. */
+  const setEditing=el=>{
+    const active=!!el&&el.matches&&el.matches('input:not([type=hidden]), textarea, select, [contenteditable=true]');
+    document.body.classList.toggle('apee-editing',active);
+  };
+  document.addEventListener('focusin',event=>setEditing(event.target));
+  document.addEventListener('focusout',()=>{
+    if(document.activeElement&&document.activeElement.matches&&document.activeElement.matches('input:not([type=hidden]), textarea, select, [contenteditable=true]'))return;
+    document.body.classList.remove('apee-editing');
+  });
 })();
 
 /* Inscrição gratuita visível em todas as páginas, mesmo em menus antigos. */
