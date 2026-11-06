@@ -210,3 +210,26 @@ if(b&&m){
   }catch(_){}
  });
 })();
+
+
+/* Inscrição na barra superior apenas no desktop. No telemóvel permanece no menu. */
+(function(){
+  const nav=document.getElementById('mainMenu');
+  const signup=nav&&nav.querySelector('a.signup-nav-link[href="/inscricao.html"]');
+  const topbar=document.querySelector('.topline .container');
+  if(!signup||!topbar||!nav)return;
+  const originalNext=signup.nextSibling;
+  const desktop=window.matchMedia('(min-width: 761px)');
+  const positionSignup=()=>{
+    if(desktop.matches){
+      topbar.appendChild(signup);
+      signup.classList.add('apee-signup-top');
+    }else{
+      nav.insertBefore(signup,originalNext);
+      signup.classList.remove('apee-signup-top');
+    }
+  };
+  positionSignup();
+  if(desktop.addEventListener)desktop.addEventListener('change',positionSignup);
+  else desktop.addListener(positionSignup);
+})();
