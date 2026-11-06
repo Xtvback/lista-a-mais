@@ -2283,3 +2283,18 @@ main :target{scroll-margin-top:calc(92px + env(safe-area-inset-top,0px))}
 @media(min-width:1421px){
   .site-header .main-menu{flex-wrap:wrap}
 }
+
+
+/* Inscrição de Associados na faixa superior azul — desktop */
+@media(min-width:761px){
+  .topline .container{display:flex;align-items:center;justify-content:space-between;gap:12px 20px;min-height:42px;flex-wrap:wrap}
+  .topline .apee-signup-top{display:inline-flex;align-items:center;justify-content:center;white-space:nowrap;padding:10px 17px;border-radius:10px;background:#ffd04c;color:#153e70;font-size:.86rem;font-weight:850;line-height:1.15;text-decoration:none;box-shadow:0 2px 10px rgba(4,20,58,.12);min-height:38px}
+  .topline .apee-signup-top:hover{background:#ffe082;color:#0e3767}
+  .topline .apee-signup-top:focus-visible{outline:3px solid #fff;outline-offset:3px}
+  .topline .container>span:first-child{margin-right:auto}
+  .topline .container>span:nth-child(2){white-space:nowrap}
+}
+@media(min-width:761px) and (max-width:1050px){
+  .topline .container{gap:8px 14px}
+  .topline .apee-signup-top{font-size:.8rem;padding:8px 12px}
+}
