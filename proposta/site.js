@@ -68,3 +68,14 @@ const b=document.getElementById('menuButton'),m=document.getElementById('mainMen
   }catch(_){}
  });
 })();
+
+
+/* Espaço Associado: o login e os documentos usam a mesma origem do Worker. */
+(function(){
+ const href='https://associados.apeebairrodorestelo.com/';
+ for(const nav of document.querySelectorAll('#mainMenu, .foot-links')){
+  if(nav.querySelector('a[href="'+href+'"]'))continue;
+  const link=document.createElement('a');link.href=href;link.textContent='Espaço Associado';
+  nav.insertBefore(link,nav.id==='mainMenu'?nav.querySelector('.signup-nav-link'):null);
+ }
+})();

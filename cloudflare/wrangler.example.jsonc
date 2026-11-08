@@ -1,0 +1,39 @@
+{
+  "name": "apee-associados",
+  "main": "associados-worker.js",
+  "compatibility_date": "2026-07-29",
+  "compatibility_flags": [
+    "nodejs_compat"
+  ],
+  "workers_dev": true,
+  "preview_urls": false,
+  "vars": {
+    "SITE_ORIGIN": "https://associados.apeebairrodorestelo.com",
+    "PUBLIC_ORIGIN": "https://associados.apeebairrodorestelo.com",
+    "API_ORIGIN": "https://apee-associados.xtvback2.workers.dev",
+    "RELEASE_ENABLED": "false",
+    "MAIL_DISPATCH_ENABLED": "false"
+  },
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "apee-associados",
+      "database_id": "20f14590-277f-4634-a77e-f48e95498aab",
+      "migrations_dir": "../migrations"
+    }
+  ],
+  "rules": [
+    {
+      "type": "Text",
+      "globs": [
+        "**/*.html"
+      ],
+      "fallthrough": true
+    }
+  ],
+  "triggers": {
+    "crons": [
+      "17 3 * * *"
+    ]
+  }
+}

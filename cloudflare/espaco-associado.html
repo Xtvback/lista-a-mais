@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="pt-PT"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Espaço Associado · APEE Bairro do Restelo</title><meta name="robots" content="noindex"><meta name="referrer" content="no-referrer">
+<style>
+:root{font-family:Inter,system-ui,sans-serif;color:#183c61;background:#f3f8fc}*{box-sizing:border-box}
+.ap-shell{max-width:940px;margin:42px auto;padding:0 20px}.ap-head{background:#12549b;color:white;border-radius:22px;padding:30px;display:flex;gap:18px;align-items:center}.ap-head img{width:78px;height:78px;object-fit:contain;border-radius:14px;background:white}.ap-head h1{margin:0;font-size:clamp(1.5rem,4vw,2.3rem)}.ap-head p{margin:8px 0 0}.ap-card{background:white;border:1px solid #dce9f4;border-radius:18px;padding:26px;margin-top:20px;box-shadow:0 9px 28px #0d488013}.ap-card h2{margin:0 0 12px}.ap-card p{line-height:1.6}.ap-field{display:block;margin:14px 0 5px;font-weight:700}.ap-input{width:100%;max-width:560px;padding:13px;border:1px solid #9eb9d1;border-radius:10px;font:inherit}.ap-btn{background:#145bb2;border:0;border-radius:10px;padding:13px 19px;color:#fff;font-weight:750;cursor:pointer;margin-top:16px}.ap-btn:disabled{opacity:.55;cursor:wait}.ap-link{color:#13569d;text-decoration:underline}.ap-message{min-height:1.5em;margin:14px 0 0}.ap-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px}.ap-file{border:1px solid #dce9f4;border-radius:13px;padding:16px}.ap-muted{color:#526c83}.ap-hide{display:none!important}@media(max-width:500px){.ap-head{padding:20px}.ap-head img{width:52px;height:52px}.ap-card{padding:20px}}
+</style></head><body>
+<main class="ap-shell">
+<header class="ap-head"><img src="https://apeebairrodorestelo.com/partilha-apee.png" alt="APEE Bairro do Restelo"><div><h1>Espaço Associado</h1><p>APEE Bairro do Restelo · Juntos Somamos Mais</p></div></header>
+<section class="ap-card" id="login"><h2>Entrar na área reservada</h2><p>Utilize o email associado à sua inscrição e a palavra-passe que definiu na ativação.</p>
+<form id="loginForm"><label class="ap-field" for="email">Email</label><input class="ap-input" id="email" type="email" required autocomplete="username">
+<label class="ap-field" for="password">Palavra-passe</label><input class="ap-input" id="password" type="password" required autocomplete="current-password" minlength="15" maxlength="128">
+<div><button class="ap-btn" type="submit">Entrar</button></div></form>
+<p><button class="ap-link" id="recover" type="button" style="border:0;background:none;padding:0;font:inherit;cursor:pointer">Ativar conta ou recuperar palavra-passe</button></p><p role="status" class="ap-message" id="loginMsg"></p></section>
+<section class="ap-card ap-hide" id="reset"><h2 id="resetTitle">Definir palavra-passe</h2><form id="resetForm">
+<label class="ap-field" for="newPassword">Nova palavra-passe (mínimo de 15 caracteres)</label><input class="ap-input" id="newPassword" type="password" required minlength="15" maxlength="128" autocomplete="new-password"><div><button class="ap-btn" type="submit">Guardar palavra-passe</button></div></form><p role="status" class="ap-message" id="resetMsg"></p></section>
+<section class="ap-card ap-hide" id="dashboard"><div style="display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap"><h2 id="greeting">Documentação dos associados</h2><button class="ap-btn" id="logout" type="button">Sair</button></div><p class="ap-muted">Documentação exclusiva, organizada pela Direção.</p><div class="ap-grid" id="documents"></div><p role="status" id="docsMsg"></p></section>
+<footer style="padding:24px 4px"><a class="ap-link" href="https://apeebairrodorestelo.com/">← Voltar ao site da APEE</a></footer>
+</main>
+<script>
+'use strict';
+/* A API só fica ativa após configuração do domínio Cloudflare. Sem API, nunca simular autenticação. */
+const API=location.origin;
+const resetToken=new URLSearchParams(location.hash.slice(1)).get('token');
+if(resetToken)history.replaceState({},'',location.pathname);
+const $=id=>document.getElementById(id);
+const msg=(id,t)=>$(id).textContent=t;
+const req=async(path,options={})=>{
+ const r=await fetch(API+path,{...options,credentials:'include',headers:{'Content-Type':'application/json',...(options.headers||{})}});
+ const d=await r.json().catch(()=>({}));if(!r.ok)throw new Error(d.error||'Não foi possível concluir o pedido.');return d;
+};
+function show(id){for(const v of ['login','reset','dashboard'])$(v).classList.toggle('ap-hide',v!==id)}
+function renderDocs(items){
+ $('documents').replaceChildren();
+ if(!items.length){msg('docsMsg','Ainda não existem documentos publicados nesta área.');return}
+ msg('docsMsg','');
+ for(const doc of items){const card=document.createElement('article');card.className='ap-file';
+ const h=document.createElement('h3');h.textContent=doc.title;const p=document.createElement('p');p.textContent=doc.category||'Documento';
+ const a=document.createElement('a');a.className='ap-link';a.href=API+'/api/documents/'+encodeURIComponent(doc.id);a.target='_blank';a.rel='noopener noreferrer';a.textContent='Consultar documento';
+ card.append(h,p,a);$('documents').append(card)}
+}
+async function dashboard(){const me=await req('/api/me');if(!me.authenticated){show('login');return}show('dashboard');$('greeting').textContent='Olá, '+me.name;renderDocs((await req('/api/documents')).documents||[])}
+$('loginForm').addEventListener('submit',async e=>{e.preventDefault();msg('loginMsg','A verificar…');const btn=e.target.querySelector('button');btn.disabled=true;try{await req('/api/login',{method:'POST',body:JSON.stringify({email:$('email').value,password:$('password').value})});$('password').value='';await dashboard()}catch(err){msg('loginMsg',err.message)}finally{btn.disabled=false}});
+$('recover').addEventListener('click',async()=>{const email=$('email').value.trim();if(!email){msg('loginMsg','Introduza primeiro o email usado na inscrição.');return}msg('loginMsg','A enviar instruções…');try{await req('/api/recovery',{method:'POST',body:JSON.stringify({email})});msg('loginMsg','Se este email estiver associado a uma inscrição ativa, o pedido será processado. Verifique a caixa de entrada e o spam dentro de alguns minutos.')}catch(err){msg('loginMsg',err.message)}});
+$('resetForm').addEventListener('submit',async e=>{e.preventDefault();const token=resetToken;try{await req('/api/reset',{method:'POST',body:JSON.stringify({token,password:$('newPassword').value})});$('newPassword').value='';history.replaceState({},'',location.pathname);show('login');msg('loginMsg','Palavra-passe guardada. Já pode entrar.')}catch(err){msg('resetMsg',err.message)}});
+$('logout').addEventListener('click',async()=>{try{await req('/api/logout',{method:'POST',body:'{}'});show('login');msg('loginMsg','Sessão terminada.')}catch(err){msg('docsMsg','Não foi possível terminar a sessão. Tente novamente.')}});
+if(resetToken)show('reset');else dashboard().catch(()=>msg('loginMsg','Área reservada em configuração. O acesso ainda não está disponível.'));
+</script></body></html>
