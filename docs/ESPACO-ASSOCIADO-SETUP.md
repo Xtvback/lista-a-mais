@@ -18,7 +18,7 @@
 | Migrações principal | 001, 002 e 003 aplicadas e registadas em `d1_migrations` |
 | Associados principal | Cinco registos, números 0001–0005, importados sem passwords ou mensagens de ativação |
 | Worker principal | Código e binding D1 criados; `RELEASE_ENABLED=false`, `MAIL_DISPATCH_ENABLED=false`; workers.dev e previews desativados |
-| Worker de testes | `apee-associados-testes`, conta sintética e conta interna APEE sem password; envios desativados |
+| Worker de testes | `apee-associados-testes`, conta sintética e conta interna APEE com password escolhida pelo utilizador; entrada/saída verificadas e envios desativados |
 | R2 | Continua desativado. Não faz parte desta solução |
 | Apps Script novo | Projeto `1NuifHAN-B3W7u-fBkZhzlrUG2Ni-qM-5zSlvqSg63lz0-L-4ICu4CCAf`; Google Sheets API ativa; diagnóstico concluído com 5 associados; propriedades privadas guardadas; sem acionador nem envios |
 | Limpeza diária | Cron `17 3 * * *` nos dois Workers, confirmado pela API; remove apenas tokens/contadores/fila expirados e entregas antigas |
@@ -46,7 +46,7 @@ Permissões declaradas: ler Google Sheets; pedidos externos; enviar email; gerir
 
 A leitura usa Google Sheets REST `values:batchGet` com `FORMATTED_VALUE` (preserva 0001) e apenas os intervalos B:D e F:F. O token OAuth Google só é enviado a sheets.googleapis.com; a sincronização Cloudflare usa uma chave distinta. `SpreadsheetApp.openById` foi substituído porque exige o scope de escrita, mesmo quando usado apenas para ler. O consentimento para os quatro scopes foi concedido e Google Sheets API foi ativada após autorização explícita dos termos Google APIs. O diagnóstico real terminou com sucesso, confirmando 5 associados e permissões de email/acionadores, sem enviar mensagens nem criar acionadores nessa verificação.
 
-As seis propriedades de ligação principal/teste estão guardadas no novo projeto, com `APEE_SEND_EMAILS=false` e filtro interno para a caixa APEE. A chave BRIDGE_SECRET principal foi renovada e configurada no Worker e no Apps Script; ADMIN_SECRET e SESSION_PEPPER foram preservados. A conectividade principal só poderá ser validada quando o endereço técnico estiver habilitado, mantendo o bloqueio de publicação até concluir os testes. A conta interna de teste existe apenas na D1 de testes e não tem password.
+As seis propriedades de ligação principal/teste estão guardadas no novo projeto, com `APEE_SEND_EMAILS=false` e filtro interno para a caixa APEE. A chave BRIDGE_SECRET principal foi renovada e configurada no Worker e no Apps Script; ADMIN_SECRET e SESSION_PEPPER foram preservados. A conectividade principal só poderá ser validada quando o endereço técnico estiver habilitado. A conta interna de teste existe apenas na D1 de testes; a password foi escolhida pelo utilizador, sem ficar visível ao agente.
 
 Propriedades privadas necessárias:
 
@@ -77,15 +77,25 @@ O envio para quando restam 25 destinatários de quota, preservando margem para o
 - Prova sintética inicial de scrypt no Workers Free concluída com HTTP 200. O Worker temporário de runtime ficou inacessível publicamente depois do teste.
 - As chamadas HTTP identificam a aplicação com User-Agent descritivo, conforme documentação Cloudflare; o cliente urllib predefinido é rejeitado com 1010 em workers.dev.
 - Teste real de email autorizado em 08/11/2026: um pedido para a conta interna APEE na D1 de testes, uma tentativa de entrega confirmada e payload cifrado apagado após ack. A mensagem foi recebida na caixa APEE às 10:24 UTC; a ligação recebida abriu o formulário de definição de palavra-passe no Worker de testes e o fragmento foi removido do endereço. Envios do Worker de testes voltaram a `false` logo após a entrega. Nenhum associado recebeu mensagens.
-- O seletor de funções do editor Google falhou durante o teste; foi usada uma chamada temporária à função `testApeeMail` a partir da função já selecionada. O código foi integralmente restaurado e conferido com o SHA-256 da versão no repositório (`c168538d518061aa78fbd0da19c5125974c72fdbf4c4f709509b92d755bce064`). Nenhum acionador foi criado. A introdução de uma password para esta conta interna de teste aguarda o utilizador.
+- O seletor de funções do editor Google falhou durante o teste; foi usada uma chamada temporária à função `testApeeMail` a partir da função já selecionada. O código foi integralmente restaurado e conferido com o SHA-256 da versão no repositório (`c168538d518061aa78fbd0da19c5125974c72fdbf4c4f709509b92d755bce064`). Nenhum acionador foi criado.
+- O utilizador definiu a password pela ligação recebida. A interface confirmou o sucesso; a D1 confirmou `credential_version=1`, password presente e zero tokens de recuperação. A entrada foi feita através do formulário seguro, mostrou a área reservada e o documento sintético; após sair, a D1 confirmou zero sessões ativas. A password não foi lida pelo agente. Corrigida também a mensagem após sair e a limpeza do campo de nova password depois de uma definição bem-sucedida; sintaxe e versão servida verificadas.
+- O menu/rodapé e a página de entrada do site estão preparados nesta branch para apontar para o Worker, mas não foram publicados nem integrados no main.
+
+## Bloqueio atual de disponibilização
+
+Após os testes reais de recuperação e entrada, foi tentada a habilitação do endereço técnico do Worker principal, com guardas verificadas `RELEASE_ENABLED=false` e `MAIL_DISPATCH_ENABLED=false`. A revisão automática rejeitou a ação por considerar que abrir persistentemente workers.dev antecedia a validação/publicação autorizada. Não foi usada outra rota para contornar a rejeição. A API confirmou que o subdomínio e os previews continuam desativados; os cinco associados principais continuam sem passwords e com zero mensagens em fila. É necessária autorização explícita antes de repetir a abertura do endereço. Até lá não executar `installApeeBridge`, que depende desse endereço.
+
+## Documentação identificada
+
+Foi localizada a última ata com adenda e correção de Andrea, datada de 04/11/2026, com cerca de 1,22 MB, compatível com o limite de armazenamento. Contém um anexo de presenças com emails e dados de alunos; não foi carregada nem disponibilizada. A versão de estatutos encontrada na Drive é anterior à Assembleia Geral de 30/10/2026 e não foi tratada como versão oficial final. O site atual também identifica os documentos oficiais como pendentes. O portal pode ficar preparado para receber documentos, mantendo a lista vazia até definir as versões adequadas para consulta.
 
 ## Pendências antes da publicação
 
-1. Validar conectividade Apps Script/Worker principal e instalar o acionador de cinco em cinco minutos, quando o endereço técnico estiver disponível. Ainda não foi criado acionador no novo projeto.
-2. Concluir a definição de password pela ligação já recebida na conta interna de testes; verificar consumo do token e acesso. Entrega/receção e abertura do formulário já confirmadas. A autorização abrangeu um único email interno; novos envios de teste exigem autorização específica. Nenhum convite a associados está autorizado.
+1. Obter autorização explícita para disponibilizar o endereço, validar a ligação principal e instalar o acionador de cinco em cinco minutos. Ainda não foi criado acionador no novo projeto.
+2. Recuperação real, entrada e saída estão verificadas. A autorização de teste abrangeu um único email interno, já entregue; não repetir envios sem autorização. A operação final deve enviar apenas emails pedidos pelo próprio associado para acesso/recuperação, sem convites automáticos.
 3. Carregar apenas documentação identificada/aprovada, sem expor os ficheiros no repositório. PDFs acima de 1,8 MB precisam de otimização ou avaliação específica.
-4. Testar a interface em Safari/iPhone, recuperação real, expiração, estado desativado e consulta dos documentos finais.
-5. Só depois abrir o Worker principal, ativar o acesso e integrar o link/menu no site. A tentativa de abrir workers.dev antes desta fase foi bloqueada pela revisão automática e não foi contornada.
+4. A interface real foi verificada em Chrome; Safari/iPhone não foi validado neste ambiente. Rever documentos finais antes de os disponibilizar. Expiração, estado desativado e acesso a PDFs foram verificados com testes locais e remotos.
+5. Após autorização e verificação da ligação principal, ativar acesso e emails a pedido, remover o filtro de destinatário de teste e integrar o link/menu no site. Enquanto os documentos não estiverem confirmados, manter a lista vazia. A abertura de workers.dev permanece bloqueada pela revisão automática e não foi contornada.
 6. Rever acessos, cópias de segurança e retenção de dados. Limpeza diária já configurada e confirmada. Não adicionar faturação nem mudar DNS/nameservers.
 
 Referências: [Workers](https://developers.cloudflare.com/workers/platform/limits/), [D1](https://developers.cloudflare.com/d1/platform/limits/), [Apps Script](https://developers.google.com/apps-script/guides/services/quotas).
