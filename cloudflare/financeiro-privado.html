@@ -69,37 +69,4 @@ footer{padding:25px 16px;text-align:center;background:#153e70;color:white;font-s
 <div class="stat glass"><div class="stat-icon">♡</div><div><span class="label">Donativos</span><strong id="donations">—</strong><small id="donation-note">Nenhum donativo registado</small></div></div>
 </div>
 <div class="split">
-<section class="panel glass"><h2>De onde vem o saldo?</h2><p>Distribuição do valor de abertura e das saídas registadas.</p><div class="chart-key"><span><i class="dot" style="background:#2776b9"></i>Saldo remanescente</span><b id="remaining-percent">—</b></div><div class="chart-track" role="img" aria-label="Proporção das despesas em relação ao saldo de abertura"><span id="spent-bar" class="chart-part" style="width:0"></span></div><div class="chart-key"><span><i class="dot" style="background:#e49a4e"></i>Despesas sobre abertura</span><b id="spent-percent">—</b></div><p class="empty">O gráfico é ilustrativo e compara despesas com o saldo inicial; não substitui o extrato bancário.</p></section>
-<section class="panel glass"><h2>Movimentos financeiros</h2><p>Registos por data, da operação mais recente para a mais antiga.</p><div id="movements"></div></section>
-</div>
-<p class="notice glass">Os valores apresentados incluem apenas os movimentos já registados pela APEE. O saldo apurado não é uma confirmação automática do saldo bancário. Esta página não contém dados bancários nem informações pessoais de doadores.</p>
-</div>
-</main><footer>APEE Bairro do Restelo · Área reservada aos associados</footer>
-<script>
-(function(){
-'use strict';
-const eur=new Intl.NumberFormat('pt-PT',{style:'currency',currency:'EUR'});
-const money=c=>eur.format(c/100);
-const date=s=>new Intl.DateTimeFormat('pt-PT',{day:'2-digit',month:'short',year:'numeric',timeZone:'UTC'}).format(new Date(s+'T12:00:00Z'));
-const el=id=>document.getElementById(id);
-fetch('/api/finance',{credentials:'include',headers:{'Accept':'application/json'}}).then(async r=>{if(!r.ok)throw Error('Não foi possível consultar os movimentos.');return r.json()}).then(data=>{
-const t=data.totals;
-el('balance').textContent=money(t.balance_cents);
-el('opening').textContent=money(t.opening_cents);
-el('expenses').textContent=money(t.expenses_cents);
-el('donations').textContent=money(t.donations_cents);
-el('donation-note').textContent=t.donation_count===0?'Nenhum donativo registado':t.donation_count+' donativo(s) registado(s)';
-el('asof').textContent='Movimentos registados desde 13 de outubro de 2026 · Atualizado conforme os lançamentos disponíveis';
-const ratio=t.opening_cents>0?Math.min(100,Math.round(t.expenses_cents/t.opening_cents*100)):0;
-el('spent-percent').textContent=ratio+'%';el('remaining-percent').textContent=Math.max(0,100-ratio)+'%';el('spent-bar').style.width=ratio+'%';
-const list=el('movements');
-if(!data.movements.length){list.textContent='Ainda não existem movimentos.'}
-for(const m of data.movements){const row=document.createElement('div');row.className='movement';
- const icon=document.createElement('span');icon.className='mov-icon';icon.textContent=m.kind==='expense'?'↘':m.kind==='opening'?'◈':'↗';
- const copy=document.createElement('div');copy.className='mov-copy';const title=document.createElement('strong');title.textContent=m.description;const info=document.createElement('small');info.textContent=date(m.movement_date)+' · '+m.category;copy.append(title,info);
- const amount=document.createElement('span');amount.className='mov-value'+(m.kind==='expense'?' expense':'');amount.textContent=(m.kind==='expense'?'−':'+')+money(m.amount_cents);
- row.append(icon,copy,amount);list.append(row);}
-el('loading').hidden=true;el('finance-data').hidden=false;
-}).catch(()=>{el('loading').textContent='Não foi possível carregar a informação financeira. Volte a tentar mais tarde.';});
-})();
-</script></body></html>
+<section class="panel glass"><h2>De onde vem o saldo?</h2><p>Distribuição do valor de abertura e das saídas registadas.</p><div class="chart-key"><span><i class="dot" style="background:#2776b9"></i>Saldo remanescente</ --- TRUNCATED --- 11,014 chars
