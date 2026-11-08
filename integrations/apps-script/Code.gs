@@ -4,7 +4,7 @@ function apeeConfig_() {
   var origin = p.getProperty('APEE_API_ORIGIN') || '';
   var secret = p.getProperty('APEE_BRIDGE_SECRET') || '';
   if (!/^https:\/\/apee-associados(?:-testes)?\.xtvback2\.workers\.dev$/.test(origin) || secret.length < 32) throw new Error('Configuração de acesso em falta.');
-  return { origin: origin, secret: secret, sheet: '1jX19ukDbyIvNJNvJck89w6hW33vpIpO_toy6bfrGRb4', send: p.getProperty('APEE_SEND_EMAILS') === 'true', testEmail: p.getProperty('APEE_TEST_EMAIL') || '' };
+  return { origin: origin, secret: secret, sheet: '1jX19ukDbyIvNJNvJck89w6hW33vpIpO_toy6bfrGRb4', send: p.getProperty('APEE_SEND_EMAILS') === 'true', invite: p.getProperty('APEE_SEND_INVITES') === 'true', testEmail: p.getProperty('APEE_TEST_EMAIL') || '' };
 }
 function apeeApi_(cfg, path, body) {
   var response = UrlFetchApp.fetch(cfg.origin + path, {method:'post', contentType:'application/json', headers:{Authorization:'Bearer ' + cfg.secret}, payload:JSON.stringify(body), muteHttpExceptions:true, followRedirects:false});
@@ -38,9 +38,11 @@ function apeeReadMembers_(cfg) {
 function apeeSync_(cfg) {
   var members = apeeReadMembers_(cfg), p = PropertiesService.getScriptProperties();
   var digest = apeeDigest_(cfg.origin + JSON.stringify(members));
-  if (p.getProperty('APEE_LAST_SYNC') === digest) return;
-  apeeApi_(cfg, '/internal/members/sync', {members:members});
-  p.setProperty('APEE_LAST_SYNC',digest);
+  if (p.getProperty('APEE_LAST_SYNC') !== digest) {
+    apeeApi_(cfg, '/internal/members/sync', {members:members});
+    p.setProperty('APEE_LAST_SYNC',digest);
+  }
+  return members;
 }
 function apeeMail_(cfg) {
   if (!cfg.send || MailApp.getRemainingDailyQuota() <= 25) return;
@@ -60,9 +62,25 @@ function apeeMail_(cfg) {
     apeeApi_(cfg,'/internal/mail/ack',{id:m.id,lease:m.lease});
   }
 }
+function apeeInvites_(cfg,members) {
+  if(!cfg.send || !cfg.invite || cfg.testEmail || cfg.origin!=='https://apee-associados.xtvback2.workers.dev') return;
+  var p=PropertiesService.getScriptProperties();
+  for(var i=0;i<members.length;i++) {
+    var m=members[i], key='APEE_INVITED_'+apeeDigest_(cfg.origin+'|'+m.member_number+'|'+m.email);
+    if(p.getProperty(key)) continue;
+    if(MailApp.getRemainingDailyQuota()<=25) break;
+    if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(m.email)) throw new Error('Email do convite inválido. Requer revisão.');
+    // Record the attempt first: an uncertain/crashed send must never trigger an automatic duplicate.
+    p.setProperty(key,'pending:'+Date.now());
+    try {
+      MailApp.sendEmail({to:m.email,subject:'APEE Bairro do Restelo — Convite para o Espaço Associado',name:'APEE Bairro do Restelo',body:'Olá, '+m.full_name+',\n\nO Espaço Associado da APEE Bairro do Restelo já está disponível.\n\nAceda aqui:\n'+cfg.origin+'/\n\nNo primeiro acesso:\n1. Introduza o email usado na sua inscrição.\n2. Escolha «Ativar conta ou recuperar palavra-passe».\n3. Abra a ligação que receber por email e escolha a sua palavra-passe (mínimo de 15 caracteres).\n\nSe já definiu a sua palavra-passe, pode entrar diretamente. A documentação da Associação será disponibilizada nesta área.\n\nJuntos Somamos Mais!\nAPEE Bairro do Restelo'});
+      p.setProperty(key,'sent:'+Date.now());
+    } catch(err) { throw new Error('Convite com entrega não confirmada. Rever o registo privado antes de reenviar.'); }
+  }
+}
 function apeeBridgeTick() {
   var lock=LockService.getScriptLock(); if(!lock.tryLock(1000)) return;
-  try {var cfg=apeeConfig_(); apeeSync_(cfg); apeeMail_(cfg);} finally {lock.releaseLock();}
+  try {var cfg=apeeConfig_(), members=apeeSync_(cfg); apeeMail_(cfg); apeeInvites_(cfg,members);} finally {lock.releaseLock();}
 }
 function installApeeBridge() {
   // No email is sent during installation. No pre-existing trigger is removed.
