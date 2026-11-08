@@ -86,4 +86,60 @@ async function route(req,env,body){
   const h=await passwordHash(b.password,m?.password_salt||'00000000000000000000000000000000',env);
   if(!m?.password_hash||!validPasswordHash(h,m.password_hash))return json({error:'Credenciais inválidas.'},401);
   const t=token(),hash=await sha(t+env.SESSION_PEPPER),expiry=now()+7*86400;
-  const inserted=await env.DB.prepare("INSERT INTO tokens(token_hash,member_id,purpose,expires_at,credential_version) SELECT ?,id,'session',? --- TRUNCATED --- 15,174 chars
+  const inserted=await env.DB.prepare("INSERT INTO tokens(token_hash,member_id,purpose,expires_at,credential_version) SELECT ?,id,'session',?,credential_version FROM members WHERE id=? AND status='active' AND credential_version=?").bind(hash,expiry,m.id,m.credential_version).run();
+  if(inserted.meta.changes!==1)return json({error:'Credenciais inválidas.'},401);
+  return json({ok:true},200,{'set-cookie':cookie(t,7*86400)});
+ }
+ if(method==='POST'&&p==='/api/logout'){
+  const match=(req.headers.get('Cookie')||'').match(/(?:^|;\s*)__Host-apee_session=([a-f0-9]{64})/);
+  if(match)await env.DB.prepare("DELETE FROM tokens WHERE token_hash=?").bind(await sha(match[1]+env.SESSION_PEPPER)).run();
+  return json({ok:true},200,{'set-cookie':cookie('',0)})
+ }
+ if(method==='GET'&&p==='/api/my-card'){
+  // Never accept an arbitrary member ID: always derive identity from the signed session.
+  const m=await member(req,env);if(!m)return json({error:'Inicie sessão para consultar o seu cartão.'},401);
+  const card=await env.DB.prepare('SELECT pdf_base64 FROM member_cards WHERE member_number=?').bind(m.member_number).first();
+  if(!card)return json({error:'O seu cartão ainda não está disponível. Contacte a APEE.'},404);
+  const raw=atob(card.pdf_base64),pdf=new Uint8Array(raw.length);for(let i=0;i<raw.length;i++)pdf[i]=raw.charCodeAt(i);
+  return new Response(pdf,{headers:{'content-type':'application/pdf','content-disposition':'inline; filename="cartao-associado.pdf"','cache-control':'private, no-store, max-age=0','pragma':'no-cache','x-content-type-options':'nosniff','x-robots-tag':'noindex, nofollow','referrer-policy':'no-referrer','content-security-policy':"sandbox; default-src 'none'"}});
+ }
+ if(method==='GET'&&p==='/api/documents'){
+  const m=await member(req,env);if(!m)return json({error:'Acesso reservado.'},401);
+  const data=await env.DB.prepare("SELECT id,title,category FROM documents WHERE active=1 ORDER BY category,title").all();
+  return json({documents:data.results||[]});
+ }
+ if(method==='GET'&&p.startsWith('/api/documents/')){
+  const m=await member(req,env);if(!m)return json({error:'Acesso reservado.'},401);
+  const id=decodeURIComponent(p.slice('/api/documents/'.length));
+  if(!/^[\w-]{1,80}$/.test(id))return json({error:'Documento inválido.'},400);
+  const row=await env.DB.prepare("SELECT r2_key,title FROM documents WHERE id=? AND active=1").bind(id).first();
+  if(!row)return json({error:'Documento não encontrado.'},404);
+  const obj=await env.DB.prepare('SELECT content FROM document_content WHERE document_id=?').bind(id).first();if(!obj)return json({error:'Documento não encontrado.'},404);
+  const headers=new Headers({'content-type':'application/pdf','content-disposition':'inline; filename="documento.pdf"','cache-control':'private, no-store','x-content-type-options':'nosniff','content-security-policy':"sandbox; default-src 'none'"});
+  return new Response(new Uint8Array(obj.content),{headers});
+ }
+ return json({error:'Rota não encontrada.'},404);
+}
+export default {async fetch(req,env){
+ const origin=req.headers.get('Origin');
+ const headers=cors(req,env);
+ const path=new URL(req.url).pathname;
+ if(env.PUBLIC_ORIGIN && req.method==='GET' && !path.startsWith('/internal/') && new URL(req.url).origin!==env.PUBLIC_ORIGIN) return Response.redirect(env.PUBLIC_ORIGIN+path+new URL(req.url).search,308);
+ if(path.startsWith('/internal/')){
+  if(!internalAuthorized(req,env,path))return json({error:'Acesso reservado.'},401);
+  if(req.method!=='POST')return json({error:'Método inválido.'},405);
+  try{return await internalRoute(path,await readBody(req,path==='/internal/documents/upload'?2500000:20000),env)}catch(e){return json({error:'Pedido interno não concluído.'},[400,413,415].includes(e.status)?e.status:503)}
+ }
+ if(env.RELEASE_ENABLED!=='true')return json({error:'Espaço Associado ainda em preparação.'},503,headers);
+ if(req.method==='GET'&&path==='/documentos'){
+  if(!env.DB||!env.SESSION_PEPPER)return json({error:'Serviço em configuração.'},503);
+  const current=await member(req,env);
+  if(!current)return Response.redirect((env.PUBLIC_ORIGIN||new URL(req.url).origin)+'/',302);
+  return new Response(documentPage,{headers:{'content-type':'text/html; charset=utf-8','cache-control':'private, no-store','referrer-policy':'no-referrer','x-content-type-options':'nosniff','x-robots-tag':'noindex, nofollow','content-security-policy':"default-src 'none'; script-src 'unsafe-inline'; style-src 'unsafe-inline'; img-src https://apeebairrodorestelo.com; connect-src 'self'; base-uri 'none'; form-action 'self'; frame-ancestors 'none'"}});
+ }
+ if(req.method==='GET'&&path==='/parcerias'){
+  if(env.RELEASE_ENABLED!=='true')return json({error:'Área reservada indisponível.'},503);
+  if(!env.DB||!env.SESSION_PEPPER)return json({error:'Serviço em configuração.'},503);
+  const m=await member(req,env);
+  if(!m)return Response.redirect(env.PUBLIC_ORIGIN+'/',302);
+  return new Response(partnershipPage,{headers:{'content-type':'text/html; charset=utf-8','cache-control':'private, no-store','referrer-policy':'no-referrer','x-content-type-options':'nosniff','x-robots-tag':'noindex, nofollow','content-security-policy':"default-src 'none'; style-src 'unsafe-inline' https://apeebairrodorestelo.co --- TRUNCATED --- 15,202 chars
