@@ -76,39 +76,32 @@ Convites: a lista vem dos cartões com estado Enviado e só é processada depois
 
 ## Validação realizada
 
-- `npm test --prefix cloudflare`: 27 testes locais em Node/workerd/Miniflare, com D1 local e testes do módulo Apps Script através de serviços Google simulados. Incluem autenticação, primeiro acesso, replay concorrente, recuperação, revogação, estado de associado, PDFs D1, origem, tamanho, rate limiting, scopes internos, sincronização e leases da fila. O bloqueio antes de publicação foi testado. Incluem também leitura apenas dos intervalos necessários, separação do token Google/chave Cloudflare, interrupção da sincronização quando a leitura é recusada e quatro casos de convites: envio único e novos associados, quota/reserva para cartões, ativação explícita/ambiente e entrega incerta sem duplicação automática.
-- 15 verificações de integração numa versão de testes no Cloudflare Workers Free e D1 EU isolado: definir password, login, cookie, documento privado e logout, sem emails reais.
-- Oito verificações adicionais da versão com envios desativados: confirma 503 na recuperação/claim, login, PDF D1 com CSP sandbox e revogação. Sem emails reais.
-- Prova sintética inicial de scrypt no Workers Free concluída com HTTP 200. O Worker temporário de runtime ficou inacessível publicamente depois do teste.
-- As chamadas HTTP identificam a aplicação com User-Agent descritivo, conforme documentação Cloudflare; o cliente urllib predefinido é rejeitado com 1010 em workers.dev.
-- Teste real de email autorizado em 08/11/2026: um pedido para a conta interna APEE na D1 de testes, uma tentativa de entrega confirmada e payload cifrado apagado após ack. A mensagem foi recebida na caixa APEE às 10:24 UTC; a ligação recebida abriu o formulário de definição de palavra-passe no Worker de testes e o fragmento foi removido do endereço. Envios do Worker de testes voltaram a `false` logo após a entrega. Nesse teste não foram enviadas mensagens aos associados.
-- O seletor de funções do editor Google falhou durante o teste; foi usada uma chamada temporária à função `testApeeMail` a partir da função já selecionada. Naquela verificação inicial, o código foi restaurado e conferido com o SHA-256 (`c168538d518061aa78fbd0da19c5125974c72fdbf4c4f709509b92d755bce064`). Não foi criado acionador durante esse teste; o acionador definitivo foi instalado depois, com autorização de publicação.
-- O utilizador definiu a password pela ligação recebida. A interface confirmou o sucesso; a D1 confirmou `credential_version=1`, password presente e zero tokens de recuperação. A entrada foi feita através do formulário seguro, mostrou a área reservada e o documento sintético; após sair, a D1 confirmou zero sessões ativas. A password não foi lida pelo agente. Corrigida também a mensagem após sair e a limpeza do campo de nova password depois de uma definição bem-sucedida; sintaxe e versão servida verificadas.
-- Menu/rodapé e página de entrada apontam para o Worker principal; esta alteração acompanha a publicação do PR.
-- Produção: cinco verificações HTTP confirmaram portal 200/no-store, ausência de sessão anónima, listagem/download de documentos protegidos e endpoint interno sem acesso anónimo.
-- Sincronização real integrou o sexto associado do registo, preservando os anteriores e sem definir passwords. Um acionador de cinco minutos foi instalado; a fila principal foi consultada com sucesso.
-- Após autorização para enviar e automatizar convites, MailApp confirmou seis envios e zero entregas pendentes em 08/11/2026 às 10:54 UTC. O utilizador confirmou receção. O módulo de convites foi restaurado depois desse envio. As últimas alterações de domínio e reenvio deste repositório aguardam aplicação final no Google.
+- 27 testes em Node/workerd/Miniflare, com D1 local e serviços Google simulados: primeiro acesso, autenticação, recuperação, revogação, estado de associado, PDFs privados, limites, origem, permissões internas, sincronização, fila de email, quotas, convites, botões HTML e reenvio sem duplicação.
+- 15 verificações de integração no Workers Free e D1 EU isolado, incluindo definição de password, entrada, cookies, PDF privado e saída. Oito verificações adicionais confirmaram o comportamento com envios desligados. Sem emails a associados nestes testes.
+- Teste real autorizado para a caixa interna APEE: entrega recebida, definição de password pelo utilizador sem a revelar ao agente, token consumido, entrada pela interface e consulta de documento sintético. Após sair, zero sessões ativas. O ambiente de testes voltou a ter envios desligados.
+- Em 08/11/2026, 20 verificações na produção confirmaram HTTPS válido no domínio oficial, portal 200/no-store e CSP, sessão anónima ausente, documentos e endpoints internos protegidos, recusa de origem alheia, credenciais inexistentes recusadas, saída segura, redirecionamento antigo e raiz/www funcionais. Nenhum email enviado por estes testes.
+- Uma ligação antiga com fragmento sintético abriu o formulário de ativação no domínio oficial; o fragmento foi retirado do endereço pela página. Não foram alteradas credenciais reais.
+- Interface verificada em Chrome. Safari/iPhone não foi validado neste ambiente.
 
 ## Operação e publicação
 
-A publicação e a sincronização foram explicitamente autorizadas em 08/11/2026. Worker principal ativo, previews desligados; entrega de acesso/recuperação ativa apenas para pedidos recebidos. O utilizador autorizou depois o envio dos convites aos associados atuais e o envio automático aos próximos; o interruptor separado APEE_SEND_INVITES está ativo. Não foram ativados planos pagos, faturação ou R2.
+Publicação, sincronização e convites aos associados atuais e futuros foram explicitamente autorizados. Worker principal ativo; previews desligados. A integração lê o registo de cartões e possui um acionador de cinco minutos. Os cartões, QR, folha e acionadores anteriores permanecem inalterados. A D1 de produção contém oito associados ativos em 08/11/2026; as credenciais existentes foram preservadas.
 
-## Domínio oficial — configuração pendente
+Os primeiros seis convites foram enviados às 10:54 UTC, com receção confirmada pelo utilizador. O registo privado de envio passou entretanto a oito entregas confirmadas, sem pendentes. O utilizador autorizou um reenvio final após a conclusão do domínio; a campanha 2 permite esse envio uma única vez por associado, preservando todos os marcadores anteriores. Confirmar a contagem no projeto Google após a execução. Não apagar marcadores para forçar novos envios.
 
-O utilizador pediu que o acesso e todas as páginas públicas apresentem apenas o domínio da APEE. A zona `apeebairrodorestelo.com` foi criada na conta Cloudflare no plano Free Website, preço 0, sem subscrição/faturação. ID: `341519dd095e1efcd659aedf475163f8`. Estado: pending, enquanto a delegação pública continua na Namecheap.
+Não foram ativados planos pagos, faturação ou R2. O exemplo Wrangler mantém publicação e email desligados por defeito; em produção ambos estão ativos por autorização. O endereço workers.dev permanece disponível para o transporte interno autenticado e redireciona as páginas públicas para o domínio oficial.
 
-Foram importados e conferidos onze registos existentes: quatro A de GitHub Pages, www CNAME, cinco MX de encaminhamento Namecheap e TXT SPF. Acresce o registo gerido de `associados.apeebairrodorestelo.com`. Raiz e www mantêm DNS-only; o acesso associado usa o Custom Domain do Worker. TLS mínimo 1.2 e SSL strict configurados. A consulta pública não encontrou DS/DNSSEC ativo.
+## Domínio oficial
 
-Custom Domain ligado ao Worker, ainda dependente da ativação da zona: `associados.apeebairrodorestelo.com`, identificador `764c52a09ebd01b9f34e5704fa4d568883b091fe`. Não ativar o redirecionamento para este endereço antes de o DNS e HTTPS funcionarem.
+Zona `apeebairrodorestelo.com`, ID `341519dd095e1efcd659aedf475163f8`, no plano Free Website, preço 0, sem subscrição/faturação. Após autorização expressa no passo de gravação, os nameservers foram alterados na Namecheap para `penny.ns.cloudflare.com` e `quincy.ns.cloudflare.com`. Zona ativa desde 08/11/2026 às 11:44 UTC. Certificado Universal SSL ativo, HTTPS validado sem ignorar erros de certificado.
 
-Ação necessária no registo Namecheap: substituir os nameservers atuais por `penny.ns.cloudflare.com` e `quincy.ns.cloudflare.com`. Não foi alterada a delegação pelo agente. Depois:
-1. Verificar zona ativa, certificado e respostas HTTPS da raiz, www e associados.
-2. Publicar o Worker com SITE_ORIGIN e PUBLIC_ORIGIN no domínio dos associados. API_ORIGIN mantém o endereço interno workers.dev para o transporte autenticado; os links de recuperação compatíveis são transformados em botões com o domínio oficial pelo módulo Google.
-3. Atualizar o módulo Google para a versão deste repositório, configurar APEE_PUBLIC_ORIGIN e verificar os botões e a sincronização. O navegador de trabalho desligou-se depois da alteração inicial de emails para botões; esta versão final e o reenvio ainda não foram executados no Google.
-4. Integrar o PR com os três links públicos corrigidos. O rastreio de HTML/JS públicos não encontrou outros links GitHub; os únicos três endereços de alojamento estavam na entrada e nos dois scripts de navegação.
-5. Só depois executar o reenvio autorizado, com APEE_INVITE_CAMPAIGN=2, e confirmar contagens sem duplicação.
+Foram preservados onze registos existentes: quatro A do site, www CNAME, cinco MX Namecheap e TXT SPF. Foi confirmado que não existiam encaminhamentos de email configurados na Namecheap. Acresce o registo gerido do portal. Raiz e www mantêm DNS-only, com HTTPS e redirecionamento de www para a raiz; o portal usa o Custom Domain do Worker. TLS mínimo 1.2 e SSL strict configurados.
 
-O código de redirecionamento dos acessos antigos para o domínio oficial está preparado e testado; PUBLIC_ORIGIN permanece por ativar. Não redefinir passwords nem substituir SESSION_PEPPER: já existe pelo menos um acesso real concluído pelos associados.
+Portal: `https://associados.apeebairrodorestelo.com/`, Custom Domain `764c52a09ebd01b9f34e5704fa4d568883b091fe`. `SITE_ORIGIN` e `PUBLIC_ORIGIN` usam este domínio. `API_ORIGIN` mantém o endereço interno anterior para o transporte autenticado. As chamadas internas não são redirecionadas; páginas públicas antigas são redirecionadas com HTTP 308.
+
+O módulo Google foi atualizado e lido de volta, confirmando a correspondência integral com o código do repositório. `APEE_PUBLIC_ORIGIN` configurado no domínio oficial; a verificação executada no Google confirmou botão canónico e ausência de workers.dev no HTML gerado. Os emails usam botões, sem URLs técnicas no texto visível. Os três links públicos de navegação/entrada foram corrigidos; o rastreio de HTML/JS públicos não encontrou outros endereços GitHub ou workers.dev.
+
+Não redefinir passwords nem substituir `SESSION_PEPPER` durante manutenção. As sessões antigas têm cookies limitados ao hostname anterior; o associado pode voltar a entrar no domínio oficial com a palavra-passe que já definiu.
 
 ## Documentação identificada
 
@@ -116,7 +109,7 @@ Foi localizada a última ata com adenda e correção de Andrea, datada de 04/11/
 
 ## Próximos passos e manutenção
 
-1. Concluir a ativação do domínio e o reenvio conforme a secção anterior. Definir/carregar apenas as versões de documentação para consulta, sem expor PDFs privados no repositório. A lista principal está vazia. PDFs acima de 1,8 MB precisam de otimização ou avaliação específica.
+1. Confirmar o reenvio final da campanha 2 no registo privado. Definir/carregar apenas as versões de documentação para consulta, sem expor PDFs privados no repositório. A lista principal está vazia. PDFs acima de 1,8 MB precisam de otimização ou avaliação específica.
 2. Interface real verificada em Chrome; Safari/iPhone não foi validado neste ambiente. Recuperação, entrada, saída, expiração, estado desativado e PDFs foram verificados nos testes descritos.
 3. Rever acessos, cópias de segurança e retenção de dados. Limpeza diária configurada. Não adicionar faturação nem mudar DNS/nameservers sem instrução explícita.
 4. Para suspender convites, definir APEE_SEND_INVITES=false. Para suspender todo o envio pelo módulo, APEE_SEND_EMAILS=false; MAIL_DISPATCH_ENABLED=false no Worker também impede novos pedidos de recuperação/claim. RELEASE_ENABLED=false fecha o portal público, mantendo os endpoints internos autenticados para manutenção.

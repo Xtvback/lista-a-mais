@@ -5,10 +5,11 @@
   "compatibility_flags": [
     "nodejs_compat"
   ],
-  "workers_dev": false,
+  "workers_dev": true,
   "preview_urls": false,
   "vars": {
-    "SITE_ORIGIN": "https://apee-associados.xtvback2.workers.dev",
+    "SITE_ORIGIN": "https://associados.apeebairrodorestelo.com",
+    "PUBLIC_ORIGIN": "https://associados.apeebairrodorestelo.com",
     "API_ORIGIN": "https://apee-associados.xtvback2.workers.dev",
     "RELEASE_ENABLED": "false",
     "MAIL_DISPATCH_ENABLED": "false"
