@@ -62,8 +62,8 @@
     ],
     'Margarida Almeida': [
       "48 anos, mãe de uma menina de 7 anos, na Escola do Bairro desde os 5.",
-      "Licenciada em Design Multimédia, trabalho na área da comunicação e do design, onde faço um pouco de tudo: design, gestão de projetos, área comercial… o chamado canivete suíço!",
-      "Tenho um fraquinho pelo mundo das artes e da cultura, seja através de um bom filme, de um livro ou de outras formas de expressão. Gosto de fazer bolos e tenho uma tendência quase irresistível para me disponibilizar para ajudar, mesmo quando provavelmente não devia ou não podia. Sou também um bocadinho stressada por natureza — mesmo sem beber café!",
+      "Licenciada em Design Multimédia, trabalho na área da comunicação e design, onde faço um pouco de tudo: design, gestão de projetos, área comercial… o chamado canivete suíço!",
+      "Tenho um fraquinho pelo mundo das artes e da cultura, seja através de um bom filme, de um livro ou de outras formas de expressão. Gosto de fazer bolos (porque sou gulosa e não só), e não consigo ficar indiferente quando ajudar está ao meu alcance. “Dizem” que sou também um bocadinho stressada por natureza — mesmo sem beber café!",
       "Faço parte da APEE porque acredito que podemos fazer mais e melhor pela nossa escola e pelas nossas crianças. Quero contribuir, ouvir as famílias, dar voz às suas preocupações e ajudar a encontrar soluções, com dedicação, diálogo e vontade de fazer acontecer."
     ],
     'Mariana Perry': [
