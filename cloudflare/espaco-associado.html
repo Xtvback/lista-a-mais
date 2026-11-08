@@ -14,7 +14,9 @@ body::before{
   filter:blur(3px);
 }
 .ap-shell{position:relative;z-index:1}
-.ap-card{background:rgba(255,255,255,.97);box-shadow:0 12px 38px rgba(8,33,62,.19)}
+.ap-card{background:rgba(255,255,255,.84);-webkit-backdrop-filter:blur(12px) saturate(120%);backdrop-filter:blur(12px) saturate(120%);border-color:rgba(255,255,255,.68);box-shadow:0 12px 38px rgba(8,33,62,.19)}
+.ap-input{background:rgba(255,255,255,.94)}
+@supports not ((backdrop-filter:blur(1px)) or (-webkit-backdrop-filter:blur(1px))){.ap-card{background:rgba(255,255,255,.94)}}
 @media(max-width:600px){body::before{background-position:center 44%}.ap-shell{margin:24px auto}}
 </style></head><body>
 <main class="ap-shell">
