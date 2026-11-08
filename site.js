@@ -119,9 +119,18 @@ if(b&&m){
 })();
 
 
-/* As parcerias e respetivos benefícios são exclusivos do Espaço Associado. */
+/* Montra pública das parcerias; benefícios continuam na área reservada. */
 (function(){
-  document.querySelectorAll('#mainMenu a[href="/parcerias.html"], .foot-links a[href="/parcerias.html"], nav a[href="/parcerias.html"]').forEach(a=>a.remove());
+ const nav=document.getElementById('mainMenu');
+ if(nav&&!nav.querySelector('a[href="/parcerias.html"]')){
+  const a=document.createElement('a');a.href='/parcerias.html';a.textContent='Parcerias';
+  const next=nav.querySelector('a[href="/noticias.html"]');
+  next?nav.insertBefore(a,next):nav.appendChild(a);
+ }
+ if(location.pathname==='/parcerias.html'){
+  const a=nav?.querySelector('a[href="/parcerias.html"]');
+  if(a)a.setAttribute('aria-current','page');
+ }
 })();
 
 /* Recursos autónomos disponíveis de qualquer página, sem recurso ao site anterior. */
