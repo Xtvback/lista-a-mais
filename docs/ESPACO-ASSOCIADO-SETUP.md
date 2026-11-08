@@ -1,10 +1,10 @@
 # Espaço Associado — APEE Bairro do Restelo
 
-**Portal ativo no endereço técnico; domínio oficial em configuração. Publicação e convites autorizados. Sincronização e emails automáticos operacionais; documentação real ainda por disponibilizar. Sem R2, Resend ou ativação de faturação.**
+**Portal ativo no domínio oficial da APEE, com HTTPS, links públicos e emails corrigidos. Reenvio final de oito convites concluído. Sincronização e emails automáticos operacionais; documentação real ainda por disponibilizar. Sem R2, Resend ou ativação de faturação.**
 
 ## Arquitetura gratuita
 
-- Workers Free serve o formulário e a API no mesmo endereço `https://apee-associados.xtvback2.workers.dev`. Cookies host-only funcionam sem depender de cookies entre o GitHub Pages e outro domínio.
+- Workers Free serve o formulário e a API no mesmo endereço `https://associados.apeebairrodorestelo.com`. Cookies host-only limitam as sessões ao domínio do portal.
 - D1 guarda os associados, credenciais, sessões, PDFs e fila de emails. Cada PDF tem um limite de aplicação de 1,8 MB, abaixo do limite de 2 MB por linha D1. Nunca colocar documentos privados no GitHub público.
 - Projeto Google Apps Script independente na conta APEE: lê o `Registo_Cartoes` e sincroniza número permanente, nome e email de registos com cartão enviado. Não escreve na folha nem altera cartões, QR, formulário, código ou acionadores do projeto original.
 - Convite de boas-vindas automático, uma vez por associado, depois de o cartão constar como enviado. O convite leva ao portal, sem password ou token. A ligação para definir/recuperar a palavra-passe é pedida pelo próprio utilizador e enviada apenas ao email do registo.
@@ -16,8 +16,8 @@
 | D1 principal | `apee-associados`, `20f14590-277f-4634-a77e-f48e95498aab`, jurisdição EU |
 | D1 de testes | `apee-associados-testes`, `845f1be2-bd5a-457c-a1f2-f4892c665481`, jurisdição EU |
 | Migrações principal | 001, 002 e 003 aplicadas e registadas em `d1_migrations` |
-| Associados principal | Seis registos, números 0001–0006, sincronizados sem passwords predefinidas; seis convites enviados após autorização |
-| Worker principal | Ativo em workers.dev; `RELEASE_ENABLED=true`, `MAIL_DISPATCH_ENABLED=true`; previews desativados |
+| Associados principal | Oito registos ativos, credenciais preservadas e oito convites reenviados com domínio oficial após autorização |
+| Worker principal | Ativo no domínio oficial, endereço antigo redirecionado; `RELEASE_ENABLED=true`, `MAIL_DISPATCH_ENABLED=true`; previews desativados |
 | Worker de testes | `apee-associados-testes`, conta sintética e conta interna APEE com password escolhida pelo utilizador; entrada/saída verificadas e envios desativados |
 | R2 | Continua desativado. Não faz parte desta solução |
 | Apps Script novo | Projeto `1NuifHAN-B3W7u-fBkZhzlrUG2Ni-qM-5zSlvqSg63lz0-L-4ICu4CCAf`; Google Sheets API ativa; um acionador apeeBridgeTick de cinco em cinco minutos; ligação principal, fila e convites verificados |
@@ -55,7 +55,7 @@ Propriedades privadas necessárias:
 - `APEE_SEND_EMAILS`: `true` em produção; `false` desativa os envios pelo módulo.
 - `APEE_SEND_INVITES`: `true` em produção, após autorização explícita para os associados existentes e futuros.
 - `APEE_PUBLIC_ORIGIN`: `https://associados.apeebairrodorestelo.com` depois de o domínio estar ativo; os botões usam este endereço, mantendo o transporte interno autenticado separado.
-- `APEE_INVITE_CAMPAIGN`: manter 1 até terminar o domínio. O utilizador autorizou um reenvio final; passar a 2 apenas depois de concluir e verificar a publicação. Preserva os registos antigos e envia uma vez por associado nesta campanha.
+- `APEE_INVITE_CAMPAIGN`: `2` em produção após o reenvio final autorizado. Preserva os registos antigos e envia uma vez por associado nesta campanha. Não mudar novamente sem autorização para novo reenvio.
 - `APEE_TEST_EMAIL`: vazio em produção; usar o endereço interno autorizado apenas durante testes, o que bloqueia convites automáticos.
 - `APEE_TEST_API_ORIGIN` e `APEE_TEST_BRIDGE_SECRET`: apenas para teste interno no ambiente isolado; remover quando deixar de ser necessário.
 
@@ -82,12 +82,13 @@ Convites: a lista vem dos cartões com estado Enviado e só é processada depois
 - Em 08/11/2026, 20 verificações na produção confirmaram HTTPS válido no domínio oficial, portal 200/no-store e CSP, sessão anónima ausente, documentos e endpoints internos protegidos, recusa de origem alheia, credenciais inexistentes recusadas, saída segura, redirecionamento antigo e raiz/www funcionais. Nenhum email enviado por estes testes.
 - Uma ligação antiga com fragmento sintético abriu o formulário de ativação no domínio oficial; o fragmento foi retirado do endereço pela página. Não foram alteradas credenciais reais.
 - Interface verificada em Chrome. Safari/iPhone não foi validado neste ambiente.
+- Após o merge/publicação, mais 11 verificações HTTP confirmaram os três ficheiros públicos com links canónicos, sem referências GitHub/workers.dev, e o redirecionamento do endereço GitHub Pages para o domínio APEE. O menu público foi clicado no Chrome e abriu o domínio oficial.
 
 ## Operação e publicação
 
 Publicação, sincronização e convites aos associados atuais e futuros foram explicitamente autorizados. Worker principal ativo; previews desligados. A integração lê o registo de cartões e possui um acionador de cinco minutos. Os cartões, QR, folha e acionadores anteriores permanecem inalterados. A D1 de produção contém oito associados ativos em 08/11/2026; as credenciais existentes foram preservadas.
 
-Os primeiros seis convites foram enviados às 10:54 UTC, com receção confirmada pelo utilizador. O registo privado de envio passou entretanto a oito entregas confirmadas, sem pendentes. O utilizador autorizou um reenvio final após a conclusão do domínio; a campanha 2 permite esse envio uma única vez por associado, preservando todos os marcadores anteriores. Confirmar a contagem no projeto Google após a execução. Não apagar marcadores para forçar novos envios.
+Os primeiros seis convites foram enviados às 10:54 UTC, com receção confirmada pelo utilizador. O registo privado de envio passou entretanto a oito entregas confirmadas, sem pendentes. O utilizador autorizou um reenvio final após a conclusão do domínio; a campanha 2 permite esse envio uma única vez por associado, preservando todos os marcadores anteriores. O reenvio da campanha 2 terminou em 08/11/2026 às 11:55 UTC: oito associados, oito envios confirmados por MailApp, zero pendentes e zero em falta; quota diária restante de 57 destinatários. Código normal restaurado e conferido integralmente. Não apagar marcadores para forçar novos envios.
 
 Não foram ativados planos pagos, faturação ou R2. O exemplo Wrangler mantém publicação e email desligados por defeito; em produção ambos estão ativos por autorização. O endereço workers.dev permanece disponível para o transporte interno autenticado e redireciona as páginas públicas para o domínio oficial.
 
@@ -109,7 +110,7 @@ Foi localizada a última ata com adenda e correção de Andrea, datada de 04/11/
 
 ## Próximos passos e manutenção
 
-1. Confirmar o reenvio final da campanha 2 no registo privado. Definir/carregar apenas as versões de documentação para consulta, sem expor PDFs privados no repositório. A lista principal está vazia. PDFs acima de 1,8 MB precisam de otimização ou avaliação específica.
+1. Definir/carregar apenas as versões de documentação para consulta, sem expor PDFs privados no repositório. A lista principal está vazia. PDFs acima de 1,8 MB precisam de otimização ou avaliação específica.
 2. Interface real verificada em Chrome; Safari/iPhone não foi validado neste ambiente. Recuperação, entrada, saída, expiração, estado desativado e PDFs foram verificados nos testes descritos.
 3. Rever acessos, cópias de segurança e retenção de dados. Limpeza diária configurada. Não adicionar faturação nem mudar DNS/nameservers sem instrução explícita.
 4. Para suspender convites, definir APEE_SEND_INVITES=false. Para suspender todo o envio pelo módulo, APEE_SEND_EMAILS=false; MAIL_DISPATCH_ENABLED=false no Worker também impede novos pedidos de recuperação/claim. RELEASE_ENABLED=false fecha o portal público, mantendo os endpoints internos autenticados para manutenção.
