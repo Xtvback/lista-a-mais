@@ -4,6 +4,18 @@
 <style>
 :root{font-family:Inter,system-ui,sans-serif;color:#183c61;background:#f3f8fc}*{box-sizing:border-box}
 .ap-shell{max-width:940px;margin:42px auto;padding:0 20px}.ap-head{background:#12549b;color:white;border-radius:22px;padding:30px;display:flex;gap:18px;align-items:center}.ap-head img{width:90px;height:90px;object-fit:contain;border-radius:18px;background:white;padding:9px;box-shadow:0 4px 14px #0b376330}.ap-head h1{margin:0;font-size:clamp(1.5rem,4vw,2.3rem)}.ap-head p{margin:8px 0 0}.ap-card{background:white;border:1px solid #dce9f4;border-radius:18px;padding:26px;margin-top:20px;box-shadow:0 9px 28px #0d488013}.ap-card h2{margin:0 0 12px}.ap-card p{line-height:1.6}.ap-field{display:block;margin:14px 0 5px;font-weight:700}.ap-input{width:100%;max-width:560px;padding:13px;border:1px solid #9eb9d1;border-radius:10px;font:inherit}.ap-btn{background:#145bb2;border:0;border-radius:10px;padding:13px 19px;color:#fff;font-weight:750;cursor:pointer;margin-top:16px}.ap-btn:disabled{opacity:.55;cursor:wait}.ap-link{color:#13569d;text-decoration:underline}.ap-message{min-height:1.5em;margin:14px 0 0}.ap-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px}.ap-file{border:1px solid #dce9f4;border-radius:13px;padding:16px}.ap-muted{color:#526c83}.ap-hide{display:none!important}@media(max-width:500px){.ap-head{padding:20px}.ap-head img{width:64px;height:64px;padding:6px}.ap-card{padding:20px}}
+
+/* Fundo da escola — identidade visual da Lista A+ com leitura preservada. */
+body{min-height:100vh;position:relative;isolation:isolate;background:#dce8f2}
+body::before{
+  content:"";position:fixed;inset:-14px;z-index:-1;pointer-events:none;
+  background-image:linear-gradient(115deg,rgba(14,44,83,.69),rgba(23,67,111,.61)),url("https://apeebairrodorestelo.com/_external/d2ol7oe51mr4n9.cloudfront.net/user_3EbWYhy0t8ty8Wz9RPVrhpDHVlB/c0c15b28-2d40-484b-b7d1-211c664a1a48.jpg");
+  background-size:cover;background-position:center center;background-repeat:no-repeat;
+  filter:blur(3px);
+}
+.ap-shell{position:relative;z-index:1}
+.ap-card{background:rgba(255,255,255,.97);box-shadow:0 12px 38px rgba(8,33,62,.19)}
+@media(max-width:600px){body::before{background-position:center 44%}.ap-shell{margin:24px auto}}
 </style></head><body>
 <main class="ap-shell">
 <header class="ap-head"><img src="https://apeebairrodorestelo.com/_external/d2ol7oe51mr4n9.cloudfront.net/user_3EbWYhy0t8ty8Wz9RPVrhpDHVlB/6c0a90e1-f63f-4e2c-8a73-48d8610f6db5.jpg" alt="APEE Bairro do Restelo"><div><h1>Espaço Associado</h1><p>APEE Bairro do Restelo · Juntos Somamos Mais</p></div></header>
