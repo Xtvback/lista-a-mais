@@ -50,6 +50,15 @@ h1{font-size:clamp(2.3rem,6vw,3.75rem);color:#12396e;line-height:1.12;letter-spa
 .mov-value{font-weight:850;font-size:.97rem;white-space:nowrap;font-variant-numeric:tabular-nums;color:#173f68}
 .mov-value.expense{color:#af4c24}
 .empty{padding:14px 16px;background:rgba(235,244,251,.8);border-radius:12px;color:#4e6e86;font-size:.85rem;line-height:1.5}
+
+/* Cartão de apoio: contacto por email, sem processamento de pagamentos */
+.donation-card{position:relative;overflow:hidden;display:grid;grid-template-columns:auto minmax(0,1fr) auto;align-items:center;gap:20px;padding:25px 26px;margin-bottom:16px;background:linear-gradient(120deg,rgba(255,255,255,.85),rgba(231,244,255,.76))}
+.donation-card:before{content:'♡';position:absolute;right:15%;top:-47px;font-size:11rem;line-height:1;color:rgba(20,86,154,.055);pointer-events:none}
+.donation-symbol{position:relative;display:grid;place-items:center;width:64px;height:64px;background:#e3f0ff;color:#155b9f;border-radius:19px;font-size:2.4rem}
+.donation-text{position:relative;min-width:0}.donation-tag{display:inline-block;font-size:.71rem;letter-spacing:.12em;text-transform:uppercase;color:#2369a5;font-weight:900;margin-bottom:7px}.donation-text h2{font-size:clamp(1.35rem,3.4vw,1.8rem);line-height:1.2;margin:0 0 8px;color:#133c6a}.donation-text p{font-size:.91rem;line-height:1.55;color:#486780;margin:0}.donation-text .donation-note{font-size:.78rem;margin-top:9px;color:#59718a}
+.donation-button{position:relative;display:inline-flex;align-items:center;justify-content:center;text-align:center;gap:10px;padding:15px 20px;min-height:50px;white-space:nowrap;background:#ffcd43;color:#183d6b;border:1px solid #f5bc2f;border-radius:14px;font-size:.94rem;font-weight:850;text-decoration:none;box-shadow:0 6px 14px #b887232e}.donation-button:hover,.donation-button:focus-visible{background:#ffdc77;outline:3px solid #12549b;outline-offset:3px}
+@media(max-width:780px){.donation-card{grid-template-columns:auto 1fr}.donation-button{grid-column:1/-1;width:100%}}
+@media(max-width:480px){.donation-card{padding:20px;gap:13px}.donation-symbol{width:48px;height:48px;font-size:1.8rem}}
 .notice{margin-top:16px;padding:18px 21px;color:#3b5d79;font-size:.83rem;line-height:1.55}
 footer{padding:25px 16px;text-align:center;background:#153e70;color:white;font-size:.85rem}
 [hidden]{display:none!important}
@@ -68,5 +77,39 @@ footer{padding:25px 16px;text-align:center;background:#153e70;color:white;font-s
 <div class="stat glass"><div class="stat-icon">↘</div><div><span class="label">Despesas</span><strong id="expenses">—</strong><small>Gastos registados</small></div></div>
 <div class="stat glass"><div class="stat-icon">♡</div><div><span class="label">Donativos</span><strong id="donations">—</strong><small id="donation-note">Nenhum donativo registado</small></div></div>
 </div>
+<section class="donation-card glass" id="donativos-contacto-20261108" aria-labelledby="donation-title"><div class="donation-symbol" aria-hidden="true">♡</div><div class="donation-text"><span class="donation-tag">Juntos somamos mais</span><h2 id="donation-title">Apoie a nossa escola</h2><p>Quer contribuir para os projetos e iniciativas da APEE? Entre em contacto connosco para saber como pode ajudar.</p><p class="donation-note">Ainda não existe uma conta bancária da Associação disponível para donativos. Este botão abre apenas um email de contacto; não efetua pagamentos.</p></div><a class="donation-button" href="mailto:apee.bairro.restelo@gmail.com?subject=Quero%20apoiar%20a%20APEE%20Bairro%20do%20Restelo&body=Ol%C3%A1%2C%0A%0AGostaria%20de%20contribuir%20com%20um%20donativo%20para%20a%20APEE%20Bairro%20do%20Restelo.%20Podem%20informar-me%20sobre%20os%20procedimentos%20dispon%C3%ADveis%3F%0A%0AObrigado%2Fa." aria-label="Quero apoiar a APEE — enviar email">♡ Quero apoiar a APEE <span aria-hidden="true">↗</span></a></section>
 <div class="split">
-<section class="panel glass"><h2>De onde vem o saldo?</h2><p>Distribuição do valor de abertura e das saídas registadas.</p><div class="chart-key"><span><i class="dot" style="background:#2776b9"></i>Saldo remanescente</ --- TRUNCATED --- 11,014 chars
+<section class="panel glass"><h2>De onde vem o saldo?</h2><p>Distribuição do valor de abertura e das saídas registadas.</p><div class="chart-key"><span><i class="dot" style="background:#2776b9"></i>Saldo remanescente</span><b id="remaining-percent">—</b></div><div class="chart-track" role="img" aria-label="Proporção das despesas em relação ao saldo de abertura"><span id="spent-bar" class="chart-part" style="width:0"></span></div><div class="chart-key"><span><i class="dot" style="background:#e49a4e"></i>Despesas sobre abertura</span><b id="spent-percent">—</b></div><p class="empty">O gráfico é ilustrativo e compara despesas com o saldo inicial; não substitui o extrato bancário.</p></section>
+<section class="panel glass"><h2>Movimentos financeiros</h2><p>Registos por data, da operação mais recente para a mais antiga.</p><div id="movements"></div></section>
+</div>
+<p class="notice glass">Os valores apresentados incluem apenas os movimentos já registados pela APEE. O saldo apurado não é uma confirmação automática do saldo bancário. Esta página não contém dados bancários nem informações pessoais de doadores.</p>
+</div>
+</main><footer>APEE Bairro do Restelo · Área reservada aos associados</footer>
+<script>
+(function(){
+'use strict';
+const eur=new Intl.NumberFormat('pt-PT',{style:'currency',currency:'EUR'});
+const money=c=>eur.format(c/100);
+const date=s=>new Intl.DateTimeFormat('pt-PT',{day:'2-digit',month:'short',year:'numeric',timeZone:'UTC'}).format(new Date(s+'T12:00:00Z'));
+const el=id=>document.getElementById(id);
+fetch('/api/finance',{credentials:'include',headers:{'Accept':'application/json'}}).then(async r=>{if(!r.ok)throw Error('Não foi possível consultar os movimentos.');return r.json()}).then(data=>{
+const t=data.totals;
+el('balance').textContent=money(t.balance_cents);
+el('opening').textContent=money(t.opening_cents);
+el('expenses').textContent=money(t.expenses_cents);
+el('donations').textContent=money(t.donations_cents);
+el('donation-note').textContent=t.donation_count===0?'Nenhum donativo registado':t.donation_count+' donativo(s) registado(s)';
+el('asof').textContent='Movimentos registados desde 13 de outubro de 2026 · Atualizado conforme os lançamentos disponíveis';
+const ratio=t.opening_cents>0?Math.min(100,Math.round(t.expenses_cents/t.opening_cents*100)):0;
+el('spent-percent').textContent=ratio+'%';el('remaining-percent').textContent=Math.max(0,100-ratio)+'%';el('spent-bar').style.width=ratio+'%';
+const list=el('movements');
+if(!data.movements.length){list.textContent='Ainda não existem movimentos.'}
+for(const m of data.movements){const row=document.createElement('div');row.className='movement';
+ const icon=document.createElement('span');icon.className='mov-icon';icon.textContent=m.kind==='expense'?'↘':m.kind==='opening'?'◈':'↗';
+ const copy=document.createElement('div');copy.className='mov-copy';const title=document.createElement('strong');title.textContent=m.description;const info=document.createElement('small');info.textContent=date(m.movement_date)+' · '+m.category;copy.append(title,info);
+ const amount=document.createElement('span');amount.className='mov-value'+(m.kind==='expense'?' expense':'');amount.textContent=(m.kind==='expense'?'−':'+')+money(m.amount_cents);
+ row.append(icon,copy,amount);list.append(row);}
+el('loading').hidden=true;el('finance-data').hidden=false;
+}).catch(()=>{el('loading').textContent='Não foi possível carregar a informação financeira. Volte a tentar mais tarde.';});
+})();
+</script></body></html>
