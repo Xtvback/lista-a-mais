@@ -2,6 +2,7 @@ import { after, before, test } from 'node:test';
 import assert from 'node:assert/strict';
 import { readFile, readdir } from 'node:fs/promises';
 import { Miniflare } from 'miniflare';
+import { fileURLToPath } from 'node:url';
 
 let mf, db;
 const origin = 'https://apeebairrodorestelo.com';
@@ -10,8 +11,8 @@ const address = 'internal@example.test';
 const password = 'Uma frase longa para testes 2026!';
 
 before(async () => {
-  mf = new Miniflare({scriptPath:new URL('../associados-worker.js',import.meta.url).pathname,
-    modules:true, modulesRoot:new URL('../../',import.meta.url).pathname, compatibilityDate:'2026-07-29', compatibilityFlags:['nodejs_compat'],
+  mf = new Miniflare({scriptPath:fileURLToPath(new URL('../associados-worker.js',import.meta.url)),
+    modules:true, modulesRoot:fileURLToPath(new URL('../../',import.meta.url)), compatibilityDate:'2026-07-29', compatibilityFlags:['nodejs_compat'],
     d1Databases:['DB'], modulesRules:[{type:'ESModule',include:['**/*.js'],fallthrough:true},{type:'Text',include:['**/*.html'],fallthrough:true}],
     bindings:{RELEASE_ENABLED:'true',SITE_ORIGIN:origin, API_ORIGIN:'https://api.example.test', SESSION_PEPPER:'x'.repeat(64),
       BRIDGE_SECRET:'b'.repeat(64), ADMIN_SECRET:'a'.repeat(64), MAIL_DISPATCH_ENABLED:'true'}});
@@ -132,6 +133,16 @@ test('mail claim leases a message and acknowledgement requires its exact lease',
 });
 
 test('a deployed portal stays closed until the release flag is enabled',async()=>{
- const closed=new Miniflare({scriptPath:new URL('../associados-worker.js',import.meta.url).pathname,modules:true,modulesRoot:new URL('../../',import.meta.url).pathname,compatibilityDate:'2026-07-29',compatibilityFlags:['nodejs_compat'],modulesRules:[{type:'ESModule',include:['**/*.js'],fallthrough:true},{type:'Text',include:['**/*.html'],fallthrough:true}],bindings:{RELEASE_ENABLED:'false'}});
+ const closed=new Miniflare({scriptPath:fileURLToPath(new URL('../associados-worker.js',import.meta.url)),modules:true,modulesRoot:fileURLToPath(new URL('../../',import.meta.url)),compatibilityDate:'2026-07-29',compatibilityFlags:['nodejs_compat'],modulesRules:[{type:'ESModule',include:['**/*.js'],fallthrough:true},{type:'Text',include:['**/*.html'],fallthrough:true}],bindings:{RELEASE_ENABLED:'false'}});
  try {assert.equal((await closed.dispatchFetch('https://closed.example.test/')).status,503);assert.equal((await closed.dispatchFetch('https://closed.example.test/api/me')).status,503);} finally {await closed.dispose()}
+});
+
+test('legacy public URLs redirect to the official domain while internal endpoints remain protected',async()=>{
+ const branded=new Miniflare({scriptPath:fileURLToPath(new URL('../associados-worker.js',import.meta.url)),modules:true,modulesRoot:fileURLToPath(new URL('../../',import.meta.url)),compatibilityDate:'2026-07-29',compatibilityFlags:['nodejs_compat'],modulesRules:[{type:'ESModule',include:['**/*.js'],fallthrough:true},{type:'Text',include:['**/*.html'],fallthrough:true}],bindings:{RELEASE_ENABLED:'true',PUBLIC_ORIGIN:'https://associados.apeebairrodorestelo.com',BRIDGE_SECRET:'b'.repeat(64)}});
+ try {
+  const redirect=await branded.dispatchFetch('https://legacy.example.test/api/documents/test?download=1',{redirect:'manual'});
+  assert.equal(redirect.status,308);assert.equal(redirect.headers.get('location'),'https://associados.apeebairrodorestelo.com/api/documents/test?download=1');
+  assert.equal((await branded.dispatchFetch('https://associados.apeebairrodorestelo.com/')).status,200);
+  assert.equal((await branded.dispatchFetch('https://legacy.example.test/internal/members/sync',{redirect:'manual'})).status,401);
+ } finally {await branded.dispose()}
 });

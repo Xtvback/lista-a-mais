@@ -237,7 +237,7 @@ if(b&&m){
 
 /* Espaço Associado: o login e os documentos usam a mesma origem do Worker. */
 (function(){
- const href='https://apee-associados.xtvback2.workers.dev/';
+ const href='https://associados.apeebairrodorestelo.com/';
  for(const nav of document.querySelectorAll('#mainMenu, .foot-links')){
   if(nav.querySelector('a[href="'+href+'"]'))continue;
   const link=document.createElement('a');link.href=href;link.textContent='Espaço Associado';

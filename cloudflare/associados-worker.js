@@ -57,7 +57,7 @@ async function route(req,env,body){
   const m=await env.DB.prepare("SELECT id,email FROM members WHERE email=? AND status='active'").bind(address).first();
   if(m){
    const t=token(),hash=await sha(t+env.SESSION_PEPPER),exp=now()+1800;
-   const payload=await sealMail(env,{email:m.email,link:env.SITE_ORIGIN+'/#token='+encodeURIComponent(t)});
+   const payload=await sealMail(env,{email:m.email,link:env.API_ORIGIN+'/#token='+encodeURIComponent(t)});
    await env.DB.batch([
     env.DB.prepare("INSERT INTO tokens(token_hash,member_id,purpose,expires_at) VALUES(?,?,'reset',?)").bind(hash,m.id,exp),
     env.DB.prepare('INSERT INTO mail_outbox(member_id,token_hash,encrypted_payload,expires_at) VALUES(?,?,?,?)').bind(m.id,hash,payload,exp)
@@ -114,6 +114,7 @@ export default {async fetch(req,env){
  const origin=req.headers.get('Origin');
  const headers=cors(req,env);
  const path=new URL(req.url).pathname;
+ if(env.PUBLIC_ORIGIN && req.method==='GET' && !path.startsWith('/internal/') && new URL(req.url).origin!==env.PUBLIC_ORIGIN) return Response.redirect(env.PUBLIC_ORIGIN+path+new URL(req.url).search,308);
  if(path.startsWith('/internal/')){
   if(!internalAuthorized(req,env,path))return json({error:'Acesso reservado.'},401);
   if(req.method!=='POST')return json({error:'Método inválido.'},405);

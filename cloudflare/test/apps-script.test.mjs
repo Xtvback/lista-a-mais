@@ -28,7 +28,7 @@ test('install is idempotent and never sends mail or removes existing card trigge
 function invitationsFixture(){const f=fixture();f.props.set('APEE_API_ORIGIN','https://apee-associados.xtvback2.workers.dev');f.props.set('APEE_SEND_EMAILS','true');f.props.set('APEE_SEND_INVITES','true');f.state.messages=[];return f;}
 test('welcome invitation is sent once after a card is sent; a new member receives their own invite',()=>{
  const f=invitationsFixture();f.context.apeeBridgeTick();f.context.apeeBridgeTick();assert.equal(f.state.mail.length,1);
- assert.match(f.state.mail[0].subject,/Convite/);assert.match(f.state.mail[0].body,/https:\/\/apee-associados\.xtvback2\.workers\.dev\//);assert.doesNotMatch(f.state.mail[0].body,/#token=/);
+ assert.match(f.state.mail[0].subject,/Convite/);assert.match(f.state.mail[0].htmlBody,/href="https:\/\/apee-associados\.xtvback2\.workers\.dev\/"/);assert.doesNotMatch(f.state.mail[0].body,/https?:\/\/|#token=/);
  f.state.members.push(['0002','Nova Conta','new@example.test']);f.state.statuses.push('Pendente');f.context.apeeBridgeTick();assert.equal(f.state.mail.length,1);
  f.state.statuses[1]='Enviado';f.context.apeeBridgeTick();assert.equal(f.state.mail.length,2);assert.equal(f.state.mail[1].to,'new@example.test');
 });
@@ -54,7 +54,7 @@ test('delivery retry after a failed acknowledgement does not resend the same mes
  assert.throws(()=>f.context.apeeBridgeTick(),/503/);assert.equal(f.state.mail.length,1);
  f.state.failAck=false;f.context.apeeBridgeTick();assert.equal(f.state.mail.length,1);
  assert.equal(f.state.calls.filter(c=>c.url.endsWith('/ack')).length,2);
- assert.equal(f.state.mail[0].to,'internal@example.test');assert.match(f.state.mail[0].body,/#token=f{64}/);
+ assert.equal(f.state.mail[0].to,'internal@example.test');assert.match(f.state.mail[0].htmlBody,/#token=f{64}/);assert.doesNotMatch(f.state.mail[0].body,/https?:\/\//);
 });
 test('test-only recipient filter prevents sending to other members',()=>{
  const f=fixture();f.props.set('APEE_SEND_EMAILS','true');f.props.set('APEE_TEST_EMAIL','owner@example.test');f.context.apeeBridgeTick();assert.equal(f.state.mail.length,0);
@@ -73,4 +73,14 @@ test('Google read token is only sent to Sheets; HTTP errors stop before member s
  const url=new URL(sheetCall.url);assert.deepEqual(url.searchParams.getAll('ranges'),['Registo_Cartoes!B:D','Registo_Cartoes!F:F']);assert.equal(url.searchParams.get('valueRenderOption'),'FORMATTED_VALUE');
  assert.equal(f.state.calls.find(c=>c.url.endsWith('/sync')).options.headers.Authorization,'Bearer '+'b'.repeat(64));
  const denied=fixture();denied.state.sheetStatus=403;assert.throws(()=>denied.context.apeeBridgeTick(),/403/);assert.equal(denied.state.calls.length,1);assert.equal(denied.state.mail.length,0);
+});
+
+test('email buttons hide raw addresses, escape names and use the branded domain when configured',()=>{
+ const f=invitationsFixture();f.props.set('APEE_PUBLIC_ORIGIN','https://associados.apeebairrodorestelo.com');f.state.members[0][1]='<img src=x onerror="bad()"> & Maria';f.context.apeeBridgeTick();
+ const m=f.state.mail[0];assert.match(m.htmlBody,/>Aceder ao Espaço Associado<\/a>/);assert.match(m.htmlBody,/&lt;img/);assert.match(m.htmlBody,/href="https:\/\/associados\.apeebairrodorestelo\.com\/"/);assert.doesNotMatch(m.htmlBody,/<img|>https?:\/\//);assert.doesNotMatch(m.body,/https?:\/\/|github/i);
+});
+test('an explicitly authorized invitation campaign resends once and retains previous delivery records',()=>{
+ const f=invitationsFixture();f.context.apeeBridgeTick();const oldKeys=[...f.props.keys()].filter(k=>k.startsWith('APEE_INVITED_'));
+ f.props.set('APEE_INVITE_CAMPAIGN','2');f.context.apeeBridgeTick();f.context.apeeBridgeTick();
+ assert.equal(f.state.mail.length,2);assert.ok(f.props.has(oldKeys[0]));assert.equal([...f.props.keys()].filter(k=>k.startsWith('APEE_INVITED_')).length,2);
 });

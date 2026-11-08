@@ -4,7 +4,7 @@ function apeeConfig_() {
   var origin = p.getProperty('APEE_API_ORIGIN') || '';
   var secret = p.getProperty('APEE_BRIDGE_SECRET') || '';
   if (!/^https:\/\/apee-associados(?:-testes)?\.xtvback2\.workers\.dev$/.test(origin) || secret.length < 32) throw new Error('Configuração de acesso em falta.');
-  return { origin: origin, secret: secret, sheet: '1jX19ukDbyIvNJNvJck89w6hW33vpIpO_toy6bfrGRb4', send: p.getProperty('APEE_SEND_EMAILS') === 'true', invite: p.getProperty('APEE_SEND_INVITES') === 'true', testEmail: p.getProperty('APEE_TEST_EMAIL') || '' };
+  return { origin: origin, secret: secret, sheet: '1jX19ukDbyIvNJNvJck89w6hW33vpIpO_toy6bfrGRb4', send: p.getProperty('APEE_SEND_EMAILS') === 'true', invite: p.getProperty('APEE_SEND_INVITES') === 'true', inviteCampaign: p.getProperty('APEE_INVITE_CAMPAIGN') || '1', testEmail: p.getProperty('APEE_TEST_EMAIL') || '' };
 }
 function apeeApi_(cfg, path, body) {
   var response = UrlFetchApp.fetch(cfg.origin + path, {method:'post', contentType:'application/json', headers:{Authorization:'Bearer ' + cfg.secret}, payload:JSON.stringify(body), muteHttpExceptions:true, followRedirects:false});
@@ -13,6 +13,15 @@ function apeeApi_(cfg, path, body) {
 }
 function apeeDigest_(value) {
   return Utilities.base64EncodeWebSafe(Utilities.computeDigest(Utilities.DigestAlgorithm.SHA_256, value)).replace(/=+$/, '');
+}
+function apeeEscape_(value) {
+  return String(value).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];});
+}
+function apeeEmailHtml_(content,label,link) {
+  var branded=PropertiesService.getScriptProperties().getProperty('APEE_PUBLIC_ORIGIN') || '';
+  var legacy='https://apee-associados.xtvback2.workers.dev';
+  if(branded==='https://associados.apeebairrodorestelo.com' && link.indexOf(legacy+'/')===0) link=branded+link.slice(legacy.length);
+  return '<div style="font-family:Arial,sans-serif;color:#183c61;max-width:600px;margin:auto;padding:24px"><h2 style="color:#12549b">APEE Bairro do Restelo</h2>'+content+'<p style="margin:28px 0"><a href="'+apeeEscape_(link)+'" style="display:inline-block;background:#145bb2;color:#fff;text-decoration:none;padding:14px 22px;border-radius:8px;font-weight:bold">'+apeeEscape_(label)+'</a></p><p>Juntos Somamos Mais!<br>APEE Bairro do Restelo</p></div>';
 }
 function apeeReadMembers_(cfg) {
   // Sheets REST supports spreadsheets.readonly; SpreadsheetApp.openById requires write scope.
@@ -56,7 +65,7 @@ function apeeMail_(cfg) {
     var key='APEE_SENT_'+apeeDigest_(cfg.origin+'|'+m.id);
     if (!p.getProperty(key)) {
       if (MailApp.getRemainingDailyQuota() <= 25) break;
-      MailApp.sendEmail({to:m.email, subject:'APEE Bairro do Restelo — Definir palavra-passe', name:'APEE Bairro do Restelo', body:'Recebemos um pedido para ativar ou recuperar o acesso ao Espaço Associado.\n\nEscolha a sua palavra-passe nesta ligação:\n'+m.link+'\n\nA ligação é válida durante 30 minutos a partir do pedido. Se não fez este pedido, ignore esta mensagem.'});
+      MailApp.sendEmail({to:m.email, subject:'APEE Bairro do Restelo — Definir palavra-passe', name:'APEE Bairro do Restelo', body:'Recebemos um pedido para ativar ou recuperar o acesso ao Espaço Associado.\n\nUtilize o botão «Definir palavra-passe» nesta mensagem. A ligação é válida durante 30 minutos a partir do pedido. Se não fez este pedido, ignore esta mensagem. Se precisar de apoio, responda a este email.', htmlBody:apeeEmailHtml_('<p>Recebemos um pedido para ativar ou recuperar o acesso ao Espaço Associado.</p><p>Escolha a sua palavra-passe através do botão abaixo. A ligação é válida durante 30 minutos a partir do pedido.</p><p>Se não fez este pedido, ignore esta mensagem.</p>','Definir palavra-passe',m.link)});
       p.setProperty(key,String(Date.now()));
     }
     apeeApi_(cfg,'/internal/mail/ack',{id:m.id,lease:m.lease});
@@ -64,16 +73,18 @@ function apeeMail_(cfg) {
 }
 function apeeInvites_(cfg,members) {
   if(!cfg.send || !cfg.invite || cfg.testEmail || cfg.origin!=='https://apee-associados.xtvback2.workers.dev') return;
+  if(!/^[A-Za-z0-9_-]{1,40}$/.test(cfg.inviteCampaign)) throw new Error('Identificador de envio inválido.');
   var p=PropertiesService.getScriptProperties();
   for(var i=0;i<members.length;i++) {
-    var m=members[i], key='APEE_INVITED_'+apeeDigest_(cfg.origin+'|'+m.member_number+'|'+m.email);
+    var m=members[i], key='APEE_INVITED_'+apeeDigest_(cfg.origin+'|'+m.member_number+'|'+m.email+(cfg.inviteCampaign==='1'?'':'|'+cfg.inviteCampaign));
     if(p.getProperty(key)) continue;
     if(MailApp.getRemainingDailyQuota()<=25) break;
     if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(m.email)) throw new Error('Email do convite inválido. Requer revisão.');
     // Record the attempt first: an uncertain/crashed send must never trigger an automatic duplicate.
     p.setProperty(key,'pending:'+Date.now());
     try {
-      MailApp.sendEmail({to:m.email,subject:'APEE Bairro do Restelo — Convite para o Espaço Associado',name:'APEE Bairro do Restelo',body:'Olá, '+m.full_name+',\n\nO Espaço Associado da APEE Bairro do Restelo já está disponível.\n\nAceda aqui:\n'+cfg.origin+'/\n\nNo primeiro acesso:\n1. Introduza o email usado na sua inscrição.\n2. Escolha «Ativar conta ou recuperar palavra-passe».\n3. Abra a ligação que receber por email e escolha a sua palavra-passe (mínimo de 15 caracteres).\n\nSe já definiu a sua palavra-passe, pode entrar diretamente. A documentação da Associação será disponibilizada nesta área.\n\nJuntos Somamos Mais!\nAPEE Bairro do Restelo'});
+      var instructions='No primeiro acesso:\n1. Introduza o email usado na sua inscrição.\n2. Escolha «Ativar conta ou recuperar palavra-passe».\n3. Abra a ligação que receber por email e escolha a sua palavra-passe (mínimo de 15 caracteres).';
+      MailApp.sendEmail({to:m.email,subject:'APEE Bairro do Restelo — Convite para o Espaço Associado',name:'APEE Bairro do Restelo',body:'Olá, '+m.full_name+',\n\nO Espaço Associado da APEE Bairro do Restelo já está disponível. Utilize o botão «Aceder ao Espaço Associado» nesta mensagem ou a opção «Espaço Associado» no site da APEE.\n\n'+instructions+'\n\nSe já definiu a sua palavra-passe, pode entrar diretamente. A documentação da Associação será disponibilizada nesta área.\n\nJuntos Somamos Mais!\nAPEE Bairro do Restelo',htmlBody:apeeEmailHtml_('<p>Olá, '+apeeEscape_(m.full_name)+',</p><p>O Espaço Associado da APEE Bairro do Restelo já está disponível.</p><p>No primeiro acesso:</p><ol><li>Introduza o email usado na sua inscrição.</li><li>Escolha «Ativar conta ou recuperar palavra-passe».</li><li>Abra a ligação que receber por email e escolha a sua palavra-passe (mínimo de 15 caracteres).</li></ol><p>Se já definiu a sua palavra-passe, pode entrar diretamente. A documentação da Associação será disponibilizada nesta área.</p>','Aceder ao Espaço Associado',cfg.origin+'/')});
       p.setProperty(key,'sent:'+Date.now());
     } catch(err) { throw new Error('Convite com entrega não confirmada. Rever o registo privado antes de reenviar.'); }
   }
