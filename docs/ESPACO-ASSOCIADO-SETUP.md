@@ -18,9 +18,10 @@
 | Migrações principal | 001, 002 e 003 aplicadas e registadas em `d1_migrations` |
 | Associados principal | Cinco registos, números 0001–0005, importados sem passwords ou mensagens de ativação |
 | Worker principal | Código e binding D1 criados; `RELEASE_ENABLED=false`, `MAIL_DISPATCH_ENABLED=false`; workers.dev e previews desativados |
-| Worker de testes | `apee-associados-testes`, dados sintéticos; envios desativados |
+| Worker de testes | `apee-associados-testes`, conta sintética e conta interna APEE sem password; envios desativados |
 | R2 | Continua desativado. Não faz parte desta solução |
-| Apps Script novo | Projeto `1NuifHAN-B3W7u-fBkZhzlrUG2Ni-qM-5zSlvqSg63lz0-L-4ICu4CCAf`; consentimento Google concedido; código corrigido para leitura REST; ativação Google Sheets API e configuração por concluir |
+| Apps Script novo | Projeto `1NuifHAN-B3W7u-fBkZhzlrUG2Ni-qM-5zSlvqSg63lz0-L-4ICu4CCAf`; Google Sheets API ativa; diagnóstico concluído com 5 associados; propriedades privadas guardadas; sem acionador nem envios |
+| Limpeza diária | Cron `17 3 * * *` nos dois Workers, confirmado pela API; remove apenas tokens/contadores/fila expirados e entregas antigas |
 | Apps Script dos cartões | `1qjC1RtV1yAr4mCgE1eJLGmJf9EIm9y8J7yaCs1M6jglHEnHHhmffkUqk`; consultado, sem alterações |
 
 Os identificadores acima não são credenciais. Não guardar secrets, emails dos associados ou PDFs no repositório.
@@ -43,7 +44,9 @@ Código em `integrations/apps-script/Code.gs` e manifesto em `appsscript.json` n
 
 Permissões declaradas: ler Google Sheets; pedidos externos; enviar email; gerir acionadores do próprio projeto. Não pede leitura da caixa de entrada nem escrita nas folhas. O código limita a leitura ao registo de cartões indicado.
 
-A leitura usa Google Sheets REST `values:batchGet` com `FORMATTED_VALUE` (preserva 0001) e apenas os intervalos B:D e F:F. O token OAuth Google só é enviado a sheets.googleapis.com; a sincronização Cloudflare usa uma chave distinta. `SpreadsheetApp.openById` foi substituído porque exige o scope de escrita, mesmo quando usado apenas para ler. O consentimento para os quatro scopes foi concedido; o diagnóstico confirmou que falta ativar Google Sheets API no projeto. O ecrã de ativação está preparado, pendente de aceitação dos termos Google APIs. Nenhum acionador novo ou email real foi criado.
+A leitura usa Google Sheets REST `values:batchGet` com `FORMATTED_VALUE` (preserva 0001) e apenas os intervalos B:D e F:F. O token OAuth Google só é enviado a sheets.googleapis.com; a sincronização Cloudflare usa uma chave distinta. `SpreadsheetApp.openById` foi substituído porque exige o scope de escrita, mesmo quando usado apenas para ler. O consentimento para os quatro scopes foi concedido e Google Sheets API foi ativada após autorização explícita dos termos Google APIs. O diagnóstico real terminou com sucesso, confirmando 5 associados e permissões de email/acionadores, sem enviar mensagens nem criar acionadores.
+
+As seis propriedades de ligação principal/teste estão guardadas no novo projeto, com `APEE_SEND_EMAILS=false` e filtro interno para a caixa APEE. A chave BRIDGE_SECRET principal foi renovada e configurada no Worker e no Apps Script; ADMIN_SECRET e SESSION_PEPPER foram preservados. A conectividade principal só poderá ser validada quando o endereço técnico estiver habilitado, mantendo o bloqueio de publicação até concluir os testes. A conta interna de teste existe apenas na D1 de testes e não tem password.
 
 Propriedades privadas necessárias:
 
@@ -76,11 +79,11 @@ O envio para quando restam 25 destinatários de quota, preservando margem para o
 
 ## Pendências antes da publicação
 
-1. Ativar Google Sheets API no novo projeto e repetir o diagnóstico com os scopes já concedidos; configurar as propriedades privadas da integração. Ainda não foi criado acionador no novo projeto nem feito envio real de email.
+1. Validar conectividade Apps Script/Worker principal e instalar o acionador de cinco em cinco minutos, quando o endereço técnico estiver disponível. Ainda não foi criado acionador no novo projeto nem feito envio real de email.
 2. Autorizar e verificar um único email de recuperação para a caixa interna APEE, incluindo receção e expiração. Nenhum convite a associados está autorizado.
 3. Carregar apenas documentação identificada/aprovada, sem expor os ficheiros no repositório. PDFs acima de 1,8 MB precisam de otimização ou avaliação específica.
 4. Testar a interface em Safari/iPhone, recuperação real, expiração, estado desativado e consulta dos documentos finais.
 5. Só depois abrir o Worker principal, ativar o acesso e integrar o link/menu no site. A tentativa de abrir workers.dev antes desta fase foi bloqueada pela revisão automática e não foi contornada.
-6. Ativar a limpeza diária de tokens/contadores/fila e rever acessos, cópias de segurança e retenção de dados. Não adicionar faturação nem mudar DNS/nameservers.
+6. Rever acessos, cópias de segurança e retenção de dados. Limpeza diária já configurada e confirmada. Não adicionar faturação nem mudar DNS/nameservers.
 
 Referências: [Workers](https://developers.cloudflare.com/workers/platform/limits/), [D1](https://developers.cloudflare.com/d1/platform/limits/), [Apps Script](https://developers.google.com/apps-script/guides/services/quotas).
