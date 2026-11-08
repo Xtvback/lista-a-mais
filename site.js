@@ -119,30 +119,9 @@ if(b&&m){
 })();
 
 
-/* Parcerias: nova página autónoma no menu de todas as páginas. */
+/* As parcerias e respetivos benefícios são exclusivos do Espaço Associado. */
 (function(){
-  const href='/parcerias.html';
-  const nav=document.getElementById('mainMenu');
-  if(nav){
-    let link=nav.querySelector('a[href="'+href+'"]');
-    if(!link){
-      link=document.createElement('a');
-      link.href=href;
-      link.textContent='Parcerias';
-      const before=nav.querySelector('a[href="/noticias.html"]') || nav.querySelector('a[href="/contactos.html"]');
-      if(before)nav.insertBefore(link,before); else nav.appendChild(link);
-    }
-    if(location.pathname.endsWith(href)){
-      nav.querySelectorAll('a[aria-current="page"]').forEach(a=>a.removeAttribute('aria-current'));
-      link.setAttribute('aria-current','page');
-    }
-  }
-  const footer=document.querySelector('.foot-links');
-  if(footer&&!footer.querySelector('a[href="'+href+'"]')){
-    const a=document.createElement('a');a.href=href;a.textContent='Parcerias';
-    const before=footer.querySelector('a[href="/contactos.html"]');
-    if(before)footer.insertBefore(a,before);else footer.appendChild(a);
-  }
+  document.querySelectorAll('#mainMenu a[href="/parcerias.html"], .foot-links a[href="/parcerias.html"], nav a[href="/parcerias.html"]').forEach(a=>a.remove());
 })();
 
 /* Recursos autónomos disponíveis de qualquer página, sem recurso ao site anterior. */
