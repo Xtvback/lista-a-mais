@@ -28,12 +28,12 @@
 
 ## Revisão técnica de 8 de novembro de 2026
 
-**Ainda bloqueado para publicação.** A autenticação Google foi validada no dispositivo do titular, mas a Cloudflare devolveu “Unable to sign in. Try again or use your email and password.” Não foram criados recursos nem alterados DNS, faturação, inscrições, cartões ou automatizações.
+**Ainda bloqueado para publicação.** O conector direto Cloudflare está autenticado e a base D1 já foi criada e inicializada. O R2 continua desativado e a ligação do domínio da API continua pendente. Não foram alterados DNS, faturação, inscrições, cartões ou automatizações.
 
 Correções preparadas na branch:
 - Cookies `__Host-apee_session`, HttpOnly, Secure e sem Domain; sessão restrita ao host da API.
 - Primeiro acesso/recuperação por link com token em fragmento; o frontend retira-o do endereço e guarda-o apenas em memória até à submissão. Abrir o link não consome o token.
-- Palavra-passe escolhida pelo associado (15–128 caracteres), scrypt N=16384, r=8, p=5 e HMAC com secret externo à base de dados. O PBKDF2 anterior, com 310000 iterações, excedia o teto de Workers. Não existem contas de produção nem hashes a migrar neste projeto. Hashes antigos exigem recuperação, sem conversão silenciosa.
+- Palavra-passe escolhida pelo associado (15–128 caracteres), scrypt N=16384, r=8, p=5 e HMAC com secret externo à base de dados. O PBKDF2 anterior, com 310000 iterações, excedia o teto de Workers. Os registos importados aguardam ativação, sem palavras-passe nem hashes definidos. Hashes antigos exigem recuperação, sem conversão silenciosa.
 - Alteração de palavra-passe condicionada à existência de token válido no mesmo batch D1 que o elimina e revoga sessões; versões das credenciais impedem criar uma sessão a partir de uma palavra-passe acabada de substituir.
 - Limites D1 atómicos por IP/email e orçamento global para recuperação (40/h, 60/dia); chaves derivadas com secret, sem IP/email em texto na tabela de contadores. Limpeza diária de tokens/contadores expirados pelo scheduled handler.
 - Corpos JSON limitados a 4096 bytes antes de autenticação; respostas genéricas para email existente/desconhecido; sem detalhes internos nos erros.
@@ -44,12 +44,22 @@ Correções preparadas na branch:
 
 ### Pendências obrigatórias no ambiente real
 
-- Confirmar conta Cloudflare, plano Workers Free, base D1 e bindings. O exemplo `cloudflare/wrangler.example.jsonc` contém um ID deliberadamente inválido até à criação dos recursos; não é configuração de produção.
+- A conta e a base D1 estão confirmadas. Confirmar ainda o plano Workers Free e criar o Worker/bindings. A leitura das subscrições de faturação não está disponível por OAuth; não pedir acesso de escrita de faturação para resolver esta leitura. O exemplo Wrangler continua um modelo não utilizável para deploy até completar R2, secrets e domínio.
 - **Não ativar subscrição R2 nem checkout/faturação sem autorização específica.** R2 inclui uma franquia gratuita, mas exige subscrição com faturação por utilização. Manter o bucket privado e sem r2.dev/domínio público.
 - Medir o consumo de CPU da criação/verificação de palavras-passe no plano Workers Free. Os testes locais não reproduzem o limite de CPU do plano. Se exceder, parar e rever a arquitetura; não reduzir a segurança nem mudar para plano pago automaticamente.
 - Verificar remetente/domínio Resend e testar entrega/recuperação apenas com conta interna autorizada. Nenhum convite está autorizado.
-- Inspecionar a automatização real e a folha de associados; só depois implementar/importar os dados mínimos (número, nome e email). Não alterar os cartões, os QR nem os gatilhos de envio existentes sem validar a integração. Não publicar dados pessoais, PDFs ou secrets no GitHub.
+- A folha de associados já foi lida e os cinco registos com cartão enviado foram importados (número, nome e email). Ainda falta inspecionar o código/gatilhos da automatização e implementar a sincronização contínua. Não alterar cartões, QR ou gatilhos existentes sem validar a integração. Não publicar dados pessoais, PDFs ou secrets no GitHub.
 - Confirmar política para emails partilhados por várias inscrições e para revogação/alteração de email. Ainda não existe sincronização nem painel de administração.
 - Testar CORS, cookies e download no domínio real (incluindo Safari/iPhone), permissões, recuperação, revogação e expiração. Só depois integrar o menu/publicar e apenas enviar convites com autorização separada.
 
 Referências oficiais: [runtime crypto](https://developers.cloudflare.com/workers/runtime-apis/nodejs/crypto/), [limites Workers](https://developers.cloudflare.com/workers/platform/limits/), [ativação R2](https://developers.cloudflare.com/r2/get-started/).
+
+## Estado do provisionamento confirmado por API
+
+- D1: `apee-associados`, UUID `20f14590-277f-4634-a77e-f48e95498aab`, jurisdição `eu`, região inicial `EEUR`.
+- Migrações 001/002 aplicadas e registadas em `d1_migrations`; tabelas e colunas verificadas pela API D1.
+- Cinco associados importados de `Registo_Cartoes`, com cartões em estado Enviado, números 0001 a 0005. Todos sem password, sem sessões/tokens e sem emails enviados. Não publicar a identidade ou os emails desses registos.
+- Importação inicial apenas: a sincronização automática ainda não está implementada.
+- R2: API devolve erro 10042, exigindo ativação pelo dashboard. Não foi tentada qualquer ativação ou checkout.
+- Domínio: a lista de zonas acessíveis contém apenas `juntossomamosmais.org`; `apeebairrodorestelo.com` não está nesta conta. Não criar DNS nem mudar nameservers sem preparar a integração e preservar o GitHub Pages existente.
+- Worker APEE ainda não criado/publicado; sem R2 e sem domínio/remetente verificados não há backend completo para testar ou publicar.
