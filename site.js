@@ -34,7 +34,7 @@ if(b&&m){
   const path=location.pathname;
   const whatsapp='https://chat.whatsapp.com/FZplXzSkR070aoK6Q6TWVz';
   const items=[
-    {href:'/inscricao.html',text:'Associados',label:'Inscrição de Associados',tone:'blue',active:path.endsWith('/inscricao.html'),
+    {href:'https://associados.apeebairrodorestelo.com/',text:'Associados',label:'Espaço Associado',tone:'blue',active:false,
       icon:'<path d="M15 19a6 6 0 0 0-12 0v2h12v-2Z"/><circle cx="9" cy="8" r="4"/><path d="M19 8v8m-4-4h8"/>'},
     {href:whatsapp,text:'Comunidade',label:'Aderir à comunidade WhatsApp da APEE',tone:'green',external:true,
       icon:'<path d="M20 11.5a8.5 8.5 0 0 1-12.5 7.5L3 20l1.2-4.4a8.5 8.5 0 1 1 15.8-4.1Z"/><path d="M9 9.1c.6 2.2 2.1 3.7 4.3 4.3l1.7-1.3"/>'},
