@@ -1,65 +1,84 @@
 # Espaço Associado — APEE Bairro do Restelo
-**Estado: implementação em desenvolvimento; NÃO publicada.**
 
-## Arquitetura
-- Página estática `espaco-associado.html` no site existente.
-- Cloudflare Worker em domínio próprio `associados-api.apeebairrodorestelo.com`.
-- D1 para associados, hashes de palavras-passe, sessões e metadados.
-- R2 privado para ficheiros. Nunca colocar documentação reservada no repositório público.
-- Resend para mensagens de ativação/recuperação.
+**Em preparação. Não publicado no site; envios desativados. Sem R2, Resend ou ativação de faturação.**
 
-## Preparação antes da publicação
-1. Criar recursos Cloudflare D1 e R2 numa conta controlada pela associação.
-2. Executar as migrações `001` e `002`, por ordem, em D1. A segunda acrescenta controlo de versões das credenciais e limites persistentes de pedidos.
-3. Configurar bindings D1 `DB` e R2 `DOCS` no Worker; configurar secrets `RESEND_API_KEY` e `SESSION_PEPPER` (valor aleatório >=32 bytes); vars `SITE_ORIGIN=https://apeebairrodorestelo.com`, `API_ORIGIN=https://associados-api.apeebairrodorestelo.com`, `MAIL_FROM` (remetente verificado).
-4. Configurar rota e DNS do subdomínio API. Testar CORS, cookies, reset, expiração, recuperação e bloqueios antes de ativar a página.
-5. Importar associados do sistema de inscrições depois de validar autorização e email; **não** publicar/exportar emails para GitHub.
-6. Inserir metadados de documentos e carregar PDFs no R2 PRIVADO. Só publicar os que a Direção autorizar.
-7. Testar com contas internas; só depois adicionar link ao menu e enviar convites.
-8. Criar procedimento de cópias de segurança, retenção/apagamento e revisão de acessos RGPD.
+## Arquitetura gratuita
 
-## Segurança / limitações
-- O número de associado **não é password**. Palavra-passe escolhida pelo associado.
-- Não está integrado com a Sheets nem com a automatização do cartão.
-- Não existe ainda painel de administração nem importação automática.
-- Emails têm limite de envio do provedor e poderão exigir verificação de domínio.
-- Este projeto NÃO deve ser considerado produção até que as etapas acima sejam concluídas e testadas.
+- Workers Free serve o formulário e a API no mesmo endereço `https://apee-associados.xtvback2.workers.dev`. Cookies host-only funcionam sem depender de cookies entre o GitHub Pages e outro domínio.
+- D1 guarda os associados, credenciais, sessões, PDFs e fila de emails. Cada PDF tem um limite de aplicação de 1,8 MB, abaixo do limite de 2 MB por linha D1. Nunca colocar documentos privados no GitHub público.
+- Projeto Google Apps Script independente na conta APEE: lê o `Registo_Cartoes` e sincroniza número permanente, nome e email de registos com cartão enviado. Não escreve na folha nem altera cartões, QR, formulário, código ou acionadores do projeto original.
+- Mensagens de primeiro acesso/recuperação são pedidas pelo próprio utilizador. Não existem convites automáticos nem envios em massa.
 
+## Recursos confirmados
 
-## Revisão técnica de 8 de novembro de 2026
+| Recurso | Identificador/estado |
+| --- | --- |
+| D1 principal | `apee-associados`, `20f14590-277f-4634-a77e-f48e95498aab`, jurisdição EU |
+| D1 de testes | `apee-associados-testes`, `845f1be2-bd5a-457c-a1f2-f4892c665481`, jurisdição EU |
+| Migrações principal | 001, 002 e 003 aplicadas e registadas em `d1_migrations` |
+| Associados principal | Cinco registos, números 0001–0005, importados sem passwords ou mensagens de ativação |
+| Worker principal | Código e binding D1 criados; `RELEASE_ENABLED=false`, `MAIL_DISPATCH_ENABLED=false`; workers.dev e previews desativados |
+| Worker de testes | `apee-associados-testes`, dados sintéticos; envios desativados |
+| R2 | Continua desativado. Não faz parte desta solução |
+| Apps Script novo | Projeto `1NuifHAN-B3W7u-fBkZhzlrUG2Ni-qM-5zSlvqSg63lz0-L-4ICu4CCAf`; código/manifesto guardados; autorização/configuração ainda por concluir |
+| Apps Script dos cartões | `1qjC1RtV1yAr4mCgE1eJLGmJf9EIm9y8J7yaCs1M6jglHEnHHhmffkUqk`; consultado, sem alterações |
 
-**Ainda bloqueado para publicação.** O conector direto Cloudflare está autenticado e a base D1 já foi criada e inicializada. O R2 continua desativado e a ligação do domínio da API continua pendente. Não foram alterados DNS, faturação, inscrições, cartões ou automatizações.
+Os identificadores acima não são credenciais. Não guardar secrets, emails dos associados ou PDFs no repositório.
 
-Correções preparadas na branch:
-- Cookies `__Host-apee_session`, HttpOnly, Secure e sem Domain; sessão restrita ao host da API.
-- Primeiro acesso/recuperação por link com token em fragmento; o frontend retira-o do endereço e guarda-o apenas em memória até à submissão. Abrir o link não consome o token.
-- Palavra-passe escolhida pelo associado (15–128 caracteres), scrypt N=16384, r=8, p=5 e HMAC com secret externo à base de dados. O PBKDF2 anterior, com 310000 iterações, excedia o teto de Workers. Os registos importados aguardam ativação, sem palavras-passe nem hashes definidos. Hashes antigos exigem recuperação, sem conversão silenciosa.
-- Alteração de palavra-passe condicionada à existência de token válido no mesmo batch D1 que o elimina e revoga sessões; versões das credenciais impedem criar uma sessão a partir de uma palavra-passe acabada de substituir.
-- Limites D1 atómicos por IP/email e orçamento global para recuperação (40/h, 60/dia); chaves derivadas com secret, sem IP/email em texto na tabela de contadores. Limpeza diária de tokens/contadores expirados pelo scheduled handler.
-- Corpos JSON limitados a 4096 bytes antes de autenticação; respostas genéricas para email existente/desconhecido; sem detalhes internos nos erros.
+## Segurança
 
-### Validação realizada
+- Primeiro acesso por ligação enviada ao email do registo; palavra-passe escolhida pelo associado, 15–128 caracteres. O número de associado nunca é password.
+- scrypt nativo (N=16384, r=8, p=5), salt individual e HMAC/pepper fora da base de dados; comparação em tempo constante. Sem redução automática do custo para caber no plano gratuito.
+- Tokens aleatórios de 256 bits. D1 só guarda hashes dos tokens de sessão/recuperação. Sessões HttpOnly/Secure/SameSite=Lax, sem Domain e com prefixo `__Host-`.
+- Links de recuperação expiram em 30 minutos, usam fragmento em vez de query e são retirados do endereço pelo frontend. Definir password consome o token atomicamente e revoga sessões anteriores. Versão de credenciais impede criar sessão com password acabada de substituir.
+- PDFs só são devolvidos a associados ativos com sessão válida. Headers no-store/nosniff e CSP sandbox; desativar um associado bloqueia imediatamente os seus pedidos.
+- CORS/origem estritos nos pedidos públicos que alteram estado, limites de tamanho JSON e contadores D1 atómicos por IP/email. Chaves de rate limit não contêm IP/email em texto.
+- Recuperação limitada globalmente a 40 pedidos/h e 60/dia. Fila contém payload cifrado com AES-GCM; os links não ficam em texto simples na base de dados.
+- `BRIDGE_SECRET` autoriza sincronização/entrega de emails, mas não consulta nem carrega PDFs. `ADMIN_SECRET` é separado. Guardar os secrets apenas nas configurações privadas dos serviços.
+- Publicação controlada por `RELEASE_ENABLED`. Envio/levantamento da fila controlado por `MAIL_DISPATCH_ENABLED`, além do interruptor separado no Apps Script.
 
-`cd cloudflare && npm ci && npm test`: oito testes de integração no runtime workerd/Miniflare, com D1 e R2 locais. Testam autenticação, recuperação, consumo único, logout, revogação, associação desativada, documentação privada, origem inválida, limites de tamanho e tentativas simultâneas. O transporte Resend é intercetado localmente; **nenhum email real é enviado**.
+## Apps Script
 
-### Pendências obrigatórias no ambiente real
+Código em `integrations/apps-script/Code.gs` e manifesto em `appsscript.json` na mesma pasta.
 
-- A conta e a base D1 estão confirmadas. Confirmar ainda o plano Workers Free e criar o Worker/bindings. A leitura das subscrições de faturação não está disponível por OAuth; não pedir acesso de escrita de faturação para resolver esta leitura. O exemplo Wrangler continua um modelo não utilizável para deploy até completar R2, secrets e domínio.
-- **Não ativar subscrição R2 nem checkout/faturação sem autorização específica.** R2 inclui uma franquia gratuita, mas exige subscrição com faturação por utilização. Manter o bucket privado e sem r2.dev/domínio público.
-- Medir o consumo de CPU da criação/verificação de palavras-passe no plano Workers Free. Os testes locais não reproduzem o limite de CPU do plano. Se exceder, parar e rever a arquitetura; não reduzir a segurança nem mudar para plano pago automaticamente.
-- Verificar remetente/domínio Resend e testar entrega/recuperação apenas com conta interna autorizada. Nenhum convite está autorizado.
-- A folha de associados já foi lida e os cinco registos com cartão enviado foram importados (número, nome e email). Ainda falta inspecionar o código/gatilhos da automatização e implementar a sincronização contínua. Não alterar cartões, QR ou gatilhos existentes sem validar a integração. Não publicar dados pessoais, PDFs ou secrets no GitHub.
-- Confirmar política para emails partilhados por várias inscrições e para revogação/alteração de email. Ainda não existe sincronização nem painel de administração.
-- Testar CORS, cookies e download no domínio real (incluindo Safari/iPhone), permissões, recuperação, revogação e expiração. Só depois integrar o menu/publicar e apenas enviar convites com autorização separada.
+Permissões declaradas: ler Google Sheets; pedidos externos; enviar email; gerir acionadores do próprio projeto. Não pede leitura da caixa de entrada nem escrita nas folhas. O código limita a leitura ao registo de cartões indicado.
 
-Referências oficiais: [runtime crypto](https://developers.cloudflare.com/workers/runtime-apis/nodejs/crypto/), [limites Workers](https://developers.cloudflare.com/workers/platform/limits/), [ativação R2](https://developers.cloudflare.com/r2/get-started/).
+Propriedades privadas necessárias:
 
-## Estado do provisionamento confirmado por API
+- `APEE_API_ORIGIN`: endereço do Worker principal.
+- `APEE_BRIDGE_SECRET`: chave exclusiva de integração, correspondente ao Worker. Nunca usar o ADMIN_SECRET.
+- `APEE_SEND_EMAILS`: manter `false` durante configuração.
+- `APEE_TEST_EMAIL`: manter o endereço interno autorizado durante testes.
+- `APEE_TEST_API_ORIGIN` e `APEE_TEST_BRIDGE_SECRET`: apenas para teste interno no ambiente isolado; remover quando deixar de ser necessário.
 
-- D1: `apee-associados`, UUID `20f14590-277f-4634-a77e-f48e95498aab`, jurisdição `eu`, região inicial `EEUR`.
-- Migrações 001/002 aplicadas e registadas em `d1_migrations`; tabelas e colunas verificadas pela API D1.
-- Cinco associados importados de `Registo_Cartoes`, com cartões em estado Enviado, números 0001 a 0005. Todos sem password, sem sessões/tokens e sem emails enviados. Não publicar a identidade ou os emails desses registos.
-- Importação inicial apenas: a sincronização automática ainda não está implementada.
-- R2: API devolve erro 10042, exigindo ativação pelo dashboard. Não foi tentada qualquer ativação ou checkout.
-- Domínio: a lista de zonas acessíveis contém apenas `juntossomamosmais.org`; `apeebairrodorestelo.com` não está nesta conta. Não criar DNS nem mudar nameservers sem preparar a integração e preservar o GitHub Pages existente.
-- Worker APEE ainda não criado/publicado; sem R2 e sem domínio/remetente verificados não há backend completo para testar ou publicar.
+`authorizeApeeBridge` verifica permissões sem enviar mensagens nem criar acionadores. `installApeeBridge` sincroniza e cria no máximo um acionador de cinco em cinco minutos; nunca envia emails na instalação. `testApeeMail` só pode enviar à caixa da APEE e exige configuração de testes separada. Não executar teste real sem a autorização necessária.
+
+A sincronização só transmite alterações e não redefine passwords. Emails/números em conflito exigem revisão e não são reatribuídos automaticamente. Ausência de uma linha na folha não desativa automaticamente um associado: revogações devem ser tratadas explicitamente pela Direção.
+
+O envio para quando restam 25 destinatários de quota, preservando margem para os cartões. Regista entregas no próprio projeto para evitar reenvio se o ack falhar. Falha/crash entre entrega Gmail e registo local ainda pode produzir duplicação; não existe transação conjunta Gmail+D1. A fila usa leases de dois minutos e até cinco tentativas. Mensagens expiradas não são enviadas.
+
+## Limites e custos
+
+- Workers Free: 100 mil pedidos/dia e limite de CPU por invocação. A API confirmou que esta conta está no plano Free ao rejeitar limites de CPU configuráveis, que são exclusivos do plano pago. Não houve upgrade.
+- D1 Free: cinco milhões de linhas lidas/dia, 100 mil escritas/dia, 5 GB por conta e 500 MB por base. A aplicação limita a sincronização a 50 associados e cada PDF a 1,8 MB.
+- Google Apps Script na conta Gmail gratuita: quota de 100 destinatários/dia, partilhada com os outros scripts, incluindo cartões. Pedidos de recuperação podem ficar indisponíveis/expirar se a quota se esgotar.
+- Quotas são da conta; outros projetos também as consomem. Exceder limites Free pode causar indisponibilidade, não autoriza mudar de plano ou ativar faturação.
+
+## Validação realizada
+
+- `npm test --prefix cloudflare`: 19 testes locais em Node/workerd/Miniflare, com D1 local e testes do módulo Apps Script através de serviços Google simulados. Incluem autenticação, primeiro acesso, replay concorrente, recuperação, revogação, estado de associado, PDFs D1, origem, tamanho, rate limiting, scopes internos, sincronização e leases da fila. O bloqueio antes de publicação foi testado.
+- 15 verificações de integração numa versão de testes no Cloudflare Workers Free e D1 EU isolado: definir password, login, cookie, documento privado e logout, sem emails reais.
+- Oito verificações adicionais da versão com envios desativados: confirma 503 na recuperação/claim, login, PDF D1 com CSP sandbox e revogação. Sem emails reais.
+- Prova sintética inicial de scrypt no Workers Free concluída com HTTP 200. O Worker temporário de runtime ficou inacessível publicamente depois do teste.
+- As chamadas HTTP identificam a aplicação com User-Agent descritivo, conforme documentação Cloudflare; o cliente urllib predefinido é rejeitado com 1010 em workers.dev.
+
+## Pendências antes da publicação
+
+1. Concluir autorização Google e configurar as propriedades privadas da integração. Ainda não foi criado acionador no novo projeto nem feito envio real de email.
+2. Autorizar e verificar um único email de recuperação para a caixa interna APEE, incluindo receção e expiração. Nenhum convite a associados está autorizado.
+3. Carregar apenas documentação identificada/aprovada, sem expor os ficheiros no repositório. PDFs acima de 1,8 MB precisam de otimização ou avaliação específica.
+4. Testar a interface em Safari/iPhone, recuperação real, expiração, estado desativado e consulta dos documentos finais.
+5. Só depois abrir o Worker principal, ativar o acesso e integrar o link/menu no site. A tentativa de abrir workers.dev antes desta fase foi bloqueada pela revisão automática e não foi contornada.
+6. Ativar a limpeza diária de tokens/contadores/fila e rever acessos, cópias de segurança e retenção de dados. Não adicionar faturação nem mudar DNS/nameservers.
+
+Referências: [Workers](https://developers.cloudflare.com/workers/platform/limits/), [D1](https://developers.cloudflare.com/d1/platform/limits/), [Apps Script](https://developers.google.com/apps-script/guides/services/quotas).

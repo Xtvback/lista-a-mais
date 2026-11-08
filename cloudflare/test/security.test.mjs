@@ -1,26 +1,21 @@
 import { after, before, test } from 'node:test';
 import assert from 'node:assert/strict';
 import { readFile, readdir } from 'node:fs/promises';
-import { Miniflare, Response } from 'miniflare';
+import { Miniflare } from 'miniflare';
 
-let mf, db, bucket;
+let mf, db;
 const origin = 'https://apeebairrodorestelo.com';
 const emails = [];
 const address = 'internal@example.test';
 const password = 'Uma frase longa para testes 2026!';
-const deliverMail = async request => {
-  assert.equal(new URL(request.url).origin,'https://api.resend.com');
-  emails.push(await request.json());
-  return new Response(JSON.stringify({id:'test-delivery'}),{status:200});
-};
 
 before(async () => {
   mf = new Miniflare({scriptPath:new URL('../associados-worker.js',import.meta.url).pathname,
-    modules:true, compatibilityDate:'2026-07-29', compatibilityFlags:['nodejs_compat'],
-    d1Databases:['DB'], r2Buckets:['DOCS'], outboundService:deliverMail,
-    bindings:{SITE_ORIGIN:origin, API_ORIGIN:'https://api.example.test', SESSION_PEPPER:'x'.repeat(64),
-      RESEND_API_KEY:'test-key', MAIL_FROM:'APEE <access@example.test>'}});
-  db = await mf.getD1Database('DB'); bucket = await mf.getR2Bucket('DOCS');
+    modules:true, modulesRoot:new URL('../../',import.meta.url).pathname, compatibilityDate:'2026-07-29', compatibilityFlags:['nodejs_compat'],
+    d1Databases:['DB'], modulesRules:[{type:'ESModule',include:['**/*.js'],fallthrough:true},{type:'Text',include:['**/*.html'],fallthrough:true}],
+    bindings:{RELEASE_ENABLED:'true',SITE_ORIGIN:origin, API_ORIGIN:'https://api.example.test', SESSION_PEPPER:'x'.repeat(64),
+      BRIDGE_SECRET:'b'.repeat(64), ADMIN_SECRET:'a'.repeat(64), MAIL_DISPATCH_ENABLED:'true'}});
+  db = await mf.getD1Database('DB');
   for(const f of (await readdir(new URL('../../migrations/',import.meta.url))).sort()) {
     const sql = await readFile(new URL('../../migrations/'+f,import.meta.url),'utf8');
     for(const statement of sql.split(';').map(x=>x.trim()).filter(Boolean)) await db.prepare(statement).run();
@@ -34,9 +29,15 @@ function request(path, body, cookie, extra={}) {
     headers:{origin,'content-type':'application/json','cf-connecting-ip':'192.0.2.10',...(cookie?{cookie}:{}),...extra},
     ...(body===undefined?{}:{body:JSON.stringify(body)})});
 }
+
+function internal(path,body,key='b'.repeat(64)) {
+ return request(path,body,null,{authorization:'Bearer '+key});
+}
+
 async function recovery() {
   const r=await request('/api/recovery',{email:address}); assert.equal(r.status,200);
-  assert.ok(emails.length); const link=emails.at(-1).html.match(/href="([^"]+)"/)[1];
+  const claim=await internal('/internal/mail/claim',{}); assert.equal(claim.status,200);
+  const messages=(await claim.json()).messages;assert.ok(messages.length); const link=messages.at(-1).link;
   const url=new URL(link); return url.hash ? new URLSearchParams(url.hash.slice(1)).get('token') : url.searchParams.get('token');
 }
 async function login() {
@@ -56,7 +57,7 @@ test('activation uses a fragment link and keeps an unknown email response identi
   const known=await request('/api/recovery',{email:address});
   const unknown=await request('/api/recovery',{email:'unknown@example.test'});
   assert.deepEqual(await known.json(),await unknown.json());
-  assert.match(emails.at(-1).html,/#token=/);
+  const queued=await internal('/internal/mail/claim',{}); const messages=(await queued.json()).messages;assert.equal(messages.length,1);assert.match(messages[0].link,/#token=/);
 });
 test('first access sets a password; a concurrent replay changes it only once',async()=>{
   const token=await recovery();
@@ -76,8 +77,7 @@ test('login cookie is host-only and logout revokes access',async()=>{
 });
 test('private PDFs require active membership and revoked sessions stop immediately',async()=>{
   const cookie=await login();
-  await bucket.put('private/ata.pdf','%PDF-1.4 test');
-  await db.prepare("INSERT INTO documents(id,title,r2_key,active) VALUES('ata','Ata','private/ata.pdf',1)").run();
+  const upload=await internal('/internal/documents/upload',{id:'ata',title:'Ata',active:true,content_base64:btoa('%PDF-1.4 test')},'a'.repeat(64)); assert.equal(upload.status,200);
   let r=await request('/api/documents/ata',undefined,cookie);
   assert.equal(r.status,200); assert.match(r.headers.get('cache-control'),/no-store/);
   assert.equal(await r.text(),'%PDF-1.4 test');
@@ -100,4 +100,38 @@ test('durable login throttling stops repeated attempts, including parallel reque
   assert.equal(responses.filter(r=>r.status===401).length,10);
   assert.equal(responses.filter(r=>r.status===429).length,2);
   assert.ok(responses.find(r=>r.status===429).headers.get('retry-after'));
+});
+
+
+test('serves the member page from its own origin without a document bucket',async()=>{
+ const r=await request('/');assert.equal(r.status,200);assert.match(await r.text(),/Espaço Associado/);
+ assert.match(r.headers.get('content-security-policy'),/frame-ancestors 'none'/);
+});
+test('bridge credentials cannot upload or download private documents',async()=>{
+ assert.equal((await internal('/internal/documents/upload',{id:'bad'})).status,401);
+ assert.equal((await internal('/internal/mail/claim',{},'wrong')).status,401);
+ assert.equal((await request('/api/documents/ata',undefined,null,{authorization:'Bearer '+'b'.repeat(64)})).status,401);
+});
+test('sync preserves existing credentials and rejects conflicting identities atomically',async()=>{
+ const original=await db.prepare('SELECT password_hash FROM members WHERE email=?').bind(address).first();
+ const members=[{member_number:'TEST-0001',full_name:'Conta Interna',email:address},{member_number:'TEST-0002',full_name:'Outra Conta',email:'new@example.test'}];
+ assert.equal((await internal('/internal/members/sync',{members})).status,200);
+ assert.equal((await db.prepare('SELECT password_hash FROM members WHERE email=?').bind(address).first()).password_hash,original.password_hash);
+ const bad=await internal('/internal/members/sync',{members:[{member_number:'TEST-0003',full_name:'Erro',email:address}]});assert.equal(bad.status,409);
+ assert.equal(await db.prepare("SELECT id FROM members WHERE member_number='TEST-0003'").first(),null);
+});
+test('mail claim leases a message and acknowledgement requires its exact lease',async()=>{
+ await db.prepare('DELETE FROM rate_limits').run();
+ await request('/api/recovery',{email:'new@example.test'});
+ const claim=await internal('/internal/mail/claim',{});const messages=(await claim.json()).messages;
+ const message=messages.find(m=>m.email==='new@example.test');assert.ok(message);
+ assert.ok(!(await (await internal('/internal/mail/claim',{})).json()).messages.some(m=>m.id===message.id));
+ assert.equal((await internal('/internal/mail/ack',{id:message.id,lease:'wrong'})).status,409);
+ assert.equal((await internal('/internal/mail/ack',{id:message.id,lease:message.lease})).status,200);
+ assert.equal((await db.prepare('SELECT delivered_at FROM mail_outbox WHERE id=?').bind(message.id).first()).delivered_at>0,true);
+});
+
+test('a deployed portal stays closed until the release flag is enabled',async()=>{
+ const closed=new Miniflare({scriptPath:new URL('../associados-worker.js',import.meta.url).pathname,modules:true,modulesRoot:new URL('../../',import.meta.url).pathname,compatibilityDate:'2026-07-29',compatibilityFlags:['nodejs_compat'],modulesRules:[{type:'ESModule',include:['**/*.js'],fallthrough:true},{type:'Text',include:['**/*.html'],fallthrough:true}],bindings:{RELEASE_ENABLED:'false'}});
+ try {assert.equal((await closed.dispatchFetch('https://closed.example.test/')).status,503);assert.equal((await closed.dispatchFetch('https://closed.example.test/api/me')).status,503);} finally {await closed.dispose()}
 });
