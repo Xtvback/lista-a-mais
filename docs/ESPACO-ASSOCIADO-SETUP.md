@@ -20,7 +20,7 @@
 | Worker principal | Código e binding D1 criados; `RELEASE_ENABLED=false`, `MAIL_DISPATCH_ENABLED=false`; workers.dev e previews desativados |
 | Worker de testes | `apee-associados-testes`, dados sintéticos; envios desativados |
 | R2 | Continua desativado. Não faz parte desta solução |
-| Apps Script novo | Projeto `1NuifHAN-B3W7u-fBkZhzlrUG2Ni-qM-5zSlvqSg63lz0-L-4ICu4CCAf`; código/manifesto guardados; autorização/configuração ainda por concluir |
+| Apps Script novo | Projeto `1NuifHAN-B3W7u-fBkZhzlrUG2Ni-qM-5zSlvqSg63lz0-L-4ICu4CCAf`; consentimento Google concedido; código corrigido para leitura REST; ativação Google Sheets API e configuração por concluir |
 | Apps Script dos cartões | `1qjC1RtV1yAr4mCgE1eJLGmJf9EIm9y8J7yaCs1M6jglHEnHHhmffkUqk`; consultado, sem alterações |
 
 Os identificadores acima não são credenciais. Não guardar secrets, emails dos associados ou PDFs no repositório.
@@ -42,6 +42,8 @@ Os identificadores acima não são credenciais. Não guardar secrets, emails dos
 Código em `integrations/apps-script/Code.gs` e manifesto em `appsscript.json` na mesma pasta.
 
 Permissões declaradas: ler Google Sheets; pedidos externos; enviar email; gerir acionadores do próprio projeto. Não pede leitura da caixa de entrada nem escrita nas folhas. O código limita a leitura ao registo de cartões indicado.
+
+A leitura usa Google Sheets REST `values:batchGet` com `FORMATTED_VALUE` (preserva 0001) e apenas os intervalos B:D e F:F. O token OAuth Google só é enviado a sheets.googleapis.com; a sincronização Cloudflare usa uma chave distinta. `SpreadsheetApp.openById` foi substituído porque exige o scope de escrita, mesmo quando usado apenas para ler. O consentimento para os quatro scopes foi concedido; o diagnóstico confirmou que falta ativar Google Sheets API no projeto. O ecrã de ativação está preparado, pendente de aceitação dos termos Google APIs. Nenhum acionador novo ou email real foi criado.
 
 Propriedades privadas necessárias:
 
@@ -66,7 +68,7 @@ O envio para quando restam 25 destinatários de quota, preservando margem para o
 
 ## Validação realizada
 
-- `npm test --prefix cloudflare`: 19 testes locais em Node/workerd/Miniflare, com D1 local e testes do módulo Apps Script através de serviços Google simulados. Incluem autenticação, primeiro acesso, replay concorrente, recuperação, revogação, estado de associado, PDFs D1, origem, tamanho, rate limiting, scopes internos, sincronização e leases da fila. O bloqueio antes de publicação foi testado.
+- `npm test --prefix cloudflare`: 20 testes locais em Node/workerd/Miniflare, com D1 local e testes do módulo Apps Script através de serviços Google simulados. Incluem autenticação, primeiro acesso, replay concorrente, recuperação, revogação, estado de associado, PDFs D1, origem, tamanho, rate limiting, scopes internos, sincronização e leases da fila. O bloqueio antes de publicação foi testado. O teste adicional confirma leitura GET apenas dos intervalos necessários, separação do token Google/chave Cloudflare e interrupção da sincronização quando a leitura é recusada.
 - 15 verificações de integração numa versão de testes no Cloudflare Workers Free e D1 EU isolado: definir password, login, cookie, documento privado e logout, sem emails reais.
 - Oito verificações adicionais da versão com envios desativados: confirma 503 na recuperação/claim, login, PDF D1 com CSP sandbox e revogação. Sem emails reais.
 - Prova sintética inicial de scrypt no Workers Free concluída com HTTP 200. O Worker temporário de runtime ficou inacessível publicamente depois do teste.
@@ -74,7 +76,7 @@ O envio para quando restam 25 destinatários de quota, preservando margem para o
 
 ## Pendências antes da publicação
 
-1. Concluir autorização Google e configurar as propriedades privadas da integração. Ainda não foi criado acionador no novo projeto nem feito envio real de email.
+1. Ativar Google Sheets API no novo projeto e repetir o diagnóstico com os scopes já concedidos; configurar as propriedades privadas da integração. Ainda não foi criado acionador no novo projeto nem feito envio real de email.
 2. Autorizar e verificar um único email de recuperação para a caixa interna APEE, incluindo receção e expiração. Nenhum convite a associados está autorizado.
 3. Carregar apenas documentação identificada/aprovada, sem expor os ficheiros no repositório. PDFs acima de 1,8 MB precisam de otimização ou avaliação específica.
 4. Testar a interface em Safari/iPhone, recuperação real, expiração, estado desativado e consulta dos documentos finais.

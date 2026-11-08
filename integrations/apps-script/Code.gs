@@ -15,15 +15,20 @@ function apeeDigest_(value) {
   return Utilities.base64EncodeWebSafe(Utilities.computeDigest(Utilities.DigestAlgorithm.SHA_256, value)).replace(/=+$/, '');
 }
 function apeeReadMembers_(cfg) {
-  var sheet = SpreadsheetApp.openById(cfg.sheet).getSheetByName('Registo_Cartoes');
-  if (!sheet) throw new Error('Registo de cartões não encontrado.');
-  var rows = sheet.getRange(1,2,Math.max(1,sheet.getLastRow()),3).getDisplayValues();
-  var states = sheet.getRange(1,6,Math.max(1,sheet.getLastRow()),1).getDisplayValues();
-  if (rows[0].join('|') !== 'Número permanente|Nome|Email' || states[0][0] !== 'Estado') throw new Error('Colunas do registo alteradas. Requer revisão.');
+  // Sheets REST supports spreadsheets.readonly; SpreadsheetApp.openById requires write scope.
+  var url='https://sheets.googleapis.com/v4/spreadsheets/'+encodeURIComponent(cfg.sheet)+'/values:batchGet?ranges='+encodeURIComponent('Registo_Cartoes!B:D')+'&ranges='+encodeURIComponent('Registo_Cartoes!F:F')+'&valueRenderOption=FORMATTED_VALUE';
+  var response=UrlFetchApp.fetch(url,{method:'get',headers:{Authorization:'Bearer '+ScriptApp.getOAuthToken()},muteHttpExceptions:true,followRedirects:false});
+  if(response.getResponseCode()!==200) {
+    var failure=JSON.parse(response.getContentText()).error || {}, reason=(failure.details || []).map(function(d){return d.reason || '';}).join(' ');
+    throw new Error('Leitura do registo APEE não concluída ('+response.getResponseCode()+'). '+(reason.indexOf('SERVICE_DISABLED')!==-1?'Ativar Google Sheets API neste projeto.':String(failure.message || failure.status || '').slice(0,500)));
+  }
+  var ranges=JSON.parse(response.getContentText()).valueRanges || [];
+  var rows=(ranges[0] || {}).values || [], states=(ranges[1] || {}).values || [];
+  if (!rows[0] || rows[0].join('|') !== 'Número permanente|Nome|Email' || !states[0] || states[0][0] !== 'Estado') throw new Error('Colunas do registo alteradas. Requer revisão.');
   var members = [];
   for (var i=1;i<rows.length;i++) {
-    if (states[i][0] !== 'Enviado') continue;
-    var m = {member_number:rows[i][0].trim(), full_name:rows[i][1].trim(), email:rows[i][2].trim().toLowerCase()};
+    if ((states[i] || [])[0] !== 'Enviado') continue;
+    var m = {member_number:String(rows[i][0] || '').trim(), full_name:String(rows[i][1] || '').trim(), email:String(rows[i][2] || '').trim().toLowerCase()};
     if (!m.member_number || !m.full_name || !m.email) throw new Error('Registo enviado incompleto.');
     members.push(m);
   }
@@ -74,8 +79,8 @@ function testApeeMail() {
 }
 
 function authorizeApeeBridge() {
-  SpreadsheetApp.openById('1jX19ukDbyIvNJNvJck89w6hW33vpIpO_toy6bfrGRb4').getSheetByName('Registo_Cartoes').getLastRow();
+  var members=apeeReadMembers_({sheet:'1jX19ukDbyIvNJNvJck89w6hW33vpIpO_toy6bfrGRb4'});
   MailApp.getRemainingDailyQuota();
   ScriptApp.getProjectTriggers();
-  console.log('Permissões verificadas. Nenhum email foi enviado nem foi criado um acionador.');
+  console.log('Permissões verificadas: '+members.length+' associados. Nenhum email foi enviado nem foi criado um acionador.');
 }

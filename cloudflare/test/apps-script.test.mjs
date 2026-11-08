@@ -9,15 +9,13 @@ function fixture(){
  const state={quota:100,mail:[],calls:[],failAck:false,minutes:null,headers:['Número permanente','Nome','Email'],triggers:[{getHandlerFunction:()=> 'cartoesExistentes'}]};
  const store={getProperty:k=>props.get(k)||null,setProperty:(k,v)=>props.set(k,v),getProperties:()=>Object.fromEntries(props),deleteProperty:k=>props.delete(k)};
  const token='f'.repeat(64);state.messages=[{id:1,lease:'c'.repeat(64),email:'internal@example.test',link:'https://apee-associados-testes.xtvback2.workers.dev/#token='+token}];
- const sheet={getLastRow:()=>2,getRange:(row,col,rows,width)=>({getDisplayValues:()=>col===2?[state.headers,['0001','Conta Interna','internal@example.test']]:[['Estado'],['Enviado']]})};
  const context=vm.createContext({
   PropertiesService:{getScriptProperties:()=>store},
-  SpreadsheetApp:{openById:()=>({getSheetByName:()=>sheet})},
   Utilities:{DigestAlgorithm:{SHA_256:'SHA_256'},computeDigest:(_,s)=>createHash('sha256').update(s).digest(),base64EncodeWebSafe:b=>Buffer.from(b).toString('base64url')},
   LockService:{getScriptLock:()=>({tryLock:()=>true,releaseLock:()=>{}})},
   MailApp:{getRemainingDailyQuota:()=>state.quota,sendEmail:m=>{state.mail.push(m);state.quota--;}},
-  UrlFetchApp:{fetch:(url,options)=>{state.calls.push({url,options});if(state.failAck&&url.endsWith('/ack'))return {getResponseCode:()=>503};return {getResponseCode:()=>200,getContentText:()=>JSON.stringify(url.endsWith('/claim')?{messages:state.messages}:{ok:true})}}},
-  ScriptApp:{getProjectTriggers:()=>state.triggers,newTrigger:name=>({timeBased:()=>({everyMinutes:minutes=>({create:()=>{state.minutes=minutes;state.triggers.push({getHandlerFunction:()=>name});}})})}),deleteTrigger:()=>{throw new Error('Existing triggers must be preserved');}}
+  UrlFetchApp:{fetch:(url,options)=>{state.calls.push({url,options});if(url.startsWith('https://sheets.googleapis.com/'))return {getResponseCode:()=>state.sheetStatus||200,getContentText:()=>JSON.stringify({valueRanges:[{values:[state.headers,['0001','Conta Interna','internal@example.test']]},{values:[['Estado'],['Enviado']]}]})};if(state.failAck&&url.endsWith('/ack'))return {getResponseCode:()=>503};return {getResponseCode:()=>200,getContentText:()=>JSON.stringify(url.endsWith('/claim')?{messages:state.messages}:{ok:true})}}},
+  ScriptApp:{getOAuthToken:()=> 'google-readonly-token',getProjectTriggers:()=>state.triggers,newTrigger:name=>({timeBased:()=>({everyMinutes:minutes=>({create:()=>{state.minutes=minutes;state.triggers.push({getHandlerFunction:()=>name});}})})}),deleteTrigger:()=>{throw new Error('Existing triggers must be preserved');}}
  });
  vm.runInContext(source,context);return {context,state,props};
 }
@@ -45,5 +43,13 @@ test('a foreign reset link is rejected before mail delivery',()=>{
  assert.throws(()=>f.context.apeeBridgeTick(),/Mensagem inválida/);assert.equal(f.state.mail.length,0);
 });
 test('changed spreadsheet headers stop synchronization before any API write',()=>{
- const f=fixture();f.state.headers=['Nome','Email','Número'];assert.throws(()=>f.context.apeeBridgeTick(),/Colunas/);assert.equal(f.state.calls.length,0);
+ const f=fixture();f.state.headers=['Nome','Email','Número'];assert.throws(()=>f.context.apeeBridgeTick(),/Colunas/);assert.equal(f.state.calls.some(c=>c.options.method==='post'),false);
+});
+test('Google read token is only sent to Sheets; HTTP errors stop before member sync',()=>{
+ const f=fixture();f.context.apeeBridgeTick();
+ const sheetCall=f.state.calls.find(c=>c.url.startsWith('https://sheets.googleapis.com/'));
+ assert.equal(sheetCall.options.method,'get');assert.equal(sheetCall.options.headers.Authorization,'Bearer google-readonly-token');
+ const url=new URL(sheetCall.url);assert.deepEqual(url.searchParams.getAll('ranges'),['Registo_Cartoes!B:D','Registo_Cartoes!F:F']);assert.equal(url.searchParams.get('valueRenderOption'),'FORMATTED_VALUE');
+ assert.equal(f.state.calls.find(c=>c.url.endsWith('/sync')).options.headers.Authorization,'Bearer '+'b'.repeat(64));
+ const denied=fixture();denied.state.sheetStatus=403;assert.throws(()=>denied.context.apeeBridgeTick(),/403/);assert.equal(denied.state.calls.length,1);assert.equal(denied.state.mail.length,0);
 });
