@@ -244,3 +244,58 @@ if(b&&m){
   nav.insertBefore(link,nav.id==='mainMenu'?nav.querySelector('.signup-nav-link'):null);
  }
 })();
+
+/* APEE: inscricao primeiro, acesso reservado em botao a seguir. */
+(function(){
+ const nav=document.getElementById('mainMenu');
+ const signup=document.querySelector('a.signup-nav-link[href="/inscricao.html"]');
+ const access=nav&&nav.querySelector('a[href="https://associados.apeebairrodorestelo.com/"]');
+ if(!nav||!signup||!access)return;
+ access.classList.add('apee-menu-item','apee-associado-button','apee-menu-tone-blue');
+ access.setAttribute('aria-label','Espaço Associado — entrar na área reservada');
+ if(!access.querySelector('.apee-menu-icon')){
+  const icon=document.createElement('span');icon.className='apee-menu-icon';icon.setAttribute('aria-hidden','true');
+  icon.innerHTML='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3"/><path d="M3 21v-2a6 6 0 0 1 12 0v2M16 12l2 2 4-4"/></svg>';
+  const name=document.createElement('span');name.className='apee-menu-label';name.textContent='Espaço Associado';
+  const chevron=document.createElement('span');chevron.className='apee-menu-chevron';chevron.setAttribute('aria-hidden','true');chevron.textContent='›';
+  access.replaceChildren(icon,name,chevron);
+ }
+ for(const [link,caption] of [[signup,'Ainda não é associado? Inscreva-se'],[access,'Entrar na minha área reservada']]){
+   const label=link.querySelector('.apee-menu-label');
+   if(label&&!label.querySelector('small')){
+     const small=document.createElement('small');small.className='apee-menu-caption';small.textContent=caption;label.appendChild(small);
+   }
+ }
+ const desktop=window.matchMedia('(min-width: 761px)');
+ const position=()=>{
+  if(desktop.matches){
+    signup.insertAdjacentElement('afterend',access);
+    access.classList.add('apee-associado-top');
+  }else{
+    const contacts=nav.querySelector('a[href="/contactos.html"]');
+    if(contacts)nav.insertBefore(signup,contacts);
+    signup.insertAdjacentElement('afterend',access);
+    access.classList.remove('apee-associado-top');
+  }
+ };
+ position();
+ if(desktop.addEventListener)desktop.addEventListener('change',position);
+ else desktop.addListener(position);
+ const css=[
+ '.apee-menu-caption{display:none}',
+ '@media(min-width:761px){',
+ '.topline .apee-associado-top{display:inline-flex!important;align-items:center;min-height:38px;padding:10px 17px!important;border-radius:10px!important;background:#234f80!important;color:#fff!important;text-decoration:none!important;font-weight:800!important;font-size:.86rem!important;white-space:nowrap}',
+ '.topline .apee-associado-top .apee-menu-icon,.topline .apee-associado-top .apee-menu-chevron{display:none!important}',
+ '}',
+ '@media(max-width:760px){',
+ '.main-menu.apee-menu-modern .apee-associado-button{display:flex!important;align-items:center!important;gap:13px!important;width:100%;min-height:70px!important;padding:11px 12px!important;margin-top:7px!important;background:#234f80!important;color:#fff!important;border:1px solid #234f80!important;border-radius:13px!important;box-shadow:0 4px 10px rgba(18,55,100,.12)!important}',
+ '.main-menu.apee-menu-modern .apee-associado-button .apee-menu-icon{background:rgba(255,255,255,.16)!important;color:#fff!important}',
+ '.main-menu.apee-menu-modern .apee-associado-button .apee-menu-chevron,.main-menu.apee-menu-modern .apee-associado-button .apee-menu-label{color:#fff!important}',
+ '.main-menu.apee-menu-modern a[href="/inscricao.html"].apee-menu-item{min-height:70px!important}',
+ '.main-menu.apee-menu-modern .apee-menu-label{display:flex;flex-direction:column;align-items:flex-start;gap:3px}',
+ '.main-menu.apee-menu-modern .apee-menu-caption{display:block;font-size:.73em;font-weight:550;line-height:1.25;opacity:.93}',
+ '.main-menu.apee-menu-modern .apee-associado-button:focus-visible{outline:3px solid #4c9dff!important;outline-offset:2px}',
+ '}'
+ ].join('\n');
+ const style=document.createElement('style');style.textContent=css;document.head.appendChild(style);
+})();
