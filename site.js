@@ -147,6 +147,23 @@ if(b&&m){
 
 
 
+/* Donativos: acesso público consistente em todos os menus e rodapés. */
+(function(){
+ const nav=document.getElementById('mainMenu');
+ if(nav&&!nav.querySelector('a[href="/doacoes.html"]')){
+  const a=document.createElement('a');a.href='/doacoes.html';a.textContent='Donativos';
+  const before=nav.querySelector('a[href="/contactos.html"]');before?nav.insertBefore(a,before):nav.appendChild(a);
+ }
+ if(location.pathname.endsWith('/doacoes.html')){
+  nav?.querySelectorAll('a[aria-current="page"]').forEach(a=>a.removeAttribute('aria-current'));
+  nav?.querySelector('a[href="/doacoes.html"]')?.setAttribute('aria-current','page');
+ }
+ const footer=document.querySelector('.foot-links');
+ if(footer&&!footer.querySelector('a[href="/doacoes.html"]')){
+  const a=document.createElement('a');a.href='/doacoes.html';a.textContent='Donativos';footer.appendChild(a);
+ }
+})();
+
 /* Estilo B: menu principal moderno com ícones leves e seleção colorida.
    Os links originais continuam iguais; só acrescentamos a apresentação. */
 (function(){
@@ -165,7 +182,8 @@ if(b&&m){
   '/historia.html':'<path d="M3 12a9 9 0 1 1 2.6 6.4M3 18v-6h6M12 7v5l4 2"/>',
   '/documentos.html':'<path d="M6 2h8l5 5v15H6zM14 2v6h5M9 13h7M9 17h7"/>',
   '/inscricao.html':'<circle cx="9" cy="8" r="3"/><path d="M3 21v-2a6 6 0 0 1 12 0v2M19 8v8M15 12h8"/>',
-  '/contactos.html':'<rect x="3" y="5" width="18" height="14" rx="3"/><path d="m3 7 9 6 9-6"/>'
+  '/contactos.html':'<rect x="3" y="5" width="18" height="14" rx="3"/><path d="m3 7 9 6 9-6"/>',
+  '/doacoes.html':'<path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1.1-1.1a5.5 5.5 0 0 0-7.8 7.8L12 21l8.8-8.6a5.5 5.5 0 0 0 0-7.8Z"/>'
  };
  const palette=['blue','green','red','yellow'];
  const links=[...nav.querySelectorAll('a[href]')];
