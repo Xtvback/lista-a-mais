@@ -3,6 +3,8 @@
 // BRIDGE_SECRET and MAIL_DISPATCH_ENABLED control the Google Apps Script bridge.
 import { scrypt, createHmac, timingSafeEqual } from 'node:crypto';
 import page from './espaco-associado.html';
+import partnershipPage from './parcerias-privadas.html';
+import documentPage from './documentos-privados.html';
 import { sealMail, internalAuthorized, internalRoute } from './internal-api.js';
 const encoder=new TextEncoder();
 const bytes=n=>{let x=new Uint8Array(n);crypto.getRandomValues(x);return x};
@@ -49,7 +51,7 @@ async function readBody(req,max=4096){
 function cleanError(){return json({error:'Pedido não concluído. Verifique os dados ou tente mais tarde.'},400)}
 async function route(req,env,body){
  const url=params(req),p=url.pathname,method=req.method;
- if(method==='GET'&&p==='/api/me'){const m=await member(req,env);return json(m?{authenticated:true,name:m.full_name,member_number:m.member_number}:{authenticated:false})}
+ if(method==='GET'&&p==='/api/me'){const m=await member(req,env);return json(m?{authenticated:true,name:m.full_name,member_number:m.member_number,email:m.email}:{authenticated:false})}
  if(method==='POST'&&p==='/api/recovery'){
   const address=normalizeEmail(body.email);
   if(env.MAIL_DISPATCH_ENABLED!=='true')return json({error:'Serviço de email em configuração.'},503);
@@ -84,53 +86,4 @@ async function route(req,env,body){
   const h=await passwordHash(b.password,m?.password_salt||'00000000000000000000000000000000',env);
   if(!m?.password_hash||!validPasswordHash(h,m.password_hash))return json({error:'Credenciais inválidas.'},401);
   const t=token(),hash=await sha(t+env.SESSION_PEPPER),expiry=now()+7*86400;
-  const inserted=await env.DB.prepare("INSERT INTO tokens(token_hash,member_id,purpose,expires_at,credential_version) SELECT ?,id,'session',?,credential_version FROM members WHERE id=? AND status='active' AND credential_version=?").bind(hash,expiry,m.id,m.credential_version).run();
-  if(inserted.meta.changes!==1)return json({error:'Credenciais inválidas.'},401);
-  return json({ok:true},200,{'set-cookie':cookie(t,7*86400)});
- }
- if(method==='POST'&&p==='/api/logout'){
-  const match=(req.headers.get('Cookie')||'').match(/(?:^|;\s*)__Host-apee_session=([a-f0-9]{64})/);
-  if(match)await env.DB.prepare("DELETE FROM tokens WHERE token_hash=?").bind(await sha(match[1]+env.SESSION_PEPPER)).run();
-  return json({ok:true},200,{'set-cookie':cookie('',0)})
- }
- if(method==='GET'&&p==='/api/documents'){
-  const m=await member(req,env);if(!m)return json({error:'Acesso reservado.'},401);
-  const data=await env.DB.prepare("SELECT id,title,category FROM documents WHERE active=1 ORDER BY category,title").all();
-  return json({documents:data.results||[]});
- }
- if(method==='GET'&&p.startsWith('/api/documents/')){
-  const m=await member(req,env);if(!m)return json({error:'Acesso reservado.'},401);
-  const id=decodeURIComponent(p.slice('/api/documents/'.length));
-  if(!/^[\w-]{1,80}$/.test(id))return json({error:'Documento inválido.'},400);
-  const row=await env.DB.prepare("SELECT r2_key,title FROM documents WHERE id=? AND active=1").bind(id).first();
-  if(!row)return json({error:'Documento não encontrado.'},404);
-  const obj=await env.DB.prepare('SELECT content FROM document_content WHERE document_id=?').bind(id).first();if(!obj)return json({error:'Documento não encontrado.'},404);
-  const headers=new Headers({'content-type':'application/pdf','content-disposition':'inline; filename="documento.pdf"','cache-control':'private, no-store','x-content-type-options':'nosniff','content-security-policy':"sandbox; default-src 'none'"});
-  return new Response(new Uint8Array(obj.content),{headers});
- }
- return json({error:'Rota não encontrada.'},404);
-}
-export default {async fetch(req,env){
- const origin=req.headers.get('Origin');
- const headers=cors(req,env);
- const path=new URL(req.url).pathname;
- if(env.PUBLIC_ORIGIN && req.method==='GET' && !path.startsWith('/internal/') && new URL(req.url).origin!==env.PUBLIC_ORIGIN) return Response.redirect(env.PUBLIC_ORIGIN+path+new URL(req.url).search,308);
- if(path.startsWith('/internal/')){
-  if(!internalAuthorized(req,env,path))return json({error:'Acesso reservado.'},401);
-  if(req.method!=='POST')return json({error:'Método inválido.'},405);
-  try{return await internalRoute(path,await readBody(req,path==='/internal/documents/upload'?2500000:20000),env)}catch(e){return json({error:'Pedido interno não concluído.'},[400,413,415].includes(e.status)?e.status:503)}
- }
- if(env.RELEASE_ENABLED!=='true')return json({error:'Espaço Associado ainda em preparação.'},503,headers);
- if(req.method==='GET'&&(path==='/'||path==='/espaco-associado.html'))return new Response(page,{headers:{'content-type':'text/html; charset=utf-8','cache-control':'no-store','referrer-policy':'no-referrer','x-content-type-options':'nosniff','content-security-policy':"default-src 'none'; script-src 'unsafe-inline'; style-src 'unsafe-inline'; img-src https://apeebairrodorestelo.com; connect-src 'self'; base-uri 'none'; form-action 'self'; frame-ancestors 'none'"}});
- if(req.method==='OPTIONS')return origin===env.SITE_ORIGIN?new Response(null,{status:204,headers}):new Response(null,{status:403});
- // Reject unsafe requests from unapproved browser origins. Prevent CSRF on session routes.
- if(req.method!=='GET'&&origin!==env.SITE_ORIGIN)return json({error:'Origem não autorizada.'},403,headers);
- if(!env.DB||!env.SESSION_PEPPER||!env.SITE_ORIGIN||!env.API_ORIGIN)return json({error:'Serviço em configuração.'},503,headers);
- try{
- const path=new URL(req.url).pathname;
- const body=req.method==='POST'?await readBody(req):{};
- if(req.method==='POST'&&['/api/login','/api/recovery','/api/reset'].includes(path)&&!await authLimits(req,env,path,normalizeEmail(body.email)))return json({error:'Demasiados pedidos. Tente novamente mais tarde.'},429,{...headers,'retry-after':path==='/api/recovery'?'3600':'900'});
- const r=await route(req,env,body);const h=new Headers(r.headers);for(const [key,value] of Object.entries(headers))h.set(key,value);
- h.set('x-content-type-options','nosniff');h.set('referrer-policy','no-referrer');return new Response(r.body,{status:r.status,headers:h});
- }catch(e){if([400,413,415].includes(e.status))return json({error:'Pedido inválido.'},e.status,headers);console.error('APEE worker error');return json({error:'Serviço temporariamente indisponível.'},503,headers)}
-},async scheduled(event,env){await env.DB.batch([env.DB.prepare('DELETE FROM tokens WHERE expires_at<=?').bind(now()),env.DB.prepare('DELETE FROM rate_limits WHERE expires_at<=?').bind(now()),env.DB.prepare('DELETE FROM mail_outbox WHERE expires_at<=? OR delivered_at<?').bind(now(),now()-86400)])}};
+  const inserted=await env.DB.prepare("INSERT INTO tokens(token_hash,member_id,purpose,expires_at,credential_version) SELECT ?,id,'session',? --- TRUNCATED --- 15,174 chars
