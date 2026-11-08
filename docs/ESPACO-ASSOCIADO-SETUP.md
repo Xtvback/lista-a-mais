@@ -1,6 +1,6 @@
 # Espaço Associado — APEE Bairro do Restelo
 
-**Em preparação. Não publicado no site; envios desativados. Sem R2, Resend ou ativação de faturação.**
+**Em preparação. Não publicado no site; envios desativados após um único teste interno autorizado. Sem R2, Resend ou ativação de faturação.**
 
 ## Arquitetura gratuita
 
@@ -44,7 +44,7 @@ Código em `integrations/apps-script/Code.gs` e manifesto em `appsscript.json` n
 
 Permissões declaradas: ler Google Sheets; pedidos externos; enviar email; gerir acionadores do próprio projeto. Não pede leitura da caixa de entrada nem escrita nas folhas. O código limita a leitura ao registo de cartões indicado.
 
-A leitura usa Google Sheets REST `values:batchGet` com `FORMATTED_VALUE` (preserva 0001) e apenas os intervalos B:D e F:F. O token OAuth Google só é enviado a sheets.googleapis.com; a sincronização Cloudflare usa uma chave distinta. `SpreadsheetApp.openById` foi substituído porque exige o scope de escrita, mesmo quando usado apenas para ler. O consentimento para os quatro scopes foi concedido e Google Sheets API foi ativada após autorização explícita dos termos Google APIs. O diagnóstico real terminou com sucesso, confirmando 5 associados e permissões de email/acionadores, sem enviar mensagens nem criar acionadores.
+A leitura usa Google Sheets REST `values:batchGet` com `FORMATTED_VALUE` (preserva 0001) e apenas os intervalos B:D e F:F. O token OAuth Google só é enviado a sheets.googleapis.com; a sincronização Cloudflare usa uma chave distinta. `SpreadsheetApp.openById` foi substituído porque exige o scope de escrita, mesmo quando usado apenas para ler. O consentimento para os quatro scopes foi concedido e Google Sheets API foi ativada após autorização explícita dos termos Google APIs. O diagnóstico real terminou com sucesso, confirmando 5 associados e permissões de email/acionadores, sem enviar mensagens nem criar acionadores nessa verificação.
 
 As seis propriedades de ligação principal/teste estão guardadas no novo projeto, com `APEE_SEND_EMAILS=false` e filtro interno para a caixa APEE. A chave BRIDGE_SECRET principal foi renovada e configurada no Worker e no Apps Script; ADMIN_SECRET e SESSION_PEPPER foram preservados. A conectividade principal só poderá ser validada quando o endereço técnico estiver habilitado, mantendo o bloqueio de publicação até concluir os testes. A conta interna de teste existe apenas na D1 de testes e não tem password.
 
@@ -76,11 +76,13 @@ O envio para quando restam 25 destinatários de quota, preservando margem para o
 - Oito verificações adicionais da versão com envios desativados: confirma 503 na recuperação/claim, login, PDF D1 com CSP sandbox e revogação. Sem emails reais.
 - Prova sintética inicial de scrypt no Workers Free concluída com HTTP 200. O Worker temporário de runtime ficou inacessível publicamente depois do teste.
 - As chamadas HTTP identificam a aplicação com User-Agent descritivo, conforme documentação Cloudflare; o cliente urllib predefinido é rejeitado com 1010 em workers.dev.
+- Teste real de email autorizado em 08/11/2026: um pedido para a conta interna APEE na D1 de testes, uma tentativa de entrega confirmada e payload cifrado apagado após ack. A mensagem foi recebida na caixa APEE às 10:24 UTC; a ligação recebida abriu o formulário de definição de palavra-passe no Worker de testes e o fragmento foi removido do endereço. Envios do Worker de testes voltaram a `false` logo após a entrega. Nenhum associado recebeu mensagens.
+- O seletor de funções do editor Google falhou durante o teste; foi usada uma chamada temporária à função `testApeeMail` a partir da função já selecionada. O código foi integralmente restaurado e conferido com o SHA-256 da versão no repositório (`c168538d518061aa78fbd0da19c5125974c72fdbf4c4f709509b92d755bce064`). Nenhum acionador foi criado. A introdução de uma password para esta conta interna de teste aguarda o utilizador.
 
 ## Pendências antes da publicação
 
-1. Validar conectividade Apps Script/Worker principal e instalar o acionador de cinco em cinco minutos, quando o endereço técnico estiver disponível. Ainda não foi criado acionador no novo projeto nem feito envio real de email.
-2. Autorizar e verificar um único email de recuperação para a caixa interna APEE, incluindo receção e expiração. Nenhum convite a associados está autorizado.
+1. Validar conectividade Apps Script/Worker principal e instalar o acionador de cinco em cinco minutos, quando o endereço técnico estiver disponível. Ainda não foi criado acionador no novo projeto.
+2. Concluir a definição de password pela ligação já recebida na conta interna de testes; verificar consumo do token e acesso. Entrega/receção e abertura do formulário já confirmadas. A autorização abrangeu um único email interno; novos envios de teste exigem autorização específica. Nenhum convite a associados está autorizado.
 3. Carregar apenas documentação identificada/aprovada, sem expor os ficheiros no repositório. PDFs acima de 1,8 MB precisam de otimização ou avaliação específica.
 4. Testar a interface em Safari/iPhone, recuperação real, expiração, estado desativado e consulta dos documentos finais.
 5. Só depois abrir o Worker principal, ativar o acesso e integrar o link/menu no site. A tentativa de abrir workers.dev antes desta fase foi bloqueada pela revisão automática e não foi contornada.
