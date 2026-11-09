@@ -2360,8 +2360,8 @@ main#conteudo > .page-hero.family-photo-hero .family-photo-hero-text p{color:#3b
 @media(max-width:760px){
   main#conteudo > .page-hero.family-photo-hero{
     display:flex;align-items:flex-start;
-    min-height:268px;
-    padding:22px 0 24px;
+    min-height:345px;
+    padding:22px 0 18px;
     background:#f5f8fc;
   }
   main#conteudo > .page-hero.family-photo-hero .family-photo-hero-image{
