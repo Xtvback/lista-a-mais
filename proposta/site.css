@@ -4152,3 +4152,48 @@ main#conteudo > .page-hero.family-photo-hero.apee-reference-panorama.contact-mat
     color:#395975!important;
   }
 }
+
+
+/* APEE · padrão tipográfico unificado dos cabeçalhos públicos · 2026-11-09 */
+/* Referência: Documentos. Aplica-se ao texto principal de cada cabeçalho,
+   sem interferir com imagens, cartões, secções internas ou formulários especiais. */
+main#conteudo > .page-hero:not(.signup-page-hero) .eyebrow {
+  font-family:'DM Sans',system-ui,sans-serif!important;
+  font-size:.76rem!important;
+  letter-spacing:.19em!important;
+  font-weight:800!important;
+  line-height:1.4!important;
+  text-transform:uppercase!important;
+  color:#3873a1!important;
+}
+main#conteudo > .page-hero:not(.signup-page-hero) h1 {
+  font-family:Manrope,system-ui,sans-serif!important;
+  font-size:clamp(2.5rem,4vw,4rem)!important;
+  font-weight:850!important;
+  line-height:1.12!important;
+  letter-spacing:-.04em!important;
+  color:#173e70!important;
+  text-shadow:0 1px 2px rgba(255,255,255,.7)!important;
+}
+main#conteudo > .page-hero:not(.signup-page-hero) p {
+  font-family:'DM Sans',system-ui,sans-serif!important;
+  font-size:clamp(.95rem,1.13vw,1.12rem)!important;
+  font-weight:600!important;
+  line-height:1.57!important;
+  color:#395975!important;
+  text-shadow:0 1px 2px rgba(255,255,255,.8)!important;
+}
+@media(max-width:760px) {
+  main#conteudo > .page-hero:not(.signup-page-hero) .eyebrow {
+    font-size:.69rem!important;
+    letter-spacing:.15em!important;
+  }
+  main#conteudo > .page-hero:not(.signup-page-hero) h1 {
+    font-size:clamp(1.8rem,7.4vw,2.55rem)!important;
+    line-height:1.12!important;
+  }
+  main#conteudo > .page-hero:not(.signup-page-hero) p {
+    font-size:.96rem!important;
+    line-height:1.48!important;
+  }
+}
