@@ -4504,3 +4504,26 @@ main#conteudo > .page-hero:not(.signup-page-hero) p {
     text-shadow:0 1px 2px #fff,0 0 8px rgba(255,255,255,.9)!important;
   }
 }
+
+
+/* CONTACTOS v15 · bloco realmente deslocado para coluna Documentos */
+@media (min-width:761px) {
+  main#conteudo > .page-hero.family-photo-hero.contact-matched-hero.apee-reference-panorama {
+    position:relative!important;
+    isolation:isolate!important;
+  }
+  main#conteudo > .page-hero.family-photo-hero.contact-matched-hero.apee-reference-panorama > .container.family-photo-hero-text {
+    position:absolute!important;
+    top:50%!important;
+    left:max(24px,calc(50% - 475px))!important;
+    right:auto!important;
+    bottom:auto!important;
+    transform:translateY(-50%)!important;
+    margin:0!important;
+    width:min(545px,calc(100% - 48px))!important;
+    max-width:545px!important;
+    z-index:3!important;
+    text-align:left!important;
+    padding:0!important;
+  }
+}
