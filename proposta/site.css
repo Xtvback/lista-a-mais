@@ -2609,3 +2609,30 @@ main#conteudo > .page-hero.family-photo-hero .family-photo-hero-text p{
     box-sizing:border-box;
   }
 }
+
+/* Famílias: mostrar fotografia panorâmica COMPLETA no desktop, sem zoom nem recorte. */
+@media(min-width:761px){
+  main#conteudo > .page-hero.family-photo-hero{
+    height:clamp(280px,18vw,350px);
+    min-height:0;
+    max-height:350px;
+    background:#f8fbff;
+  }
+  main#conteudo > .page-hero.family-photo-hero .family-photo-hero-image{
+    position:absolute;
+    inset:0;
+    width:100%;
+    height:100%;
+    max-width:none;
+    object-fit:contain;
+    object-position:right center;
+    aspect-ratio:auto;
+  }
+  main#conteudo > .page-hero.family-photo-hero::before{
+    background:linear-gradient(90deg,#f8fbff 0%,rgba(248,251,255,.96) 26%,rgba(248,251,255,.72) 43%,transparent 70%);
+    -webkit-backdrop-filter:none;
+    backdrop-filter:none;
+    -webkit-mask-image:none;
+    mask-image:none;
+  }
+}
