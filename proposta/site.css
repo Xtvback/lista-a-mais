@@ -4110,3 +4110,45 @@ main#conteudo > .page-hero.family-photo-hero.apee-reference-panorama.contact-mat
     text-shadow:0 1px 2px #fff,0 0 8px rgba(255,255,255,.9)!important;
   }
 }
+
+
+/* CONTACTOS · referência exata: coluna e tipografia do cabeçalho Documentos.
+   Escopo exclusivo do desktop. Fotografia panorâmica e versão móvel intactas. */
+@media (min-width:761px) {
+  main#conteudo > .page-hero.family-photo-hero.contact-matched-hero.apee-reference-panorama {
+    display:flex!important;
+    align-items:center!important;
+    justify-content:flex-start!important;
+  }
+  main#conteudo > .page-hero.family-photo-hero.contact-matched-hero.apee-reference-panorama > .container.family-photo-hero-text {
+    position:relative!important;
+    z-index:2!important;
+    display:block!important;
+    flex:0 0 auto!important;
+    width:min(545px,calc(100% - 48px))!important;
+    max-width:545px!important;
+    margin-left:max(24px,calc((100% - 1150px)/2))!important;
+    margin-right:auto!important;
+    padding:0!important;
+    text-align:left!important;
+    background:transparent!important;
+    box-shadow:none!important;
+  }
+  main#conteudo > .page-hero.family-photo-hero.contact-matched-hero.apee-reference-panorama > .container.family-photo-hero-text h1 {
+    font-family:Manrope,system-ui,sans-serif!important;
+    font-size:clamp(2.5rem,4vw,4rem)!important;
+    font-weight:850!important;
+    line-height:1.12!important;
+    letter-spacing:-.04em!important;
+    color:#173e70!important;
+    max-width:600px!important;
+  }
+  main#conteudo > .page-hero.family-photo-hero.contact-matched-hero.apee-reference-panorama > .container.family-photo-hero-text p {
+    font-family:'DM Sans',system-ui,sans-serif!important;
+    font-size:clamp(.95rem,1.13vw,1.12rem)!important;
+    font-weight:600!important;
+    line-height:1.57!important;
+    max-width:520px!important;
+    color:#395975!important;
+  }
+}
