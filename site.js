@@ -283,6 +283,7 @@ if(b&&m){
  '@media(min-width:761px){',
  '.topline .apee-associado-top{display:inline-flex!important;align-items:center;min-height:38px;padding:10px 17px!important;border-radius:10px!important;background:#234f80!important;color:#fff!important;text-decoration:none!important;font-weight:800!important;font-size:.86rem!important;white-space:nowrap}',
  '.topline .apee-associado-top .apee-menu-icon,.topline .apee-associado-top .apee-menu-chevron{display:none!important}',
+ '.topline .apee-signup-top .apee-menu-icon,.topline .apee-signup-top .apee-menu-chevron{display:none!important}',
  '}',
  '@media(max-width:760px){',
  '.main-menu.apee-menu-modern .apee-associado-button{display:flex!important;align-items:center!important;gap:13px!important;width:100%;min-height:70px!important;padding:11px 12px!important;margin-top:7px!important;background:#234f80!important;color:#fff!important;border:1px solid #234f80!important;border-radius:13px!important;box-shadow:0 4px 10px rgba(18,55,100,.12)!important}',
