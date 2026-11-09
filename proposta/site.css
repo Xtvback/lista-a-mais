@@ -5114,9 +5114,6 @@ main#conteudo > .page-hero:not(.signup-page-hero) p {
 
 /* Documentos: cabeçalho mobile igual ao padrão História/Notícias.
    Uma única fotografia, sem elementos antigos circulares; desktop intacto. */
-@media (min-width:761px){
-  main#conteudo.phase3-documents > .page-hero.family-photo-hero.documents-photo-hero.documents-unified-mobile-hero > .documents-unified-mobile-hero-image{display:none!important;}
-}
 @media (max-width:760px){
   main#conteudo.phase3-documents > .page-hero.family-photo-hero.documents-photo-hero.documents-unified-mobile-hero{
     position:relative!important;
