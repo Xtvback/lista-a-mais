@@ -5743,7 +5743,7 @@ main#conteudo .about-lead-mark.about-lead-logo img{
 /* PARCERIAS DESKTOP · enquadramento corrigido sem alterar a tipografia · 2026-11-09 */
 @media (min-width:761px) {
   main#conteudo.public-partners > .page-hero.partners-mobile-hero {
-    height:clamp(290px,22.4vw,640px)!important;
+    height:clamp(335px,18.2vw,390px)!important;
   }
   main#conteudo.public-partners > .page-hero.partners-mobile-hero > img.partners-desktop-hero-image {
     object-fit:cover!important;
