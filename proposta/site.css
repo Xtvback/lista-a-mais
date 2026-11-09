@@ -3207,3 +3207,18 @@ main#conteudo > .page-hero.family-photo-hero.contact-matched-hero .family-photo-
     filter:none!important;
   }
 }
+
+
+/* APEE: legibilidade dos títulos e descrições dos cabeçalhos no móvel (Famílias e Contactos). */
+@media(max-width:760px){
+  main#conteudo > .page-hero.family-photo-hero .family-photo-hero-text h1{
+    font-weight:850!important;
+  }
+  main#conteudo > .page-hero.family-photo-hero .family-photo-hero-text p{
+    font-weight:650!important;
+    color:#284767!important;
+  }
+  main#conteudo > .page-hero.family-photo-hero .family-photo-hero-text .eyebrow{
+    font-weight:850!important;
+  }
+}
