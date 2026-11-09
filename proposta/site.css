@@ -3772,3 +3772,50 @@ main#conteudo > .page-hero.family-photo-hero.apee-reference-panorama.contact-mat
  }
  main#conteudo > .page-hero.apee-news-mobile-image .container{position:relative;z-index:2}
 }
+
+/* APEE 2026-11-09 · IMAGEM do cabeçalho MOBILE com a cobertura visual de Documentos.
+   Não altera tipografia, conteúdos, fotografia original ou QUALQUER regra desktop. */
+@media(max-width:760px){
+  main#conteudo > .page-hero.family-photo-hero:is(.agenda-photo-hero,.contact-matched-hero){
+    background:#f8fbff!important;
+    background-image:none!important;
+    overflow:hidden!important;
+  }
+  main#conteudo > .page-hero.family-photo-hero:is(.agenda-photo-hero,.contact-matched-hero) img.family-photo-hero-image{
+    position:absolute!important;
+    inset:0!important;
+    width:100%!important;
+    height:100%!important;
+    object-fit:cover!important;
+    object-position:center center!important;
+    max-width:none!important;
+    max-height:none!important;
+    transform:none!important;
+    filter:none!important;
+  }
+  main#conteudo > .page-hero.family-photo-hero:is(.agenda-photo-hero,.contact-matched-hero)::before{
+    display:block!important;
+    content:""!important;
+    z-index:2!important;
+    background:linear-gradient(90deg,rgba(248,251,255,.98) 0%,rgba(248,251,255,.94) 28%,rgba(248,251,255,.72) 57%,rgba(248,251,255,.15) 95%)!important;
+    -webkit-backdrop-filter:blur(3px)!important;
+    backdrop-filter:blur(3px)!important;
+    -webkit-mask-image:linear-gradient(90deg,#000 0%,#000 48%,rgba(0,0,0,.7) 75%,transparent 100%)!important;
+    mask-image:linear-gradient(90deg,#000 0%,#000 48%,rgba(0,0,0,.7) 75%,transparent 100%)!important;
+  }
+  main#conteudo > .page-hero.apee-news-mobile-image{
+    background-color:#f8fbff!important;
+    background-image:url('/imagens/cartoes/documentos-atas.webp')!important;
+    background-size:cover!important;
+    background-position:center center!important;
+    background-repeat:no-repeat!important;
+    overflow:hidden!important;
+  }
+  main#conteudo > .page-hero.apee-news-mobile-image::before{
+    background:linear-gradient(90deg,rgba(248,251,255,.98) 0%,rgba(248,251,255,.92) 34%,rgba(248,251,255,.69) 67%,rgba(248,251,255,.18) 100%)!important;
+    -webkit-backdrop-filter:blur(3px)!important;
+    backdrop-filter:blur(3px)!important;
+    -webkit-mask-image:linear-gradient(90deg,#000 0%,#000 45%,rgba(0,0,0,.75) 80%,transparent 100%)!important;
+    mask-image:linear-gradient(90deg,#000 0%,#000 45%,rgba(0,0,0,.75) 80%,transparent 100%)!important;
+  }
+}
