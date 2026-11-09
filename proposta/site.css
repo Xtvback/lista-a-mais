@@ -4073,3 +4073,11 @@ main#conteudo > .page-hero.family-photo-hero.apee-reference-panorama.contact-mat
     text-shadow:0 1px 2px #fff,0 0 8px rgba(255,255,255,.9)!important;
   }
 }
+
+
+/* Acerto final: mesmo enquadramento 68% de Documentos nas outras páginas móveis. */
+@media(max-width:760px){
+  main#conteudo > .page-hero.family-photo-hero.apee-reference-panorama:is(.contact-matched-hero,.agenda-photo-hero) .family-photo-hero-image{
+    object-position:68% center!important;
+  }
+}
