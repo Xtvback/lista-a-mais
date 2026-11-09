@@ -5627,3 +5627,114 @@ main#conteudo .about-lead-mark.about-lead-logo img{
     width:clamp(140px,42vw,190px)!important;
   }
 }
+
+
+/* PARCERIAS DESKTOP · imagem única HD · modelo Famílias aprovado 2026-11-09 */
+@media (min-width:761px) {
+  main#conteudo.public-partners > .page-hero.partners-mobile-hero {
+    position:relative!important;
+    isolation:isolate!important;
+    display:flex!important;
+    align-items:center!important;
+    justify-content:flex-start!important;
+    height:clamp(290px,23.5vw,410px)!important;
+    min-height:0!important;
+    max-height:none!important;
+    padding:0!important;
+    margin:0!important;
+    overflow:hidden!important;
+    background:#f8fbff!important;
+    background-image:none!important;
+    border-bottom:1px solid #d9e7f3!important;
+  }
+  main#conteudo.public-partners > .page-hero.partners-mobile-hero > img.partners-mobile-hero-image {
+    display:none!important;
+  }
+  main#conteudo.public-partners > .page-hero.partners-mobile-hero > img.partners-desktop-hero-image {
+    position:absolute!important;
+    inset:0!important;
+    display:block!important;
+    z-index:0!important;
+    width:100%!important;
+    height:100%!important;
+    min-width:0!important;
+    max-width:none!important;
+    max-height:none!important;
+    aspect-ratio:auto!important;
+    object-fit:cover!important;
+    object-position:center 50%!important;
+    opacity:1!important;
+    filter:none!important;
+    transform:none!important;
+  }
+  main#conteudo.public-partners > .page-hero.partners-mobile-hero::before,
+  main#conteudo.public-partners > .page-hero.partners-mobile-hero::after {
+    display:none!important;
+    content:none!important;
+    background:none!important;
+    background-image:none!important;
+    border:0!important;
+    border-radius:0!important;
+    box-shadow:none!important;
+    mask:none!important;
+    -webkit-mask:none!important;
+    backdrop-filter:none!important;
+    -webkit-backdrop-filter:none!important;
+    filter:none!important;
+  }
+  main#conteudo.public-partners > .page-hero.partners-mobile-hero > .container.partners-mobile-hero-text {
+    position:relative!important;
+    z-index:2!important;
+    top:auto!important;
+    left:auto!important;
+    right:auto!important;
+    bottom:auto!important;
+    transform:none!important;
+    display:block!important;
+    flex:none!important;
+    width:min(545px,calc(100% - 48px))!important;
+    max-width:545px!important;
+    margin-left:max(24px,calc((100% - 1150px)/2))!important;
+    margin-right:auto!important;
+    padding:0!important;
+    text-align:left!important;
+    background:transparent!important;
+    border:0!important;
+    border-radius:0!important;
+    box-shadow:none!important;
+    backdrop-filter:none!important;
+    -webkit-backdrop-filter:none!important;
+  }
+  main#conteudo.public-partners > .page-hero.partners-mobile-hero .partners-mobile-hero-text .eyebrow {
+    font-family:'DM Sans',system-ui,sans-serif!important;
+    font-size:.76rem!important;
+    font-weight:800!important;
+    letter-spacing:.19em!important;
+    line-height:1.4!important;
+    text-transform:uppercase!important;
+    color:#3873a1!important;
+  }
+  main#conteudo.public-partners > .page-hero.partners-mobile-hero .partners-mobile-hero-text h1 {
+    font-family:Manrope,system-ui,sans-serif!important;
+    font-size:clamp(2.3rem,3.6vw,3.7rem)!important;
+    font-weight:850!important;
+    line-height:1.12!important;
+    letter-spacing:-.04em!important;
+    color:#173e70!important;
+    max-width:545px!important;
+    white-space:normal!important;
+  }
+  main#conteudo.public-partners > .page-hero.partners-mobile-hero .partners-mobile-hero-text p {
+    font-family:'DM Sans',system-ui,sans-serif!important;
+    font-size:clamp(.95rem,1.13vw,1.12rem)!important;
+    font-weight:600!important;
+    line-height:1.57!important;
+    max-width:520px!important;
+    color:#395975!important;
+  }
+}
+@media (max-width:760px) {
+  main#conteudo.public-partners > .page-hero.partners-mobile-hero > img.partners-desktop-hero-image {
+    display:none!important;
+  }
+}
