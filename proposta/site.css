@@ -2318,32 +2318,33 @@ main :target{scroll-margin-top:calc(92px + env(safe-area-inset-top,0px))}
 .guide-chapter > .page-hero.guide-chapter-hero .eyebrow{color:#3577a7}
 @media(max-width:620px){.guide-home-essentials .guide-intro-actions{display:grid;grid-template-columns:1fr;gap:12px}.guide-home-essentials .guide-intro-actions .guide-button{width:100%;min-height:52px}}
 
-/* 2026-11-09 — Página Famílias: imagem fornecida pela APEE preservada integralmente. */
-main > .page-hero.family-photo-hero{
-  display:flex;align-items:center;min-height:390px;
-  padding:64px 0;background:#fff;isolation:isolate;position:relative;overflow:hidden;
+/* 2026-11-09 · Famílias: a fotografia original é o FUNDO do cabeçalho, não um bloco adicional. */
+main > .page-hero.family-photo-hero {
+  position:relative;isolation:isolate;overflow:hidden;
+  display:flex;align-items:center;
+  min-height:405px;padding:70px 0;
+  background-color:#f5f9ff;
+  background-image:
+    linear-gradient(90deg,rgba(255,255,255,.99) 0%,rgba(255,255,255,.95) 26%,rgba(255,255,255,.77) 41%,rgba(255,255,255,.18) 67%,rgba(255,255,255,0) 100%),
+    url('/imagens/familias-entrada-original.jpeg?v=20261109');
+  background-position:center center,center center;
+  background-repeat:no-repeat;
+  background-size:cover;
+  border-bottom:1px solid #dce9f5;
 }
-main > .page-hero.family-photo-hero::before{content:none}
-main > .page-hero.family-photo-hero::after{
-  content:"";position:absolute;inset:0;z-index:1;width:auto;height:auto;border:0;
-  border-radius:0;background:linear-gradient(90deg,rgba(255,255,255,.98) 0%,rgba(255,255,255,.91) 30%,rgba(255,255,255,.49) 51%,rgba(255,255,255,0) 76%);
-  pointer-events:none;
-}
-.family-photo-hero-text{position:relative;z-index:2;padding-right:clamp(240px,41vw,540px)}
+main > .page-hero.family-photo-hero::before,
+main > .page-hero.family-photo-hero::after{content:none;display:none}
+.family-photo-hero-text{position:relative;z-index:2;padding-right:min(45%,520px)}
 .family-photo-hero-text p{max-width:520px}
-.family-photo-hero-image{
-  position:absolute;z-index:0;inset:0;width:100%;height:100%;
-  display:block;object-fit:cover;object-position:center center;
-}
 @media(max-width:760px){
   main > .page-hero.family-photo-hero{
-    display:block;min-height:0;padding:39px 0 0;
-    background:linear-gradient(115deg,#fff 0%,#f0f7ff 100%);
+    display:block;min-height:465px;
+    padding:40px 0 245px;
+    background-image:
+      linear-gradient(180deg,rgba(255,255,255,.99) 0%,rgba(255,255,255,.96) 27%,rgba(255,255,255,.89) 46%,rgba(255,255,255,.16) 79%,rgba(255,255,255,0) 100%),
+      url('/imagens/familias-entrada-original.jpeg?v=20261109');
+    background-position:center center,68% center;
+    background-size:cover;
   }
-  main > .page-hero.family-photo-hero::after{content:none;display:none}
   .family-photo-hero-text{padding-right:0}
-  .family-photo-hero-image{
-    position:relative;inset:auto;width:100%;height:auto;aspect-ratio:8 / 3;
-    margin-top:19px;object-fit:contain;object-position:center;
-  }
 }
