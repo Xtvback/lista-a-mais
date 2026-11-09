@@ -2298,3 +2298,8 @@ main :target{scroll-margin-top:calc(92px + env(safe-area-inset-top,0px))}
   .topline .container{gap:8px 14px}
   .topline .apee-signup-top{font-size:.8rem;padding:8px 12px}
 }
+
+/* APEE 2026/2027: cartaz oficial fornecido pela APEE, sem recortes na notícia. */
+.editorial-news-card img.apee-original-poster{display:block;width:100%;height:auto;max-height:none;aspect-ratio:1672/941;object-fit:contain;object-position:center;background:#fff;filter:none}
+.editorial-story img.apee-original-poster{object-fit:contain;object-position:center;background:#fff;filter:none}
+@media(max-width:700px){.editorial-story-main img.apee-original-poster{height:auto;aspect-ratio:1672/941;object-fit:contain}}
