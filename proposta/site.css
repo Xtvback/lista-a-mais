@@ -3310,3 +3310,108 @@ main#conteudo > .page-hero.family-photo-hero.contact-matched-hero .family-photo-
     max-width:310px;
   }
 }
+
+/* Experiência experimental Famílias · 2026-11-09
+   Fotografia original APROVADA como cenário contínuo em desktop e móvel.
+   A imagem do hero não é modificada. Não afeta páginas Contactos ou Agenda.
+*/
+main#conteudo.family-glass-page{
+  --family-glass-photo:url("/imagens/familias-entrada-original.jpeg?v=20261109");
+  position:relative;
+  isolation:isolate;
+  background:transparent!important;
+}
+main#conteudo.family-glass-page::before{
+  content:"";
+  position:fixed;
+  inset:-18px;
+  z-index:-1;
+  pointer-events:none;
+  background-image:linear-gradient(110deg,rgba(25,57,92,.20),rgba(28,84,124,.16)),var(--family-glass-photo);
+  background-size:cover;
+  background-position:58% center;
+  background-repeat:no-repeat;
+  filter:blur(9px) saturate(.98);
+  transform:translateZ(0);
+}
+main#conteudo.family-glass-page > .fh-hub{
+  background:rgba(231,242,251,.46)!important;
+  -webkit-backdrop-filter:blur(3px) saturate(1.08);
+  backdrop-filter:blur(3px) saturate(1.08);
+  position:relative;
+  z-index:1;
+}
+main#conteudo.family-glass-page .fh-showcase{
+  background:linear-gradient(115deg,rgba(12,52,99,.85),rgba(19,90,151,.76))!important;
+  border:1px solid rgba(235,247,255,.42);
+  -webkit-backdrop-filter:blur(13px) saturate(1.15);
+  backdrop-filter:blur(13px) saturate(1.15);
+  box-shadow:0 22px 52px rgba(12,49,88,.24),inset 0 1px 0 rgba(255,255,255,.22);
+}
+main#conteudo.family-glass-page .fh-showcase-aside{
+  background:rgba(255,255,255,.12);
+  -webkit-backdrop-filter:blur(5px);
+  backdrop-filter:blur(5px);
+}
+main#conteudo.family-glass-page .fh-search-panel,
+main#conteudo.family-glass-page .fh-card,
+main#conteudo.family-glass-page .fh-history-inner{
+  background:rgba(251,254,255,.79)!important;
+  border-color:rgba(255,255,255,.84)!important;
+  -webkit-backdrop-filter:blur(11px) saturate(1.08);
+  backdrop-filter:blur(11px) saturate(1.08);
+  box-shadow:0 12px 30px rgba(14,47,84,.15),inset 0 1px 0 rgba(255,255,255,.69);
+}
+main#conteudo.family-glass-page .fh-related{
+  border-top-color:rgba(25,69,111,.18);
+}
+main#conteudo.family-glass-page .fh-source{
+  border-radius:12px;
+  padding:12px 15px;
+  background:rgba(248,252,255,.74);
+  color:#395570;
+}
+main#conteudo.family-glass-page > .fh-history{
+  position:relative;
+  z-index:1;
+  background:rgba(228,241,251,.52)!important;
+  -webkit-backdrop-filter:blur(4px);
+  backdrop-filter:blur(4px);
+}
+@media(max-width:760px){
+  main#conteudo.family-glass-page::before{
+    background-position:64% center;
+    filter:blur(7px) saturate(.98);
+  }
+  main#conteudo.family-glass-page > .fh-hub{
+    background:rgba(234,244,253,.35)!important;
+    -webkit-backdrop-filter:blur(2px);
+    backdrop-filter:blur(2px);
+  }
+  main#conteudo.family-glass-page .fh-showcase{
+    background:linear-gradient(135deg,rgba(14,56,104,.88),rgba(25,95,150,.79))!important;
+  }
+  main#conteudo.family-glass-page .fh-card,
+  main#conteudo.family-glass-page .fh-search-panel,
+  main#conteudo.family-glass-page .fh-history-inner{
+    background:rgba(251,254,255,.80)!important;
+    -webkit-backdrop-filter:blur(8px);
+    backdrop-filter:blur(8px);
+  }
+  main#conteudo.family-glass-page .fh-source{font-weight:650;}
+}
+@supports not ((backdrop-filter:blur(2px)) or (-webkit-backdrop-filter:blur(2px))){
+  main#conteudo.family-glass-page .fh-card,
+  main#conteudo.family-glass-page .fh-search-panel,
+  main#conteudo.family-glass-page .fh-history-inner{
+    background:rgba(248,252,255,.95)!important;
+  }
+}
+@media(prefers-reduced-transparency:reduce){
+  main#conteudo.family-glass-page .fh-card,
+  main#conteudo.family-glass-page .fh-search-panel,
+  main#conteudo.family-glass-page .fh-history-inner{
+    background:rgba(249,253,255,.96)!important;
+    -webkit-backdrop-filter:none;backdrop-filter:none;
+  }
+}
