@@ -5202,3 +5202,25 @@ main#conteudo > .page-hero:not(.signup-page-hero) p {
 }
 
 
+
+
+/* Projetos desktop: fotografia sem ampliações artificiais, proporção original */
+@media (min-width:761px) {
+  main#conteudo > .page-hero.projects-mobile-hero > img.projects-desktop-hero-image {
+    inset:auto 0 auto auto!important;
+    top:50%!important;
+    right:0!important;
+    bottom:auto!important;
+    left:auto!important;
+    width:auto!important;
+    height:100%!important;
+    min-width:0!important;
+    max-width:none!important;
+    max-height:100%!important;
+    aspect-ratio:auto!important;
+    object-fit:contain!important;
+    object-position:right center!important;
+    transform:translateY(-50%)!important;
+    filter:none!important;
+  }
+}
