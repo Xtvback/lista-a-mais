@@ -2651,3 +2651,58 @@ main#conteudo > .page-hero.family-photo-hero .family-photo-hero-text p{
     transform:translateY(-7px);
   }
 }
+
+
+/* Cabeçalho Contactos — panorâmico APEE aprovado, sem cortar a imagem.
+   Desktop segue o padrão Famílias; mobile adapta-se mantendo imagem completa. */
+main#conteudo > .page-hero.contact-photo-hero{
+  position:relative;isolation:isolate;overflow:hidden;background:#f8fbff;
+  border-bottom:1px solid #dce9f5;
+}
+main#conteudo > .page-hero.contact-photo-hero .contact-photo-hero-picture{
+  display:block;position:absolute;inset:0;z-index:0;
+}
+main#conteudo > .page-hero.contact-photo-hero .contact-photo-hero-image{
+  display:block;width:100%;height:100%;object-fit:contain;object-position:right center;
+}
+main#conteudo > .page-hero.contact-photo-hero::before{
+  content:"";position:absolute;inset:0;z-index:1;pointer-events:none;
+  background:linear-gradient(90deg,#f8fbff 0%,rgba(248,251,255,.97) 22%,rgba(248,251,255,.73) 43%,transparent 72%);
+}
+main#conteudo > .page-hero.contact-photo-hero .contact-photo-hero-text{
+  position:relative;z-index:2;flex:none;
+  width:min(460px,calc(100% - 48px));
+  margin-left:max(24px,calc((100% - 1150px)/2));
+  margin-right:auto;padding:0;
+}
+main#conteudo > .page-hero.contact-photo-hero .contact-photo-hero-text p{
+  max-width:410px;color:#3c5b77;line-height:1.7;
+}
+@media(min-width:761px){
+  main#conteudo > .page-hero.contact-photo-hero{
+    height:clamp(285px,18vw,350px);min-height:0;max-height:350px;
+    padding:0;display:flex;align-items:center;
+  }
+}
+@media(max-width:760px){
+  main#conteudo > .page-hero.contact-photo-hero{
+    padding:0;min-height:0;display:flex;flex-direction:column;
+  }
+  main#conteudo > .page-hero.contact-photo-hero .contact-photo-hero-picture{
+    position:relative;inset:auto;width:100%;order:0;
+  }
+  main#conteudo > .page-hero.contact-photo-hero .contact-photo-hero-image{
+    width:100%;height:auto;object-fit:contain;object-position:center;
+  }
+  main#conteudo > .page-hero.contact-photo-hero::before{display:none}
+  main#conteudo > .page-hero.contact-photo-hero .contact-photo-hero-text{
+    order:1;width:min(100% - 36px,600px);margin:0 auto;
+    padding:20px 0 28px;
+  }
+  main#conteudo > .page-hero.contact-photo-hero h1{
+    margin:8px 0 10px;font-size:clamp(2rem,9vw,2.6rem);
+  }
+  main#conteudo > .page-hero.contact-photo-hero p{
+    font-size:.95rem;margin-bottom:0;
+  }
+}
