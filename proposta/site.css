@@ -3392,3 +3392,27 @@ main#conteudo > .page-hero.family-photo-hero.contact-matched-hero .family-photo-
     transform:none!important;
   }
 }
+
+
+/* Agenda desktop · panorâmica a ocupar a largura TOTAL, sem distorção.
+   cover preserva proporções; só recorta verticalmente o excedente necessário. */
+@media (min-width:761px){
+  main#conteudo > .page-hero.family-photo-hero.agenda-photo-hero{
+    width:100%!important;
+    overflow:hidden!important;
+  }
+  main#conteudo > .page-hero.family-photo-hero.agenda-photo-hero .family-photo-hero-image{
+    position:absolute!important;
+    inset:0!important;
+    top:0!important;right:0!important;bottom:0!important;left:0!important;
+    display:block!important;
+    width:100%!important;
+    height:100%!important;
+    max-width:none!important;
+    aspect-ratio:auto!important;
+    object-fit:cover!important;
+    object-position:center 35%!important;
+    transform:none!important;
+    filter:none!important;
+  }
+}
