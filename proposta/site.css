@@ -3838,3 +3838,44 @@ main#conteudo > .page-hero.family-photo-hero.apee-reference-panorama.contact-mat
     transform:none!important;
   }
 }
+
+
+/* Agenda · desktop: reproduzir o primeiro enquadramento aprovado (09/11/2026).
+   O texto acompanha a margem esquerda do ecrã e a imagem fica panorâmica
+   com foco na parte superior, sem deformações. Mobile não alterado. */
+@media (min-width:761px) {
+  main#conteudo > .page-hero.family-photo-hero.agenda-photo-hero.apee-reference-panorama {
+    height:clamp(360px,24vw,430px)!important;
+    background:#f8fbff!important;
+  }
+  main#conteudo > .page-hero.family-photo-hero.agenda-photo-hero.apee-reference-panorama img.family-photo-hero-image {
+    inset:0!important;
+    width:100%!important;
+    height:100%!important;
+    object-fit:cover!important;
+    object-position:center 18%!important;
+  }
+  main#conteudo > .page-hero.family-photo-hero.agenda-photo-hero.apee-reference-panorama::before {
+    background:linear-gradient(90deg,rgba(248,251,255,.98) 0%,rgba(248,251,255,.94) 22%,rgba(248,251,255,.78) 38%,rgba(248,251,255,.18) 62%,rgba(248,251,255,0) 80%)!important;
+    -webkit-mask-image:none!important;
+    mask-image:none!important;
+    -webkit-backdrop-filter:none!important;
+    backdrop-filter:none!important;
+  }
+  main#conteudo > .page-hero.family-photo-hero.agenda-photo-hero.apee-reference-panorama .family-photo-hero-text {
+    width:min(690px,calc(100% - 48px))!important;
+    max-width:690px!important;
+    margin-left:clamp(30px,8.55vw,175px)!important;
+    margin-right:auto!important;
+    padding:0!important;
+  }
+  main#conteudo > .page-hero.family-photo-hero.agenda-photo-hero.apee-reference-panorama .family-photo-hero-text h1 {
+    font-size:clamp(3.15rem,4.15vw,4.4rem)!important;
+    line-height:1.1!important;
+  }
+  main#conteudo > .page-hero.family-photo-hero.agenda-photo-hero.apee-reference-panorama .family-photo-hero-text p {
+    max-width:650px!important;
+    font-size:clamp(1rem,1.18vw,1.16rem)!important;
+    line-height:1.55!important;
+  }
+}
