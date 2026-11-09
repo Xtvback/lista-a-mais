@@ -3527,3 +3527,44 @@ main#conteudo.phase3-documents > .page-hero.family-photo-hero.documents-photo-he
     line-height:1.48;
   }
 }
+
+
+/* Agenda desktop v4: fotografia original totalmente visível, sem zoom nem corte.
+   A faixa panorâmica é completada pelo fundo claro e gradiente à esquerda. */
+@media(min-width:761px){
+  main#conteudo > .page-hero.family-photo-hero.agenda-photo-hero{
+    background-color:#f8fbff!important;
+    background-image:none!important;
+    overflow:hidden!important;
+  }
+  main#conteudo > .page-hero.family-photo-hero.agenda-photo-hero .family-photo-hero-image{
+    position:absolute!important;
+    inset:auto 0 auto auto!important;
+    top:0!important;
+    right:0!important;
+    left:auto!important;
+    bottom:auto!important;
+    display:block!important;
+    height:100%!important;
+    width:auto!important;
+    max-width:none!important;
+    max-height:none!important;
+    aspect-ratio:2048 / 682!important;
+    object-fit:contain!important;
+    object-position:right center!important;
+    transform:none!important;
+  }
+  main#conteudo > .page-hero.family-photo-hero.agenda-photo-hero::before{
+    display:block!important;
+    background:linear-gradient(90deg,
+      #f8fbff 0%,
+      rgba(248,251,255,.99) 30%,
+      rgba(248,251,255,.88) 42%,
+      rgba(248,251,255,.38) 62%,
+      rgba(248,251,255,0) 78%)!important;
+    backdrop-filter:none!important;
+    -webkit-backdrop-filter:none!important;
+    -webkit-mask-image:none!important;
+    mask-image:none!important;
+  }
+}
