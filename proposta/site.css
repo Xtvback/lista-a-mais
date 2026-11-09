@@ -3881,10 +3881,10 @@ main#conteudo > .page-hero.family-photo-hero.apee-reference-panorama.contact-mat
 }
 
 
-/* Contactos · desktop: alinhar ao cabeçalho Agenda aprovado; mobile intacto. */
+/* Contactos · desktop: enquadramento vertical aprovado na primeira imagem; mobile intacto. */
 @media (min-width:761px) {
   main#conteudo > .page-hero.family-photo-hero.contact-matched-hero.apee-reference-panorama {
-    height:clamp(360px,24vw,430px)!important;
+    height:clamp(400px,28.3vw,650px)!important;
     background:#f8fbff!important;
   }
   main#conteudo > .page-hero.family-photo-hero.contact-matched-hero.apee-reference-panorama img.family-photo-hero-image {
@@ -3892,7 +3892,7 @@ main#conteudo > .page-hero.family-photo-hero.apee-reference-panorama.contact-mat
     width:100%!important;
     height:100%!important;
     object-fit:cover!important;
-    object-position:center 18%!important;
+    object-position:center center!important;
   }
   main#conteudo > .page-hero.family-photo-hero.contact-matched-hero.apee-reference-panorama::before {
     background:linear-gradient(90deg,rgba(248,251,255,.98) 0%,rgba(248,251,255,.94) 22%,rgba(248,251,255,.78) 38%,rgba(248,251,255,.18) 62%,rgba(248,251,255,0) 80%)!important;
