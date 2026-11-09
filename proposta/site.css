@@ -4804,3 +4804,31 @@ main#conteudo > .page-hero:not(.signup-page-hero) p {
   }
 }
 
+
+
+/* Associação · fotografia HD exclusiva desktop · 2026-11-09 */
+@media(min-width:761px){
+  main#conteudo > .page-hero.association-mobile-hero > img.association-mobile-hero-image {
+    display:none!important;
+  }
+  main#conteudo > .page-hero.association-mobile-hero > img.association-desktop-hero-image {
+    display:block!important;
+    position:absolute!important;
+    inset:0!important;
+    z-index:0!important;
+    width:100%!important;
+    height:100%!important;
+    max-width:none!important;
+    max-height:none!important;
+    object-fit:cover!important;
+    object-position:center center!important;
+    opacity:1!important;
+    filter:none!important;
+    transform:none!important;
+  }
+}
+@media(max-width:760px){
+  main#conteudo > .page-hero.association-mobile-hero > img.association-desktop-hero-image {
+    display:none!important;
+  }
+}
