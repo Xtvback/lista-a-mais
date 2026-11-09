@@ -4348,3 +4348,29 @@ main#conteudo > .page-hero:not(.signup-page-hero) p {
     max-width:610px!important;
   }
 }
+
+
+/* Associação móvel · eliminar definitivamente círculo decorativo antigo.
+   A única imagem é a fotografia original; a transição é retangular sem blur. */
+@media(max-width:760px){
+  main#conteudo > .page-hero.association-mobile-hero::before{
+    top:0!important;right:0!important;bottom:0!important;left:0!important;
+    width:100%!important;height:100%!important;
+    min-width:0!important;min-height:0!important;
+    max-width:none!important;max-height:none!important;
+    border-radius:0!important;
+    border:0!important;
+    transform:none!important;
+    box-shadow:none!important;
+    backdrop-filter:none!important;
+    -webkit-backdrop-filter:none!important;
+    -webkit-mask-image:none!important;
+    mask-image:none!important;
+    background:linear-gradient(90deg,
+      rgba(248,251,255,.98) 0%,
+      rgba(248,251,255,.94) 30%,
+      rgba(248,251,255,.78) 52%,
+      rgba(248,251,255,.34) 72%,
+      rgba(248,251,255,0) 100%)!important;
+  }
+}
