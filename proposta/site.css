@@ -2303,3 +2303,17 @@ main :target{scroll-margin-top:calc(92px + env(safe-area-inset-top,0px))}
 .editorial-news-card img.apee-original-poster{display:block;width:100%;height:auto;max-height:none;aspect-ratio:1672/941;object-fit:contain;object-position:center;background:#fff;filter:none}
 .editorial-story img.apee-original-poster{object-fit:contain;object-position:center;background:#fff;filter:none}
 @media(max-width:700px){.editorial-story-main img.apee-original-poster{height:auto;aspect-ratio:1672/941;object-fit:contain}}
+
+/* APEE 2026/2027 — Guia das Famílias com layout comum às páginas institucionais. */
+.guide-home > .page-hero,.guide-chapter > .page-hero.guide-chapter-hero{color:#173e71}
+.guide-home-essentials{background:#fff;border-bottom:1px solid #e0eaf5}
+.guide-home-essentials h2{font-family:Manrope,'DM Sans',system-ui,sans-serif;font-size:clamp(1.65rem,3vw,2.35rem);color:#173e70;letter-spacing:-.045em;line-height:1.2;max-width:820px;margin:12px 0 14px}
+.guide-home-essentials-copy{color:#536c83;max-width:760px;line-height:1.65}
+.guide-home-essentials .guide-intro-actions{margin-top:22px}
+.guide-home-essentials .guide-button{min-height:51px}
+.guide-home-essentials .guide-source-note{color:#586e85;max-width:860px;margin-top:25px}
+.guide-home-essentials .guide-source-note strong{color:#244c77}
+.guide-chapter > .page-hero.guide-chapter-hero h1{color:#173e71}
+.guide-chapter > .page-hero.guide-chapter-hero p{color:#53718b;max-width:790px}
+.guide-chapter > .page-hero.guide-chapter-hero .eyebrow{color:#3577a7}
+@media(max-width:620px){.guide-home-essentials .guide-intro-actions{display:grid;grid-template-columns:1fr;gap:12px}.guide-home-essentials .guide-intro-actions .guide-button{width:100%;min-height:52px}}
