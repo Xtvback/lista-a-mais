@@ -2637,15 +2637,16 @@ main#conteudo > .page-hero.family-photo-hero .family-photo-hero-text p{
   }
 }
 
-/* Contactos: cartões desktop com zona de texto mais alta e ações bem enquadradas. */
+/* Contactos: área de texto um pouco mais ampla, sem espaço vazio exagerado. */
 @media(min-width:901px){
   .contact-channels-grid > .contact-card{
-    min-height:505px;
+    min-height:0;
+    padding-bottom:28px;
   }
   .contact-channels-grid .contact-card:not(.contact-whatsapp-card) > a{
-    margin-bottom:33px;
+    margin-bottom:0;
   }
   .contact-channels-grid .contact-whatsapp-card > a.contact-whatsapp-join{
-    margin-bottom:35px;
+    margin-bottom:0;
   }
 }
