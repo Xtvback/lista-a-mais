@@ -5347,3 +5347,97 @@ main#conteudo > .page-hero:not(.signup-page-hero) p {
     filter:none!important;
   }
 }
+
+
+/* PROJETOS · desktop idêntico ao cabeçalho Famílias aprovado · 2026-11-09 */
+@media (min-width:761px) {
+  main#conteudo > .page-hero.projects-mobile-hero {
+    position:relative!important;
+    isolation:isolate!important;
+    display:flex!important;
+    align-items:center!important;
+    justify-content:flex-start!important;
+    height:clamp(290px,23.5vw,410px)!important;
+    min-height:0!important;
+    max-height:none!important;
+    padding:0!important;
+    overflow:hidden!important;
+    background:#f8fbff!important;
+    background-image:none!important;
+    border-bottom:1px solid #d9e7f3!important;
+  }
+  main#conteudo > .page-hero.projects-mobile-hero > img.projects-desktop-hero-image {
+    position:absolute!important;
+    inset:0!important;
+    display:block!important;
+    width:100%!important;
+    height:100%!important;
+    min-width:0!important;
+    max-width:none!important;
+    max-height:none!important;
+    aspect-ratio:auto!important;
+    object-fit:cover!important;
+    object-position:center 48%!important;
+    filter:none!important;
+    transform:none!important;
+  }
+  main#conteudo > .page-hero.projects-mobile-hero::before {
+    content:""!important;
+    position:absolute!important;
+    inset:0!important;
+    z-index:1!important;
+    display:block!important;
+    background:linear-gradient(90deg,rgba(248,251,255,.98) 0%,rgba(248,251,255,.95) 20%,rgba(248,251,255,.73) 37%,rgba(248,251,255,.14) 60%,transparent 75%)!important;
+    -webkit-backdrop-filter:blur(5px)!important;
+    backdrop-filter:blur(5px)!important;
+    -webkit-mask-image:linear-gradient(90deg,#000 0%,#000 26%,rgba(0,0,0,.7) 46%,transparent 76%)!important;
+    mask-image:linear-gradient(90deg,#000 0%,#000 26%,rgba(0,0,0,.7) 46%,transparent 76%)!important;
+    pointer-events:none!important;
+  }
+  main#conteudo > .page-hero.projects-mobile-hero::after {
+    content:none!important;
+    display:none!important;
+  }
+  main#conteudo > .page-hero.projects-mobile-hero > .container.projects-mobile-hero-text {
+    position:relative!important;
+    top:auto!important;
+    left:auto!important;
+    right:auto!important;
+    bottom:auto!important;
+    transform:none!important;
+    z-index:2!important;
+    flex:none!important;
+    width:min(545px,calc(100% - 48px))!important;
+    max-width:545px!important;
+    margin-left:max(24px,calc((100% - 1150px)/2))!important;
+    margin-right:auto!important;
+    padding:0!important;
+    text-align:left!important;
+    background:transparent!important;
+    border:0!important;
+    border-radius:0!important;
+    box-shadow:none!important;
+    backdrop-filter:none!important;
+    -webkit-backdrop-filter:none!important;
+  }
+  main#conteudo > .page-hero.projects-mobile-hero .projects-mobile-hero-text h1 {
+    color:#173e70!important;
+    font-family:Manrope,system-ui,sans-serif!important;
+    font-size:clamp(2.5rem,4vw,4rem)!important;
+    font-weight:850!important;
+    line-height:1.12!important;
+    max-width:600px!important;
+    white-space:normal!important;
+    letter-spacing:-.04em!important;
+    text-shadow:0 1px 2px rgba(255,255,255,.7)!important;
+  }
+  main#conteudo > .page-hero.projects-mobile-hero .projects-mobile-hero-text p {
+    color:#395975!important;
+    max-width:520px!important;
+    font-family:'DM Sans',system-ui,sans-serif!important;
+    font-size:clamp(.95rem,1.13vw,1.12rem)!important;
+    font-weight:600!important;
+    line-height:1.57!important;
+    text-shadow:0 1px 2px rgba(255,255,255,.8)!important;
+  }
+}
