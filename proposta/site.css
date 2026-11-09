@@ -3269,3 +3269,44 @@ main#conteudo > .page-hero.family-photo-hero.contact-matched-hero .family-photo-
     font-weight:700!important;
   }
 }
+
+
+/* Agenda APEE: reutiliza integralmente o modelo desktop e móvel de Famílias,
+   mantendo a imagem inteira e a zona direita nítida. */
+@media(min-width:761px){
+  main#conteudo > .page-hero.family-photo-hero.agenda-photo-hero{
+    height:clamp(280px,18vw,350px);
+    min-height:0;max-height:350px;padding:0;
+    background:#f8fbff;
+  }
+  main#conteudo > .page-hero.family-photo-hero.agenda-photo-hero .family-photo-hero-image{
+    position:absolute;inset:0;width:100%;height:100%;
+    object-fit:contain;object-position:right center;
+  }
+}
+@media(max-width:760px){
+  main#conteudo > .page-hero.family-photo-hero.agenda-photo-hero{
+    min-height:225px;padding:23px 0 20px;
+    overflow:hidden;
+  }
+  main#conteudo > .page-hero.family-photo-hero.agenda-photo-hero .family-photo-hero-image{
+    position:absolute;top:42px;right:0;width:100%;height:auto;
+    max-width:100%;object-fit:contain;object-position:right top;
+    filter:none;
+  }
+  main#conteudo > .page-hero.family-photo-hero.agenda-photo-hero::before{
+    background:linear-gradient(90deg,rgba(248,251,255,.99) 0%,rgba(248,251,255,.98) 26%,rgba(248,251,255,.89) 42%,rgba(248,251,255,.43) 59%,rgba(248,251,255,0) 77%);
+    backdrop-filter:none;-webkit-backdrop-filter:none;
+    mask-image:none;-webkit-mask-image:none;
+  }
+  main#conteudo > .page-hero.family-photo-hero.agenda-photo-hero .family-photo-hero-text h1,
+  main#conteudo > .page-hero.family-photo-hero.agenda-photo-hero .family-photo-hero-text p,
+  main#conteudo > .page-hero.family-photo-hero.agenda-photo-hero .family-photo-hero-text .eyebrow{
+    color:#173e70!important;
+    text-shadow:-1px -1px 0 #fff,1px -1px 0 #fff,-1px 1px 0 #fff,1px 1px 0 #fff,0 0 5px rgba(255,255,255,.98),0 0 12px rgba(255,255,255,.92),0 0 20px rgba(255,255,255,.60)!important;
+  }
+  main#conteudo > .page-hero.family-photo-hero.agenda-photo-hero .family-photo-hero-text p{
+    font-weight:700!important;
+    max-width:310px;
+  }
+}
