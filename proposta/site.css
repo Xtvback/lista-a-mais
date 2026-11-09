@@ -4308,3 +4308,43 @@ main#conteudo > .page-hero:not(.signup-page-hero) p {
     text-shadow:0 1px 2px #fff,0 0 8px rgba(255,255,255,.9)!important;
   }
 }
+
+
+/* Contactos desktop: restauro fiel ao primeiro exemplo 2026-11-09 */
+@media (min-width:761px) {
+  main#conteudo > .page-hero.family-photo-hero.contact-matched-hero.apee-reference-panorama {
+    height:clamp(390px,23.4vw,500px)!important;
+    min-height:390px!important;
+    max-height:none!important;
+    padding:0!important;
+    display:flex!important;
+    align-items:center!important;
+    justify-content:flex-start!important;
+  }
+  main#conteudo > .page-hero.family-photo-hero.contact-matched-hero.apee-reference-panorama img.family-photo-hero-image {
+    object-fit:cover!important;
+    object-position:center top!important;
+  }
+  main#conteudo > .page-hero.family-photo-hero.contact-matched-hero.apee-reference-panorama > .container.family-photo-hero-text {
+    flex:0 0 auto!important;
+    width:min(610px,calc(100% - 48px))!important;
+    max-width:610px!important;
+    margin-left:clamp(24px,5.1vw,105px)!important;
+    margin-right:auto!important;
+    padding:0!important;
+    text-align:left!important;
+  }
+  main#conteudo > .page-hero.family-photo-hero.contact-matched-hero.apee-reference-panorama > .container.family-photo-hero-text h1 {
+    font-family:Manrope,system-ui,sans-serif!important;
+    font-size:clamp(3.2rem,4.2vw,4.65rem)!important;
+    font-weight:850!important;
+    letter-spacing:-.04em!important;
+    line-height:1.08!important;
+  }
+  main#conteudo > .page-hero.family-photo-hero.contact-matched-hero.apee-reference-panorama > .container.family-photo-hero-text p {
+    font-family:'DM Sans',system-ui,sans-serif!important;
+    font-size:clamp(1.05rem,1.25vw,1.2rem)!important;
+    line-height:1.55!important;
+    max-width:610px!important;
+  }
+}
