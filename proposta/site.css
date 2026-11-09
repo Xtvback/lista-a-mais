@@ -4405,3 +4405,15 @@ main#conteudo > .page-hero:not(.signup-page-hero) p {
     opacity:1!important;
   }
 }
+
+
+/* Contactos desktop: alinhamento de texto igual a Documentos · correção definitiva */
+@media(min-width:761px) {
+  main#conteudo > .page-hero.family-photo-hero.contact-matched-hero.apee-reference-panorama > .container.family-photo-hero-text {
+    width:min(545px,calc(100% - 48px))!important;
+    max-width:545px!important;
+    margin-left:max(24px,calc((100% - 1150px)/2))!important;
+    margin-right:auto!important;
+    text-align:left!important;
+  }
+}
