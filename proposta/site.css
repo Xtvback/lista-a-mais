@@ -2333,6 +2333,7 @@ main#conteudo > .page-hero.family-photo-hero{
 main#conteudo > .page-hero.family-photo-hero::before{
   content:"";display:block;position:absolute;inset:0;
   z-index:1;pointer-events:none;
+  width:auto;height:auto;border:0;border-radius:0;
   background:linear-gradient(90deg,rgba(248,251,255,.8) 0%,rgba(248,251,255,.44) 19%,rgba(248,251,255,.1) 47%,transparent 74%);
 }
 main#conteudo > .page-hero.family-photo-hero::after{content:none;display:none}
@@ -2359,7 +2360,7 @@ main#conteudo > .page-hero.family-photo-hero .family-photo-hero-text p{color:#3b
 @media(max-width:760px){
   main#conteudo > .page-hero.family-photo-hero{
     display:flex;align-items:flex-start;
-    min-height:310px;
+    min-height:268px;
     padding:22px 0 24px;
     background:#f5f8fc;
   }
