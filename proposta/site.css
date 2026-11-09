@@ -3415,3 +3415,77 @@ main#conteudo.family-glass-page > .fh-history{
     -webkit-backdrop-filter:none;backdrop-filter:none;
   }
 }
+
+/* Famílias · painel em vidro sobre a fotografia ORIGINAL da mãe e filha.
+   A imagem é contínua na página inteira, sem criar um segundo cabeçalho fotográfico.
+   Exclusivo da página Famílias — desktop e telemóvel. */
+main#conteudo.family-glass-page{
+  --family-glass-photo:url("/imagens/familias-entrada-original.jpeg?v=20261109");
+  background:transparent!important;
+}
+main#conteudo.family-glass-page::before{
+  background-image:linear-gradient(120deg,rgba(21,55,88,.13),rgba(31,82,126,.10)),var(--family-glass-photo)!important;
+  background-position:65% center!important;
+  filter:blur(5px) saturate(1.04)!important;
+}
+main#conteudo.family-glass-page > .page-hero.family-photo-hero{
+  min-height:340px!important;height:auto!important;max-height:none!important;
+  padding:44px 20px!important;display:flex!important;
+  align-items:center!important;justify-content:center!important;
+  background:rgba(225,241,252,.11)!important;
+  overflow:visible!important;isolation:isolate;
+}
+main#conteudo.family-glass-page > .page-hero.family-photo-hero picture,
+main#conteudo.family-glass-page > .page-hero.family-photo-hero .family-photo-hero-image{display:none!important}
+main#conteudo.family-glass-page > .page-hero.family-photo-hero::before{
+  content:none!important;display:none!important;
+  -webkit-backdrop-filter:none!important;backdrop-filter:none!important;
+}
+main#conteudo.family-glass-page > .page-hero.family-photo-hero .family-photo-hero-text{
+  width:min(940px,100%)!important;max-width:940px!important;
+  margin:0 auto!important;padding:42px clamp(27px,4vw,52px)!important;
+  position:relative!important;z-index:2!important;
+  background:rgba(239,247,252,.72)!important;
+  border:1px solid rgba(255,255,255,.79)!important;border-radius:25px!important;
+  -webkit-backdrop-filter:blur(15px) saturate(1.16)!important;
+  backdrop-filter:blur(15px) saturate(1.16)!important;
+  box-shadow:0 22px 55px rgba(12,43,78,.17),inset 0 1px 0 rgba(255,255,255,.72)!important;
+}
+main#conteudo.family-glass-page > .page-hero.family-photo-hero .family-photo-hero-text h1{
+  color:#153e70!important;font-weight:850!important;
+  text-shadow:0 1px 2px rgba(255,255,255,.9)!important;
+}
+main#conteudo.family-glass-page > .page-hero.family-photo-hero .family-photo-hero-text p{
+  color:#365778!important;font-weight:600!important;
+  text-shadow:0 1px 1px rgba(255,255,255,.72)!important;
+}
+main#conteudo.family-glass-page > .page-hero.family-photo-hero .family-photo-hero-text .eyebrow{
+  color:#316c9b!important;text-shadow:none!important;
+}
+main#conteudo.family-glass-page > .fh-hub{
+  background:rgba(230,242,251,.32)!important;
+  -webkit-backdrop-filter:blur(2px);backdrop-filter:blur(2px);
+}
+@media(max-width:760px){
+  main#conteudo.family-glass-page::before{
+    background-position:67% center!important;
+    filter:blur(4px) saturate(1.03)!important;
+  }
+  main#conteudo.family-glass-page > .page-hero.family-photo-hero{
+    min-height:235px!important;padding:28px 15px 30px!important;
+  }
+  main#conteudo.family-glass-page > .page-hero.family-photo-hero .family-photo-hero-text{
+    padding:29px 23px!important;border-radius:20px!important;
+    background:rgba(240,249,255,.73)!important;
+    -webkit-backdrop-filter:blur(9px)!important;
+    backdrop-filter:blur(9px)!important;
+  }
+  main#conteudo.family-glass-page > .page-hero.family-photo-hero .family-photo-hero-text h1{
+    font-size:clamp(2.1rem,9vw,3.4rem)!important;
+  }
+}
+@supports not ((backdrop-filter:blur(2px)) or (-webkit-backdrop-filter:blur(2px))){
+  main#conteudo.family-glass-page > .page-hero.family-photo-hero .family-photo-hero-text{
+    background:rgba(247,251,255,.95)!important;
+  }
+}
