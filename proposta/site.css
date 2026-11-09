@@ -3067,11 +3067,6 @@ main#conteudo > .page-hero.family-photo-hero.contact-matched-hero .family-photo-
 }
 
 /* Contactos · contraste reforçado sem alterar a composição Famílias (09-11-2026). */
-@media(min-width:761px){
-  main#conteudo > .page-hero.family-photo-hero.contact-matched-hero::before{
-    background:linear-gradient(90deg,#f8fbff 0%,rgba(248,251,255,.99) 26%,rgba(248,251,255,.92) 37%,rgba(248,251,255,.68) 51%,rgba(248,251,255,.10) 75%,transparent 88%)!important;
-  }
-}
 @media(max-width:760px){
   main#conteudo > .page-hero.family-photo-hero.contact-matched-hero::before{
     background:linear-gradient(90deg,rgba(248,251,255,.99) 0%,rgba(248,251,255,.99) 35%,rgba(248,251,255,.96) 56%,rgba(248,251,255,.80) 72%,rgba(248,251,255,.16) 96%)!important;
