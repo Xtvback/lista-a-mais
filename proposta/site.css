@@ -2996,3 +2996,72 @@ main#conteudo > .page-hero.contact-photo-hero .contact-photo-hero-text p{
     box-shadow:0 15px 35px rgba(12,40,74,.15),inset 0 1px 0 rgba(255,255,255,.55);
   }
 }
+
+
+/* Contactos mobile v13: replicar rigorosamente o cabeçalho de Famílias.
+   A imagem é camada de fundo com o texto SOBREPOSTO — nunca numa faixa separada. */
+main#conteudo > .page-hero.family-photo-hero.contact-matched-hero{
+  background:#f6f9fc!important;
+  background-image:none!important;
+}
+main#conteudo > .page-hero.family-photo-hero.contact-matched-hero::after{
+  content:none!important;display:none!important;
+}
+main#conteudo > .page-hero.family-photo-hero.contact-matched-hero > picture{
+  position:static!important;display:contents!important;
+}
+main#conteudo > .page-hero.family-photo-hero.contact-matched-hero .family-photo-hero-image{
+  position:absolute!important;z-index:0!important;display:block!important;
+  max-width:100%!important;filter:none!important;
+}
+main#conteudo > .page-hero.family-photo-hero.contact-matched-hero .family-photo-hero-text{
+  position:relative!important;z-index:2!important;order:initial!important;
+  background:transparent!important;box-shadow:none!important;
+}
+@media(min-width:761px){
+  main#conteudo > .page-hero.family-photo-hero.contact-matched-hero{
+    height:clamp(280px,18vw,350px)!important;min-height:0!important;
+    max-height:350px!important;display:flex!important;align-items:center!important;
+    padding:0!important;overflow:hidden!important;
+  }
+  main#conteudo > .page-hero.family-photo-hero.contact-matched-hero .family-photo-hero-image{
+    inset:0!important;width:100%!important;height:100%!important;
+    object-fit:contain!important;object-position:right center!important;
+  }
+  main#conteudo > .page-hero.family-photo-hero.contact-matched-hero::before{
+    display:block!important;
+    background:linear-gradient(90deg,#f8fbff 0%,rgba(248,251,255,.96) 26%,rgba(248,251,255,.72) 43%,transparent 70%)!important;
+    backdrop-filter:none!important;-webkit-backdrop-filter:none!important;
+    mask-image:none!important;-webkit-mask-image:none!important;
+  }
+}
+@media(max-width:760px){
+  main#conteudo > .page-hero.family-photo-hero.contact-matched-hero{
+    display:flex!important;flex-direction:row!important;align-items:flex-start!important;
+    height:auto!important;max-height:none!important;
+    min-height:225px!important;padding:23px 0 20px!important;overflow:hidden!important;
+  }
+  main#conteudo > .page-hero.family-photo-hero.contact-matched-hero .family-photo-hero-image{
+    inset:auto 0 auto auto!important;
+    top:42px!important;
+    right:0!important;
+    width:100%!important;height:auto!important;
+    max-width:100%!important;
+    object-fit:contain!important;object-position:right top!important;
+    aspect-ratio:8/3!important;
+  }
+  main#conteudo > .page-hero.family-photo-hero.contact-matched-hero::before{
+    display:block!important;content:""!important;
+    background:linear-gradient(90deg,rgba(248,251,255,.97) 0%,rgba(248,251,255,.87) 27%,rgba(248,251,255,.58) 50%,rgba(248,251,255,.13) 79%,transparent 100%)!important;
+    backdrop-filter:blur(9px)!important;-webkit-backdrop-filter:blur(9px)!important;
+    mask-image:linear-gradient(90deg,#000 0%,#000 22%,rgba(0,0,0,.68) 49%,transparent 87%)!important;
+    -webkit-mask-image:linear-gradient(90deg,#000 0%,#000 22%,rgba(0,0,0,.68) 49%,transparent 87%)!important;
+  }
+  main#conteudo > .page-hero.family-photo-hero.contact-matched-hero .family-photo-hero-text{
+    width:min(330px,calc(100% - 36px))!important;
+    margin:0 18px!important;padding:0!important;flex:none!important;
+  }
+  main#conteudo > .page-hero.family-photo-hero.contact-matched-hero .family-photo-hero-text p{
+    max-width:305px!important;font-size:1rem!important;line-height:1.53!important;
+  }
+}
