@@ -3582,6 +3582,8 @@ main#conteudo.phase3-documents > .page-hero.family-photo-hero.documents-photo-he
   }
 }
 
+/* Cabeçalhos panorâmicos apenas no desktop. Versão móvel original reposta. */
+@media(min-width:761px){
 /* Modelo aprovado Documentos — equivalência visual em Famílias, Agenda e Contactos.
    Apenas cabeçalhos. Fotos originais sem distorção, enquadramento panorâmico
    desktop e composição responsiva no móvel. */
@@ -3675,32 +3677,6 @@ main#conteudo > .page-hero.family-photo-hero.apee-reference-panorama.agenda-phot
 main#conteudo > .page-hero.family-photo-hero.apee-reference-panorama.contact-matched-hero img.family-photo-hero-image{
   object-position:center 42%!important;
 }
-@media(max-width:760px){
-  main#conteudo > .page-hero.family-photo-hero.apee-reference-panorama{
-    height:auto!important;min-height:235px!important;max-height:none!important;
-    padding:28px 0 30px!important;
-    align-items:center!important;
-  }
-  main#conteudo > .page-hero.family-photo-hero.apee-reference-panorama img.family-photo-hero-image{
-    width:100%!important;height:100%!important;
-    object-fit:cover!important;object-position:67% center!important;
-  }
-  main#conteudo > .page-hero.family-photo-hero.apee-reference-panorama::before{
-    background:linear-gradient(90deg,rgba(248,251,255,.99) 0%,rgba(248,251,255,.97) 33%,rgba(248,251,255,.91) 65%,rgba(248,251,255,.61) 85%,rgba(248,251,255,.18) 100%)!important;
-    -webkit-backdrop-filter:blur(5px)!important;backdrop-filter:blur(5px)!important;
-    -webkit-mask-image:linear-gradient(90deg,#000 0%,#000 70%,rgba(0,0,0,.8) 85%,transparent 100%)!important;
-    mask-image:linear-gradient(90deg,#000 0%,#000 70%,rgba(0,0,0,.8) 85%,transparent 100%)!important;
-  }
-  main#conteudo > .page-hero.family-photo-hero.apee-reference-panorama .family-photo-hero-text{
-    width:min(330px,calc(100% - 36px))!important;
-    margin:0 18px!important;padding:0!important;
-  }
-  main#conteudo > .page-hero.family-photo-hero.apee-reference-panorama .family-photo-hero-text h1{
-    font-size:clamp(1.85rem,7.4vw,2.55rem)!important;
-  }
-  main#conteudo > .page-hero.family-photo-hero.apee-reference-panorama .family-photo-hero-text p{
-    max-width:310px!important;font-size:.96rem!important;line-height:1.48!important;
-  }
 }
 
 /* APEE · Ajuste de enquadramento da Agenda e Contactos. 2026-11-09.
@@ -3740,46 +3716,5 @@ main#conteudo > .page-hero.family-photo-hero.apee-reference-panorama.contact-mat
     mask-image:none!important;
     -webkit-backdrop-filter:none!important;
     backdrop-filter:none!important;
-  }
-}
-/* No telemóvel mostrar o ficheiro todo em largura, abaixo do texto.
-   Isso impede o zoom de 3x que cortava os motivos da imagem. */
-@media(max-width:760px){
-  main#conteudo > .page-hero.family-photo-hero.apee-reference-panorama:is(.agenda-photo-hero,.contact-matched-hero){
-    height:auto!important;
-    min-height:0!important;
-    max-height:none!important;
-    padding:27px 0 clamp(138px,35vw,190px)!important;
-    background:#f8fbff!important;
-    align-items:flex-start!important;
-  }
-  main#conteudo > .page-hero.family-photo-hero.apee-reference-panorama:is(.agenda-photo-hero,.contact-matched-hero) picture{
-    display:contents!important;
-  }
-  main#conteudo > .page-hero.family-photo-hero.apee-reference-panorama:is(.agenda-photo-hero,.contact-matched-hero) img.family-photo-hero-image{
-    position:absolute!important;
-    inset:auto 0 0 auto!important;
-    display:block!important;
-    width:100%!important;
-    height:auto!important;
-    max-width:100%!important;
-    max-height:none!important;
-    aspect-ratio:2048 / 682!important;
-    object-fit:contain!important;
-    object-position:right bottom!important;
-    transform:none!important;
-    filter:none!important;
-  }
-  main#conteudo > .page-hero.family-photo-hero.apee-reference-panorama:is(.agenda-photo-hero,.contact-matched-hero)::before{
-    background:linear-gradient(180deg,#f8fbff 0%,rgba(248,251,255,.99) 39%,rgba(248,251,255,.90) 57%,rgba(248,251,255,.18) 83%,transparent 100%)!important;
-    -webkit-mask-image:none!important;
-    mask-image:none!important;
-    -webkit-backdrop-filter:none!important;
-    backdrop-filter:none!important;
-  }
-  main#conteudo > .page-hero.family-photo-hero.apee-reference-panorama:is(.agenda-photo-hero,.contact-matched-hero) .family-photo-hero-text{
-    position:relative!important;
-    z-index:2!important;
-    align-self:flex-start!important;
   }
 }
