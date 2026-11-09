@@ -3702,3 +3702,84 @@ main#conteudo > .page-hero.family-photo-hero.apee-reference-panorama.contact-mat
     max-width:310px!important;font-size:.96rem!important;line-height:1.48!important;
   }
 }
+
+/* APEE · Ajuste de enquadramento da Agenda e Contactos. 2026-11-09.
+   Nunca recortar, ampliar artificialmente ou deformar a imagem original.
+   No desktop a fotografia é dimensionada pela ALTURA e alinhada à direita,
+   com o gradiente de leitura a ocupar a zona esquerda. */
+@media(min-width:761px){
+  main#conteudo > .page-hero.family-photo-hero.apee-reference-panorama:is(.agenda-photo-hero,.contact-matched-hero){
+    height:clamp(290px,23.5vw,410px)!important;
+    min-height:0!important;
+    padding:0!important;
+    background:#f8fbff!important;
+  }
+  main#conteudo > .page-hero.family-photo-hero.apee-reference-panorama:is(.agenda-photo-hero,.contact-matched-hero) picture{
+    display:contents!important;
+  }
+  main#conteudo > .page-hero.family-photo-hero.apee-reference-panorama:is(.agenda-photo-hero,.contact-matched-hero) img.family-photo-hero-image{
+    position:absolute!important;
+    inset:auto 0 auto auto!important;
+    top:0!important;
+    right:0!important;
+    bottom:auto!important;
+    left:auto!important;
+    width:auto!important;
+    height:100%!important;
+    max-width:none!important;
+    max-height:none!important;
+    aspect-ratio:2048 / 682!important;
+    object-fit:contain!important;
+    object-position:right center!important;
+    transform:none!important;
+    filter:none!important;
+  }
+  main#conteudo > .page-hero.family-photo-hero.apee-reference-panorama:is(.agenda-photo-hero,.contact-matched-hero)::before{
+    background:linear-gradient(90deg,#f8fbff 0%,rgba(248,251,255,.99) 23%,rgba(248,251,255,.92) 35%,rgba(248,251,255,.53) 52%,rgba(248,251,255,.07) 72%,transparent 81%)!important;
+    -webkit-mask-image:none!important;
+    mask-image:none!important;
+    -webkit-backdrop-filter:none!important;
+    backdrop-filter:none!important;
+  }
+}
+/* No telemóvel mostrar o ficheiro todo em largura, abaixo do texto.
+   Isso impede o zoom de 3x que cortava os motivos da imagem. */
+@media(max-width:760px){
+  main#conteudo > .page-hero.family-photo-hero.apee-reference-panorama:is(.agenda-photo-hero,.contact-matched-hero){
+    height:auto!important;
+    min-height:0!important;
+    max-height:none!important;
+    padding:27px 0 clamp(138px,35vw,190px)!important;
+    background:#f8fbff!important;
+    align-items:flex-start!important;
+  }
+  main#conteudo > .page-hero.family-photo-hero.apee-reference-panorama:is(.agenda-photo-hero,.contact-matched-hero) picture{
+    display:contents!important;
+  }
+  main#conteudo > .page-hero.family-photo-hero.apee-reference-panorama:is(.agenda-photo-hero,.contact-matched-hero) img.family-photo-hero-image{
+    position:absolute!important;
+    inset:auto 0 0 auto!important;
+    display:block!important;
+    width:100%!important;
+    height:auto!important;
+    max-width:100%!important;
+    max-height:none!important;
+    aspect-ratio:2048 / 682!important;
+    object-fit:contain!important;
+    object-position:right bottom!important;
+    transform:none!important;
+    filter:none!important;
+  }
+  main#conteudo > .page-hero.family-photo-hero.apee-reference-panorama:is(.agenda-photo-hero,.contact-matched-hero)::before{
+    background:linear-gradient(180deg,#f8fbff 0%,rgba(248,251,255,.99) 39%,rgba(248,251,255,.90) 57%,rgba(248,251,255,.18) 83%,transparent 100%)!important;
+    -webkit-mask-image:none!important;
+    mask-image:none!important;
+    -webkit-backdrop-filter:none!important;
+    backdrop-filter:none!important;
+  }
+  main#conteudo > .page-hero.family-photo-hero.apee-reference-panorama:is(.agenda-photo-hero,.contact-matched-hero) .family-photo-hero-text{
+    position:relative!important;
+    z-index:2!important;
+    align-self:flex-start!important;
+  }
+}
