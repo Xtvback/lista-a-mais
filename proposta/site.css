@@ -2850,3 +2850,111 @@ main#conteudo > .page-hero.contact-photo-hero .contact-photo-hero-picture{
     background:#fff;
   }
 }
+
+
+/* Contactos · modelo FAMÍLIAS aprovado — única fotografia a cobrir todo o hero.
+   Retira completamente os ornamentos da versão antiga; texto SOBRE a imagem. */
+main#conteudo > .page-hero.contact-photo-hero{
+  position:relative!important;
+  isolation:isolate!important;
+  display:flex!important;
+  flex-direction:row!important;
+  align-items:center!important;
+  overflow:hidden!important;
+  padding:0!important;
+  height:clamp(280px,18vw,350px)!important;
+  min-height:0!important;
+  max-height:350px!important;
+  background:#f8fbff!important;
+  background-image:none!important;
+  border-bottom:1px solid #dce9f5!important;
+}
+main#conteudo > .page-hero.contact-photo-hero::after{
+  display:none!important;content:none!important;background:none!important;
+}
+main#conteudo > .page-hero.contact-photo-hero .contact-photo-hero-picture{
+  position:absolute!important;
+  inset:0!important;
+  display:block!important;
+  width:100%!important;
+  height:100%!important;
+  order:initial!important;
+  z-index:0!important;
+  overflow:hidden!important;
+  background:none!important;
+}
+main#conteudo > .page-hero.contact-photo-hero .contact-photo-hero-image{
+  position:absolute!important;
+  inset:0!important;
+  width:100%!important;
+  height:100%!important;
+  max-width:none!important;
+  object-fit:cover!important;
+  object-position:center 22%!important;
+  aspect-ratio:auto!important;
+  filter:none!important;
+}
+main#conteudo > .page-hero.contact-photo-hero::before{
+  display:block!important;content:""!important;
+  position:absolute!important;inset:0!important;
+  z-index:1!important;
+  background:linear-gradient(90deg,#f8fbff 0%,rgba(248,251,255,.98) 20%,rgba(248,251,255,.85) 34%,rgba(248,251,255,.55) 48%,rgba(248,251,255,.08) 72%,transparent 86%)!important;
+  -webkit-backdrop-filter:none!important;backdrop-filter:none!important;
+  -webkit-mask-image:none!important;mask-image:none!important;
+  pointer-events:none!important;
+}
+main#conteudo > .page-hero.contact-photo-hero .contact-photo-hero-text{
+  position:relative!important;
+  z-index:2!important;
+  order:initial!important;
+  flex:none!important;
+  width:min(445px,calc(100% - 48px))!important;
+  margin-left:max(24px,calc((100% - 1150px)/2))!important;
+  margin-right:auto!important;
+  padding:0!important;
+  background:transparent!important;
+  border:0!important;
+  box-shadow:none!important;
+  -webkit-backdrop-filter:none!important;backdrop-filter:none!important;
+}
+main#conteudo > .page-hero.contact-photo-hero .contact-photo-hero-text p{
+  max-width:410px!important;
+  color:#3c5b77!important;
+  line-height:1.58!important;
+}
+@media(max-width:760px){
+  main#conteudo > .page-hero.contact-photo-hero{
+    height:auto!important;
+    min-height:245px!important;
+    max-height:none!important;
+    padding:24px 0 22px!important;
+    align-items:flex-start!important;
+  }
+  main#conteudo > .page-hero.contact-photo-hero .contact-photo-hero-picture{
+    position:absolute!important;
+    inset:0!important;
+    height:100%!important;
+    order:initial!important;
+  }
+  main#conteudo > .page-hero.contact-photo-hero .contact-photo-hero-image{
+    object-fit:cover!important;
+    object-position:70% center!important;
+  }
+  main#conteudo > .page-hero.contact-photo-hero::before{
+    display:block!important;
+    content:""!important;
+    background:linear-gradient(90deg,rgba(248,251,255,.99) 0%,rgba(248,251,255,.94) 36%,rgba(248,251,255,.63) 63%,rgba(248,251,255,.1) 100%)!important;
+  }
+  main#conteudo > .page-hero.contact-photo-hero .contact-photo-hero-text{
+    order:initial!important;
+    width:min(330px,calc(100% - 36px))!important;
+    margin:0 18px!important;
+    padding:0!important;
+    background:transparent!important;
+  }
+  main#conteudo > .page-hero.contact-photo-hero .contact-photo-hero-text p{
+    max-width:305px!important;
+    font-size:1rem!important;
+    line-height:1.53!important;
+  }
+}
