@@ -84,25 +84,16 @@ if(b&&m){
  }}
 })();
 
-/* Guia das Famílias acessível no menu principal de todas as páginas. */
+/* Guia das Famílias integrado na entrada principal Famílias. */
 (function(){
  const nav=document.getElementById('mainMenu');
  if(!nav)return;
- const path=location.pathname;
- const isGuide=/\/(guia-(familias|plataformas|aaaf-caf|horarios|refeicoes|mensalidades|contactos)\.html)$/.test(path);
- let link=nav.querySelector('a[href="/guia-familias.html"]');
- if(!link){
-  link=document.createElement('a');link.href='/guia-familias.html';link.textContent='Guia das Famílias';
-  const after=nav.querySelector('a[href="/familias.html"]');
-  if(after)after.insertAdjacentElement('afterend',link);
-  else nav.appendChild(link);
- }
- if(isGuide){
-  nav.querySelectorAll('a[aria-current="page"]').forEach(a=>a.removeAttribute('aria-current'));
-  link.setAttribute('aria-current','page');
+ nav.querySelectorAll('a[href="/guia-familias.html"]').forEach(link=>link.remove());
+ if(/\/(guia-(familias|plataformas|aaaf-caf|horarios|refeicoes|mensalidades|contactos)\.html)$/.test(location.pathname)){
+  nav.querySelectorAll('a[aria-current="page"]').forEach(link=>link.removeAttribute('aria-current'));
+  nav.querySelector('a[href="/familias.html"]')?.setAttribute('aria-current','page');
  }
 })();
-
 /* Agenda discoverable in desktop menu and footer, without replacing any existing link. */
 (function(){
   const menu=document.querySelector('#mainMenu');
@@ -137,7 +128,7 @@ if(b&&m){
 (function(){
  const links=document.querySelector('.foot-links');
  if(links){
-  for(const item of [{href:'/guia-familias.html',label:'Guia das famílias'},{href:'/historia-escola.html',label:'História da escola'},{href:'/arquivo-historico.html',label:'Arquivo de mandatos anteriores'}]){
+  for(const item of [{href:'/familias.html#guia',label:'Guia das Famílias'},{href:'/historia-escola.html',label:'História da escola'},{href:'/arquivo-historico.html',label:'Arquivo de mandatos anteriores'}]){
    if(!links.querySelector('a[href="'+item.href+'"]')){
     const a=document.createElement('a');a.href=item.href;a.textContent=item.label;links.appendChild(a);
    }
@@ -304,4 +295,28 @@ if(b&&m){
  '}'
  ].join('\n');
  const style=document.createElement('style');style.textContent=css;document.head.appendChild(style);
+})();
+
+/* Pesquisa do Guia das Famílias: filtros imediatos, acessíveis e sem recolha de dados. */
+(function(){
+ const input=document.getElementById('fhSearch');
+ const grid=document.getElementById('fhGrid');
+ const counter=document.getElementById('fhCount');
+ const empty=document.getElementById('fhEmpty');
+ if(!input||!grid||!counter||!empty)return;
+ const cards=[...grid.querySelectorAll('.fh-card')];
+ const normalize=s=>s.normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase();
+ const filter=()=>{
+  const tokens=normalize(input.value.trim()).split(/\s+/).filter(Boolean);
+  let visibleCount=0;
+  cards.forEach(card=>{
+   const text=normalize(card.textContent+' '+(card.dataset.search||''));
+   const match=tokens.every(token=>text.includes(token));
+   card.hidden=!match;
+   if(match)visibleCount++;
+  });
+  counter.textContent=visibleCount===1?'1 tema':visibleCount+' temas';
+  empty.hidden=visibleCount!==0;
+ };
+ input.addEventListener('input',filter);
 })();
