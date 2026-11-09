@@ -2320,68 +2320,112 @@ main :target{scroll-margin-top:calc(92px + env(safe-area-inset-top,0px))}
 
 
 
-/* Famílias · fotografia PANORÂMICA completa, sem cortes ou distorções.
-   A fotografia mantém a proporção original 8:3 e o desfoque está à esquerda. */
+
+/* Famílias 2026: imagem original, sem recorte ou estiramento.
+   Título sem caixa e névoa/desfoque suave apenas na esquerda. */
 main#conteudo > .page-hero.family-photo-hero{
-  position:relative;isolation:isolate;overflow:hidden;
-  display:flex;align-items:center;
-  padding:42px 0;
-  min-height:clamp(420px,37.5vw,576px);
-  background:#f5f8fc;
+  position:relative;
+  isolation:isolate;
+  overflow:hidden;
+  display:flex;
+  align-items:center;
+  min-height:clamp(410px,37.5vw,560px);
+  padding:40px 0;
   border-bottom:1px solid #dce9f5;
+  background:#f6f9fc;
 }
-main#conteudo > .page-hero.family-photo-hero::before{
-  content:"";display:block;position:absolute;inset:0;
-  z-index:1;pointer-events:none;
-  width:auto;height:auto;border:0;border-radius:0;
-  background:linear-gradient(90deg,rgba(248,251,255,.8) 0%,rgba(248,251,255,.44) 19%,rgba(248,251,255,.1) 47%,transparent 74%);
-}
-main#conteudo > .page-hero.family-photo-hero::after{content:none;display:none}
 main#conteudo > .page-hero.family-photo-hero .family-photo-hero-image{
   display:block;
-  position:absolute;right:0;bottom:0;z-index:0;
-  width:100%;height:auto;max-width:100%;
-  aspect-ratio:8/3;object-fit:contain;object-position:right bottom;
+  position:absolute;
+  z-index:0;
+  right:0;
+  top:0;
+  bottom:auto;
+  width:100%;
+  height:auto;
+  max-width:100%;
+  aspect-ratio:8/3;
+  object-fit:contain;
+  object-position:right top;
   filter:none;
 }
-main#conteudo > .page-hero.family-photo-hero .family-photo-hero-text{
-  position:relative;z-index:2;flex:none;
-  width:min(410px,calc(100% - 48px));
-  margin-left:max(24px,calc((100% - 1150px)/2));margin-right:auto;
-  padding:20px 24px;
-  border-radius:18px;
-  border:1px solid rgba(255,255,255,.62);
-  background:rgba(248,251,255,.52);
-  -webkit-backdrop-filter:blur(15px) saturate(1.04);
-  backdrop-filter:blur(15px) saturate(1.04);
-  box-shadow:0 8px 24px rgba(25,60,100,.07);
+main#conteudo > .page-hero.family-photo-hero::before{
+  content:"";
+  display:block;
+  position:absolute;
+  inset:0;
+  z-index:1;
+  width:auto;
+  height:auto;
+  border:0;
+  border-radius:0;
+  background:linear-gradient(90deg,rgba(248,251,255,.92) 0%,rgba(248,251,255,.8) 24%,rgba(248,251,255,.42) 45%,rgba(248,251,255,0) 72%);
+  -webkit-backdrop-filter:blur(5px);
+  backdrop-filter:blur(5px);
+  -webkit-mask-image:linear-gradient(90deg,#000 0%,#000 26%,rgba(0,0,0,.6) 47%,transparent 73%);
+  mask-image:linear-gradient(90deg,#000 0%,#000 26%,rgba(0,0,0,.6) 47%,transparent 73%);
+  pointer-events:none;
 }
-main#conteudo > .page-hero.family-photo-hero .family-photo-hero-text p{color:#3b5673}
+main#conteudo > .page-hero.family-photo-hero::after{content:none;display:none}
+main#conteudo > .page-hero.family-photo-hero .family-photo-hero-text{
+  position:relative;
+  z-index:2;
+  flex:none;
+  width:min(445px,calc(100% - 48px));
+  margin-left:max(24px,calc((100% - 1150px)/2));
+  margin-right:auto;
+  padding:0;
+  border:0;
+  border-radius:0;
+  background:transparent;
+  -webkit-backdrop-filter:none;
+  backdrop-filter:none;
+  box-shadow:none;
+}
+main#conteudo > .page-hero.family-photo-hero .family-photo-hero-text p{
+  color:#3c5b77;
+  max-width:410px;
+  line-height:1.58;
+}
 @media(max-width:760px){
   main#conteudo > .page-hero.family-photo-hero{
-    display:flex;align-items:flex-start;
-    min-height:345px;
-    padding:22px 0 18px;
-    background:#f5f8fc;
+    display:flex;
+    align-items:flex-start;
+    min-height:318px;
+    padding:29px 0 18px;
+    background:#f6f9fc;
   }
   main#conteudo > .page-hero.family-photo-hero .family-photo-hero-image{
-    width:100%;height:auto;max-width:100%;
-    bottom:0;right:0;
+    width:100%;
+    height:auto;
+    max-width:100%;
+    top:133px;
+    right:0;
+    bottom:auto;
+    object-fit:contain;
+    object-position:right top;
     aspect-ratio:8/3;
-    object-fit:contain;object-position:right bottom;
   }
   main#conteudo > .page-hero.family-photo-hero::before{
-    background:linear-gradient(180deg,rgba(248,251,255,.93) 0%,rgba(248,251,255,.75) 37%,rgba(248,251,255,.25) 68%,transparent 95%);
+    background:linear-gradient(90deg,rgba(248,251,255,.97) 0%,rgba(248,251,255,.82) 28%,rgba(248,251,255,.42) 56%,rgba(248,251,255,0) 86%);
+    -webkit-backdrop-filter:blur(4px);
+    backdrop-filter:blur(4px);
+    -webkit-mask-image:linear-gradient(90deg,#000 0%,#000 22%,rgba(0,0,0,.68) 49%,transparent 87%);
+    mask-image:linear-gradient(90deg,#000 0%,#000 22%,rgba(0,0,0,.68) 49%,transparent 87%);
   }
   main#conteudo > .page-hero.family-photo-hero .family-photo-hero-text{
-    width:min(290px,calc(100% - 30px));
-    margin:0 15px;padding:16px 18px 15px;
-    border-radius:16px;
-    background:rgba(248,251,255,.56);
-    -webkit-backdrop-filter:blur(12px) saturate(1.03);
-    backdrop-filter:blur(12px) saturate(1.03);
+    width:min(330px,calc(100% - 36px));
+    margin:0 18px;
+    padding:0;
+    border:0;
+    background:transparent;
+    box-shadow:none;
+    -webkit-backdrop-filter:none;
+    backdrop-filter:none;
   }
   main#conteudo > .page-hero.family-photo-hero .family-photo-hero-text p{
-    max-width:none;font-size:.98rem;line-height:1.5;
+    max-width:305px;
+    font-size:1rem;
+    line-height:1.53;
   }
 }
