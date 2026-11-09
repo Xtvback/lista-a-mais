@@ -3904,7 +3904,7 @@ main#conteudo > .page-hero.family-photo-hero.apee-reference-panorama.contact-mat
   main#conteudo > .page-hero.family-photo-hero.contact-matched-hero.apee-reference-panorama .family-photo-hero-text {
     width:min(690px,calc(100% - 48px))!important;
     max-width:690px!important;
-    margin-left:clamp(30px,8.55vw,175px)!important;
+    margin-left:clamp(30px,7.25vw,150px)!important;
     margin-right:auto!important;
     padding:0!important;
   }
