@@ -2319,20 +2319,22 @@ main :target{scroll-margin-top:calc(92px + env(safe-area-inset-top,0px))}
 @media(max-width:620px){.guide-home-essentials .guide-intro-actions{display:grid;grid-template-columns:1fr;gap:12px}.guide-home-essentials .guide-intro-actions .guide-button{width:100%;min-height:52px}}
 
 
-/* APEE · FAMÍLIAS | fotografia original como fundo — validado web + mobile
-   Seletores com ID: prioridade superior ao cabeçalho global, sem !important. */
+
+/* APEE · Famílias: imagem original por trás dos textos com vidro despolido.
+   Mesmo conceito em ecrãs móveis e desktop. */
 main#conteudo > .page-hero.family-photo-hero{
-  position:relative;isolation:isolate;overflow:hidden;
-  display:flex;align-items:center;
-  min-height:405px;
-  padding:70px 0;
+  position:relative;
+  isolation:isolate;
+  overflow:hidden;
+  display:flex;
+  align-items:center;
+  min-height:440px;
+  padding:58px 0;
   border-bottom:1px solid #dce9f5;
-  background-color:#f5f9ff;
-  background-image:
-    linear-gradient(90deg,rgba(255,255,255,.99) 0%,rgba(255,255,255,.96) 25%,rgba(255,255,255,.79) 40%,rgba(255,255,255,.22) 66%,rgba(255,255,255,0) 88%),
-    url('/imagens/familias-entrada-original.jpeg?v=20261109');
-  background-size:cover,cover;
-  background-position:center center,center 56%;
+  background-color:#eaf2f8;
+  background-image:url('/imagens/familias-entrada-original.jpeg?v=20261109');
+  background-size:cover;
+  background-position:center 54%;
   background-repeat:no-repeat;
 }
 main#conteudo > .page-hero.family-photo-hero::before,
@@ -2341,23 +2343,44 @@ main#conteudo > .page-hero.family-photo-hero::after{
   display:none;
 }
 main#conteudo > .page-hero.family-photo-hero .family-photo-hero-text{
-  position:relative;z-index:2;padding-right:min(45%,520px);
+  position:relative;
+  z-index:2;
+  flex:none;
+  width:min(620px,calc(100% - 48px));
+  margin-left:max(24px,calc((100% - 1150px)/2));
+  margin-right:auto;
+  padding:32px 36px;
+  border:1px solid rgba(255,255,255,.75);
+  border-radius:24px;
+  background:rgba(247,251,255,.64);
+  -webkit-backdrop-filter:blur(18px) saturate(1.07);
+  backdrop-filter:blur(18px) saturate(1.07);
+  box-shadow:0 18px 45px rgba(22,55,99,.14);
 }
 main#conteudo > .page-hero.family-photo-hero .family-photo-hero-text p{
-  max-width:520px;
+  color:#3b5673;
+  max-width:530px;
 }
 @media(max-width:760px){
   main#conteudo > .page-hero.family-photo-hero{
-    display:block;
-    min-height:440px;
-    padding:40px 0 175px;
-    background-color:#f5f9ff;
-    background-image:
-      linear-gradient(180deg,rgba(255,255,255,.99) 0%,rgba(255,255,255,.98) 32%,rgba(255,255,255,.89) 45%,rgba(255,255,255,.15) 76%,rgba(255,255,255,0) 100%),
-      url('/imagens/familias-entrada-original.jpeg?v=20261109');
-    background-size:100% 100%,auto 61%;
-    background-position:center center,66% bottom;
-    background-repeat:no-repeat;
+    display:flex;
+    min-height:495px;
+    padding:27px 0;
+    align-items:flex-start;
+    background-image:url('/imagens/familias-entrada-original.jpeg?v=20261109');
+    background-size:cover;
+    background-position:67% center;
   }
-  main#conteudo > .page-hero.family-photo-hero .family-photo-hero-text{padding-right:0}
+  main#conteudo > .page-hero.family-photo-hero .family-photo-hero-text{
+    width:calc(100% - 30px);
+    margin:0 15px;
+    padding:25px 20px 24px;
+    border-radius:20px;
+    background:rgba(247,251,255,.68);
+    -webkit-backdrop-filter:blur(15px) saturate(1.05);
+    backdrop-filter:blur(15px) saturate(1.05);
+  }
+  main#conteudo > .page-hero.family-photo-hero .family-photo-hero-text p{
+    max-width:none;
+  }
 }
