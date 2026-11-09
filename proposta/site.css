@@ -5578,3 +5578,52 @@ main#conteudo > .page-hero:not(.signup-page-hero) p {
   main#conteudo > .page-hero.registration-original-hero{display:none!important}
 }
 
+
+
+/* Associação — substituir bloco '+' por logótipo oficial, apresentação leve. */
+main#conteudo .about-lead-mark.about-lead-logo{
+  display:flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  flex-direction:row!important;
+  width:100%!important;
+  max-width:360px!important;
+  height:auto!important;
+  min-height:0!important;
+  margin-inline:auto!important;
+  padding:0!important;
+  background:none!important;
+  background-image:none!important;
+  border:none!important;
+  border-radius:0!important;
+  box-shadow:none!important;
+  overflow:visible!important;
+  position:relative!important;
+}
+main#conteudo .about-lead-mark.about-lead-logo::before,
+main#conteudo .about-lead-mark.about-lead-logo::after{
+  display:none!important;
+  content:none!important;
+}
+main#conteudo .about-lead-mark.about-lead-logo img{
+  display:block!important;
+  width:clamp(138px,17vw,220px)!important;
+  height:auto!important;
+  max-width:100%!important;
+  object-fit:contain!important;
+  border:0!important;
+  border-radius:0!important;
+  box-shadow:none!important;
+  filter:none!important;
+  background:transparent!important;
+}
+@media(max-width:760px){
+  main#conteudo .about-lead-mark.about-lead-logo{
+    max-width:100%!important;
+    margin:3px auto 0!important;
+    padding:4px 0 0!important;
+  }
+  main#conteudo .about-lead-mark.about-lead-logo img{
+    width:clamp(140px,42vw,190px)!important;
+  }
+}
