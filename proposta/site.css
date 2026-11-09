@@ -2531,3 +2531,6 @@ main#conteudo > .page-hero.family-photo-hero .family-photo-hero-text p{
     mask-image:linear-gradient(90deg,#000 0%,#000 26%,rgba(0,0,0,.63) 48%,transparent 73%);
   }
 }
+
+/* Desktop: botão Inscrição de Associados sem seta/ícone final; manter o menu móvel como estava. */
+@media(min-width:761px){.topline a.apee-signup-top .apee-menu-chevron,.topline a.apee-signup-top .apee-menu-icon{display:none!important}}
