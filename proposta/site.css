@@ -3078,3 +3078,82 @@ main#conteudo > .page-hero.family-photo-hero.contact-matched-hero .family-photo-
     text-shadow:0 1px 0 rgba(255,255,255,.85)!important;
   }
 }
+
+/* Início · móvel: a escola acompanha TODO o percurso, como no Espaço Associado.
+   Fotografia original fixa atrás dos painéis; sem imagem isolada no cabeçalho.
+   A camada de pormenor mantém toda a fachada legível no início da página. */
+@media(max-width:760px){
+  main.home-school-glass{
+    isolation:isolate;
+    background:transparent!important;
+    background-image:none!important;
+    background-attachment:scroll!important;
+    position:relative;
+  }
+  main.home-school-glass::before{
+    content:"";
+    position:fixed;
+    inset:-12px;
+    z-index:-2;
+    pointer-events:none;
+    background-image:linear-gradient(130deg,rgba(16,53,91,.18),rgba(31,84,128,.23)),var(--home-school-photo);
+    background-repeat:no-repeat;
+    background-size:cover;
+    background-position:center center;
+    filter:blur(9px) saturate(.94);
+    transform:translateZ(0);
+  }
+  main.home-school-glass::after{
+    content:"";
+    position:fixed;
+    inset:0;
+    z-index:-1;
+    pointer-events:none;
+    background-image:var(--home-school-photo);
+    background-repeat:no-repeat;
+    background-position:center 75px;
+    background-size:100% auto;
+    opacity:.76;
+    -webkit-mask-image:linear-gradient(180deg,#000 0%,#000 26%,rgba(0,0,0,.55) 43%,transparent 64%);
+    mask-image:linear-gradient(180deg,#000 0%,#000 26%,rgba(0,0,0,.55) 43%,transparent 64%);
+  }
+  main.home-school-glass > .ref-sky{
+    background:transparent!important;
+    background-image:none!important;
+    position:relative;
+    z-index:1;
+  }
+  main.home-school-glass > section:not(.ref-sky){
+    background:rgba(232,243,252,.36)!important;
+    -webkit-backdrop-filter:blur(3px) saturate(1.07);
+    backdrop-filter:blur(3px) saturate(1.07);
+    position:relative;
+    z-index:1;
+  }
+  main.home-school-glass > .ref-sky .container{
+    background:rgba(245,251,255,.58);
+    -webkit-backdrop-filter:blur(6px) saturate(1.09);
+    backdrop-filter:blur(6px) saturate(1.09);
+  }
+  main.home-school-glass .ref-quick-card,
+  main.home-school-glass .ref-values-card,
+  main.home-school-glass .ref-priority-card,
+  main.home-school-glass .editorial-story,
+  main.home-school-glass .editorial-news-card,
+  main.home-school-glass .home-agenda-day{
+    background-color:rgba(255,255,255,.79)!important;
+    border-color:rgba(255,255,255,.72)!important;
+    -webkit-backdrop-filter:blur(8px);
+    backdrop-filter:blur(8px);
+  }
+}
+@media(max-width:760px) and (prefers-reduced-transparency:reduce){
+  main.home-school-glass > .ref-sky .container,
+  main.home-school-glass .ref-quick-card,
+  main.home-school-glass .ref-values-card,
+  main.home-school-glass .ref-priority-card{
+    background:rgba(248,251,255,.95)!important;
+    -webkit-backdrop-filter:none;
+    backdrop-filter:none;
+  }
+}
