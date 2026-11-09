@@ -2480,3 +2480,15 @@ main#conteudo > .page-hero.family-photo-hero .family-photo-hero-text p{
 @media(max-width:850px){.fh-showcase{grid-template-columns:1fr}.fh-showcase-aside{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}.fh-aside-head{grid-column:1/-1}.fh-aside-step{display:block;border:0;padding:4px 0}.fh-aside-step>b{margin-bottom:8px}.fh-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:600px){.fh-hub{padding:39px 0 32px;scroll-margin-top:85px}.fh-showcase{padding:29px 23px 48px;min-height:0;border-radius:23px;gap:18px}.fh-showcase h2{font-size:clamp(2rem,9vw,2.6rem);margin:16px 0}.fh-showcase-main>p{font-size:.93rem}.fh-showcase-actions{display:grid}.fh-showcase-actions a{width:100%}.fh-showcase-aside{display:none}.fh-search-panel{width:calc(100% - 17px);margin:-26px auto 18px;padding:17px 16px;border-radius:17px}.fh-search-heading{align-items:flex-start}.fh-search-heading h3{font-size:1.18rem}.fh-search-heading p{font-size:.8rem}.fh-count{padding:6px 8px;font-size:.67rem}.fh-search{margin-top:17px;min-height:48px}.fh-search input{font-size:.86rem}.fh-grid{grid-template-columns:1fr;gap:12px}.fh-card{min-height:0;padding:18px;border-radius:16px}.fh-card-head{margin-bottom:10px}.fh-card>p{margin:10px 0 13px}.fh-source{font-size:.72rem}.fh-history-inner{display:block;padding:20px}.fh-history-inner>a{margin-top:16px}.fh-community{padding-top:38px!important}}
 @media(prefers-reduced-motion:reduce){.fh-card,.fh-showcase-actions a{transition:none}}
+
+/* Famílias — Apoio social e Refeitório integrados no mesmo design dos cartões do Guia. */
+.fh-related{margin-top:39px;padding-top:31px;border-top:1px solid #d7e5f2}
+.fh-related-intro{display:flex;align-items:end;justify-content:space-between;gap:22px;margin-bottom:18px}
+.fh-related-intro h3{font:850 clamp(1.45rem,2.7vw,2rem)/1.19 Manrope,'DM Sans',system-ui,sans-serif;letter-spacing:-.04em;color:#163e6c;margin:9px 0 0}
+.fh-related-intro>p{color:#657b90;font-size:.9rem;line-height:1.55;max-width:310px;margin:0}
+.fh-related-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+.fh-related-card{min-height:239px}
+.fh-related-card>p{max-width:450px}
+.fh-related-card .fh-card-head small{letter-spacing:.09em}
+.fh-related-card .fh-card-more{width:100%;font-size:.84rem}
+@media(max-width:650px){.fh-related{margin-top:28px;padding-top:25px}.fh-related-intro{display:block}.fh-related-intro>p{margin-top:10px;max-width:none}.fh-related-grid{grid-template-columns:1fr;gap:12px}.fh-related-card{min-height:0}}
