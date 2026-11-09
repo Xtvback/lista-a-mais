@@ -4197,3 +4197,19 @@ main#conteudo > .page-hero:not(.signup-page-hero) p {
     line-height:1.48!important;
   }
 }
+
+
+/* Contactos desktop · faixa curta conforme referência de 09/11/2026.
+   Mantém o logótipo da fotografia visível e não afeta o móvel. */
+@media (min-width:761px) {
+  main#conteudo > .page-hero.family-photo-hero.contact-matched-hero.apee-reference-panorama {
+    height:clamp(300px,22vw,395px)!important;
+    min-height:0!important;
+    max-height:395px!important;
+    padding:0!important;
+  }
+  main#conteudo > .page-hero.family-photo-hero.contact-matched-hero.apee-reference-panorama img.family-photo-hero-image {
+    object-fit:cover!important;
+    object-position:center top!important;
+  }
+}
