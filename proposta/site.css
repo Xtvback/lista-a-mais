@@ -3416,3 +3416,114 @@ main#conteudo > .page-hero.family-photo-hero.contact-matched-hero .family-photo-
     filter:none!important;
   }
 }
+
+/* DOCUMENTOS · Cabeçalho panorâmico fiel ao modelo aprovado de Famílias.
+   Imagem original intacta, nevoeiro suave à esquerda, sem painel branco.
+   Desktop e telemóvel: regras restritas à página Documentos. */
+main#conteudo.phase3-documents > .page-hero.family-photo-hero.documents-photo-hero{
+  position:relative;
+  isolation:isolate;
+  display:flex;
+  align-items:center;
+  min-height:0;
+  height:clamp(290px,23.5vw,410px);
+  max-height:none;
+  padding:0;
+  overflow:hidden;
+  background:#f8fbff;
+  border-bottom:1px solid #d9e7f3;
+}
+main#conteudo.phase3-documents > .page-hero.family-photo-hero.documents-photo-hero > img.family-photo-hero-image{
+  position:absolute;
+  inset:0;
+  display:block;
+  width:100%;
+  height:100%;
+  max-width:none;
+  object-fit:cover;
+  object-position:center 54%;
+  aspect-ratio:auto;
+  filter:none;
+}
+main#conteudo.phase3-documents > .page-hero.family-photo-hero.documents-photo-hero::before{
+  content:"";
+  display:block;
+  position:absolute;
+  inset:0;
+  z-index:1;
+  background:linear-gradient(90deg,rgba(248,251,255,.98) 0%,rgba(248,251,255,.95) 20%,rgba(248,251,255,.73) 37%,rgba(248,251,255,.14) 60%,transparent 75%);
+  -webkit-backdrop-filter:blur(5px);
+  backdrop-filter:blur(5px);
+  -webkit-mask-image:linear-gradient(90deg,#000 0%,#000 26%,rgba(0,0,0,.7) 46%,transparent 76%);
+  mask-image:linear-gradient(90deg,#000 0%,#000 26%,rgba(0,0,0,.7) 46%,transparent 76%);
+  pointer-events:none;
+}
+main#conteudo.phase3-documents > .page-hero.family-photo-hero.documents-photo-hero::after{content:none;display:none}
+main#conteudo.phase3-documents > .page-hero.family-photo-hero.documents-photo-hero .family-photo-hero-text{
+  position:relative;
+  z-index:2;
+  width:min(545px,calc(100% - 48px));
+  max-width:545px;
+  flex:none;
+  margin-left:max(24px,calc((100% - 1150px)/2));
+  margin-right:auto;
+  padding:0;
+  background:transparent!important;
+  border:0;
+  border-radius:0;
+  -webkit-backdrop-filter:none;
+  backdrop-filter:none;
+  box-shadow:none;
+}
+main#conteudo.phase3-documents > .page-hero.family-photo-hero.documents-photo-hero .family-photo-hero-text h1{
+  color:#173e70;
+  font-weight:850;
+  line-height:1.12;
+  max-width:600px;
+  text-shadow:0 1px 2px rgba(255,255,255,.7);
+}
+main#conteudo.phase3-documents > .page-hero.family-photo-hero.documents-photo-hero .family-photo-hero-text p{
+  color:#395975;
+  max-width:520px;
+  line-height:1.57;
+  font-weight:600;
+}
+main#conteudo.phase3-documents > .page-hero.family-photo-hero.documents-photo-hero .family-photo-hero-text .eyebrow{color:#3873a1}
+@media(max-width:760px){
+  main#conteudo.phase3-documents > .page-hero.family-photo-hero.documents-photo-hero{
+    height:auto;
+    min-height:260px;
+    max-height:none;
+    padding:28px 0 30px;
+    align-items:center;
+  }
+  main#conteudo.phase3-documents > .page-hero.family-photo-hero.documents-photo-hero > img.family-photo-hero-image{
+    top:0;
+    bottom:0;
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    object-position:68% center;
+  }
+  main#conteudo.phase3-documents > .page-hero.family-photo-hero.documents-photo-hero::before{
+    background:linear-gradient(90deg,rgba(248,251,255,.97) 0%,rgba(248,251,255,.92) 30%,rgba(248,251,255,.77) 57%,rgba(248,251,255,.25) 88%);
+    -webkit-backdrop-filter:blur(6px);
+    backdrop-filter:blur(6px);
+    -webkit-mask-image:linear-gradient(90deg,#000 0%,#000 36%,rgba(0,0,0,.74) 70%,transparent 100%);
+    mask-image:linear-gradient(90deg,#000 0%,#000 36%,rgba(0,0,0,.74) 70%,transparent 100%);
+  }
+  main#conteudo.phase3-documents > .page-hero.family-photo-hero.documents-photo-hero .family-photo-hero-text{
+    width:min(330px,calc(100% - 36px));
+    margin:0 18px;
+    padding:0;
+  }
+  main#conteudo.phase3-documents > .page-hero.family-photo-hero.documents-photo-hero .family-photo-hero-text h1{
+    font-size:clamp(1.8rem,7.4vw,2.55rem);
+    color:#173e70;
+  }
+  main#conteudo.phase3-documents > .page-hero.family-photo-hero.documents-photo-hero .family-photo-hero-text p{
+    max-width:310px;
+    font-size:.96rem;
+    line-height:1.48;
+  }
+}
