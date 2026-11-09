@@ -2320,67 +2320,67 @@ main :target{scroll-margin-top:calc(92px + env(safe-area-inset-top,0px))}
 
 
 
-/* APEE · Famílias: imagem original por trás dos textos com vidro despolido.
-   Mesmo conceito em ecrãs móveis e desktop. */
+/* Famílias · fotografia PANORÂMICA completa, sem cortes ou distorções.
+   A fotografia mantém a proporção original 8:3 e o desfoque está à esquerda. */
 main#conteudo > .page-hero.family-photo-hero{
-  position:relative;
-  isolation:isolate;
-  overflow:hidden;
-  display:flex;
-  align-items:center;
-  min-height:440px;
-  padding:58px 0;
+  position:relative;isolation:isolate;overflow:hidden;
+  display:flex;align-items:center;
+  padding:42px 0;
+  min-height:clamp(420px,37.5vw,576px);
+  background:#f5f8fc;
   border-bottom:1px solid #dce9f5;
-  background-color:#eaf2f8;
-  background-image:url('/imagens/familias-entrada-original.jpeg?v=20261109');
-  background-size:cover;
-  background-position:center 54%;
-  background-repeat:no-repeat;
 }
-main#conteudo > .page-hero.family-photo-hero::before,
-main#conteudo > .page-hero.family-photo-hero::after{
-  content:none;
-  display:none;
+main#conteudo > .page-hero.family-photo-hero::before{
+  content:"";display:block;position:absolute;inset:0;
+  z-index:1;pointer-events:none;
+  background:linear-gradient(90deg,rgba(248,251,255,.8) 0%,rgba(248,251,255,.44) 19%,rgba(248,251,255,.1) 47%,transparent 74%);
+}
+main#conteudo > .page-hero.family-photo-hero::after{content:none;display:none}
+main#conteudo > .page-hero.family-photo-hero .family-photo-hero-image{
+  display:block;
+  position:absolute;right:0;bottom:0;z-index:0;
+  width:100%;height:auto;max-width:100%;
+  aspect-ratio:8/3;object-fit:contain;object-position:right bottom;
+  filter:none;
 }
 main#conteudo > .page-hero.family-photo-hero .family-photo-hero-text{
-  position:relative;
-  z-index:2;
-  flex:none;
-  width:min(420px,calc(100% - 48px));
-  margin-left:max(24px,calc((100% - 1150px)/2));
-  margin-right:auto;
-  padding:22px 25px;
-  border:1px solid rgba(255,255,255,.75);
-  border-radius:20px;
-  background:rgba(247,251,255,.64);
-  -webkit-backdrop-filter:blur(18px) saturate(1.07);
-  backdrop-filter:blur(18px) saturate(1.07);
-  box-shadow:0 12px 32px rgba(22,55,99,.12);
+  position:relative;z-index:2;flex:none;
+  width:min(410px,calc(100% - 48px));
+  margin-left:max(24px,calc((100% - 1150px)/2));margin-right:auto;
+  padding:20px 24px;
+  border-radius:18px;
+  border:1px solid rgba(255,255,255,.62);
+  background:rgba(248,251,255,.52);
+  -webkit-backdrop-filter:blur(15px) saturate(1.04);
+  backdrop-filter:blur(15px) saturate(1.04);
+  box-shadow:0 8px 24px rgba(25,60,100,.07);
 }
-main#conteudo > .page-hero.family-photo-hero .family-photo-hero-text p{
-  color:#3b5673;
-  max-width:530px;
-}
+main#conteudo > .page-hero.family-photo-hero .family-photo-hero-text p{color:#3b5673}
 @media(max-width:760px){
   main#conteudo > .page-hero.family-photo-hero{
-    display:flex;
-    min-height:495px;
-    padding:27px 0;
-    align-items:flex-start;
-    background-image:url('/imagens/familias-entrada-original.jpeg?v=20261109');
-    background-size:cover;
-    background-position:67% center;
+    display:flex;align-items:flex-start;
+    min-height:310px;
+    padding:22px 0 24px;
+    background:#f5f8fc;
+  }
+  main#conteudo > .page-hero.family-photo-hero .family-photo-hero-image{
+    width:100%;height:auto;max-width:100%;
+    bottom:0;right:0;
+    aspect-ratio:8/3;
+    object-fit:contain;object-position:right bottom;
+  }
+  main#conteudo > .page-hero.family-photo-hero::before{
+    background:linear-gradient(180deg,rgba(248,251,255,.93) 0%,rgba(248,251,255,.75) 37%,rgba(248,251,255,.25) 68%,transparent 95%);
   }
   main#conteudo > .page-hero.family-photo-hero .family-photo-hero-text{
-    width:min(292px,calc(100% - 30px));
-    margin:0 15px;
-    padding:18px 19px 17px;
+    width:min(290px,calc(100% - 30px));
+    margin:0 15px;padding:16px 18px 15px;
     border-radius:16px;
-    background:rgba(247,251,255,.68);
-    -webkit-backdrop-filter:blur(15px) saturate(1.05);
-    backdrop-filter:blur(15px) saturate(1.05);
+    background:rgba(248,251,255,.56);
+    -webkit-backdrop-filter:blur(12px) saturate(1.03);
+    backdrop-filter:blur(12px) saturate(1.03);
   }
   main#conteudo > .page-hero.family-photo-hero .family-photo-hero-text p{
-    max-width:none;
+    max-width:none;font-size:.98rem;line-height:1.5;
   }
 }
