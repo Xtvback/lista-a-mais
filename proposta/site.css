@@ -2492,3 +2492,42 @@ main#conteudo > .page-hero.family-photo-hero .family-photo-hero-text p{
 .fh-related-card .fh-card-head small{letter-spacing:.09em}
 .fh-related-card .fh-card-more{width:100%;font-size:.84rem}
 @media(max-width:650px){.fh-related{margin-top:28px;padding-top:25px}.fh-related-intro{display:block}.fh-related-intro>p{margin-top:10px;max-width:none}.fh-related-grid{grid-template-columns:1fr;gap:12px}.fh-related-card{min-height:0}}
+
+/* Cabeçalho Famílias · desktop panorâmico 686px. O móvel aprovado mantém-se intacto. */
+@media(min-width:761px){
+  main#conteudo > .page-hero.family-photo-hero{
+    height:686px;
+    min-height:686px;
+    padding:0;
+    display:flex;
+    align-items:center;
+  }
+  main#conteudo > .page-hero.family-photo-hero .family-photo-hero-image{
+    position:absolute;
+    inset:0;
+    width:100%;
+    height:100%;
+    max-width:none;
+    object-fit:cover;
+    object-position:center 42%;
+    aspect-ratio:auto;
+  }
+  main#conteudo > .page-hero.family-photo-hero .family-photo-hero-text{
+    position:relative;
+    z-index:2;
+    width:min(460px,calc(100% - 48px));
+    margin-left:max(24px,calc((100% - 1150px)/2));
+    margin-right:auto;
+  }
+  main#conteudo > .page-hero.family-photo-hero::before{
+    content:"";
+    position:absolute;
+    inset:0;
+    z-index:1;
+    background:linear-gradient(90deg,rgba(248,251,255,.97) 0%,rgba(248,251,255,.88) 20%,rgba(248,251,255,.59) 38%,rgba(248,251,255,.18) 56%,rgba(248,251,255,0) 72%);
+    -webkit-backdrop-filter:blur(7px);
+    backdrop-filter:blur(7px);
+    -webkit-mask-image:linear-gradient(90deg,#000 0%,#000 26%,rgba(0,0,0,.63) 48%,transparent 73%);
+    mask-image:linear-gradient(90deg,#000 0%,#000 26%,rgba(0,0,0,.63) 48%,transparent 73%);
+  }
+}
