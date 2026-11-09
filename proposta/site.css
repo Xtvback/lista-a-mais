@@ -3222,3 +3222,20 @@ main#conteudo > .page-hero.family-photo-hero.contact-matched-hero .family-photo-
     font-weight:850!important;
   }
 }
+
+
+/* Início móvel: terminar a página após o último conteúdo útil.
+   Evita o rodapé extenso/invisível e a longa área de fundo desfocado.
+   A barra fixa já permite navegar; reserva-se apenas espaço para os últimos botões. */
+@media(max-width:700px){
+  body:has(> main.home-school-glass) > footer.foot{
+    display:none!important;
+  }
+  body:has(> main.home-school-glass).has-mobile-bottom-nav{
+    padding-bottom:0!important;
+  }
+  body > main.home-school-glass > section.home-archive-preview{
+    padding-bottom:calc(112px + env(safe-area-inset-bottom))!important;
+    margin-bottom:0!important;
+  }
+}
