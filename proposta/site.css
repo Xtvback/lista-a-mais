@@ -3157,3 +3157,28 @@ main#conteudo > .page-hero.family-photo-hero.contact-matched-hero .family-photo-
     backdrop-filter:none;
   }
 }
+
+
+/* Contactos móvel · direita nítida (fachada e logótipo), esquerda legível.
+   Remove o blur da fotografia; a névoa branca é apenas um gradiente, sem desfocar. */
+@media(max-width:760px){
+  main#conteudo > .page-hero.family-photo-hero.contact-matched-hero .family-photo-hero-image{
+    filter:none!important;
+    -webkit-filter:none!important;
+  }
+  main#conteudo > .page-hero.family-photo-hero.contact-matched-hero::before{
+    display:block!important;
+    content:""!important;
+    background:linear-gradient(90deg,
+      rgba(248,251,255,.99) 0%,
+      rgba(248,251,255,.98) 26%,
+      rgba(248,251,255,.89) 42%,
+      rgba(248,251,255,.43) 59%,
+      rgba(248,251,255,0) 77%)!important;
+    -webkit-backdrop-filter:none!important;
+    backdrop-filter:none!important;
+    -webkit-mask-image:none!important;
+    mask-image:none!important;
+    filter:none!important;
+  }
+}
