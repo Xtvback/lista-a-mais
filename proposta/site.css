@@ -4081,3 +4081,32 @@ main#conteudo > .page-hero.family-photo-hero.apee-reference-panorama.contact-mat
     object-position:68% center!important;
   }
 }
+
+
+/* Documentos · tipografia móvel harmonizada com Agenda (2026-11-09).
+   Só o texto do cabeçalho; nenhum ajuste a imagem, dimensões ou desktop. */
+@media(max-width:760px){
+  main#conteudo.phase3-documents > .page-hero.family-photo-hero.documents-photo-hero .family-photo-hero-text .eyebrow{
+    color:#3873a1!important;
+    font-weight:800!important;
+    text-shadow:0 1px 2px #fff,0 0 8px rgba(255,255,255,.9)!important;
+  }
+  main#conteudo.phase3-documents > .page-hero.family-photo-hero.documents-photo-hero .family-photo-hero-text h1{
+    color:#173e70!important;
+    font-family:Manrope,system-ui,sans-serif!important;
+    font-size:clamp(1.8rem,7.4vw,2.55rem)!important;
+    font-weight:850!important;
+    letter-spacing:-.04em!important;
+    line-height:1.12!important;
+    text-shadow:0 1px 2px #fff,0 0 8px rgba(255,255,255,.9)!important;
+  }
+  main#conteudo.phase3-documents > .page-hero.family-photo-hero.documents-photo-hero .family-photo-hero-text p{
+    color:#395975!important;
+    font-family:"DM Sans",system-ui,sans-serif!important;
+    font-size:.96rem!important;
+    font-weight:600!important;
+    line-height:1.48!important;
+    letter-spacing:normal!important;
+    text-shadow:0 1px 2px #fff,0 0 8px rgba(255,255,255,.9)!important;
+  }
+}
