@@ -3371,3 +3371,24 @@ main#conteudo > .page-hero.family-photo-hero.contact-matched-hero .family-photo-
     font-size:clamp(2.5rem,4.1vw,3.3rem);
   }
 }
+
+
+/* Agenda desktop: imagem 100% proporcional, sem zoom, corte ou deformação.
+   O caderno conserva a proporção original 2048x682 e fica à direita. */
+@media(min-width:761px){
+  main#conteudo > .page-hero.family-photo-hero.agenda-photo-hero .family-photo-hero-image{
+    position:absolute!important;
+    top:0!important;
+    bottom:auto!important;
+    right:0!important;
+    left:auto!important;
+    width:auto!important;
+    height:100%!important;
+    max-width:none!important;
+    aspect-ratio:auto!important;
+    object-fit:contain!important;
+    object-position:right center!important;
+    filter:none!important;
+    transform:none!important;
+  }
+}
