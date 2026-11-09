@@ -5327,3 +5327,23 @@ main#conteudo > .page-hero:not(.signup-page-hero) p {
   main#conteudo.donor-page > .page-hero.donor-original-hero{display:none!important}
 }
 
+
+
+/* Projetos desktop · enquadramento ligeiramente mais central sem deformação */
+@media (min-width:761px) {
+  main#conteudo > .page-hero.projects-mobile-hero > img.projects-desktop-hero-image {
+    inset:0!important;
+    top:0!important;
+    right:0!important;
+    bottom:0!important;
+    left:0!important;
+    width:100%!important;
+    height:100%!important;
+    max-width:none!important;
+    max-height:none!important;
+    object-fit:cover!important;
+    object-position:55% center!important;
+    transform:none!important;
+    filter:none!important;
+  }
+}
