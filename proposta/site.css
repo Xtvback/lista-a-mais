@@ -2706,3 +2706,91 @@ main#conteudo > .page-hero.contact-photo-hero .contact-photo-hero-text p{
     font-size:.95rem;margin-bottom:0;
   }
 }
+
+/* APEE · Início — fotografia real da escola ao estilo Lista A+ / Área de Associado.
+   O efeito é limitado à página inicial; cartões, fotografias e navegação são preservados. */
+main.home-school-glass{
+  --home-school-photo:url("/_external/d2ol7oe51mr4n9.cloudfront.net/user_3EbWYhy0t8ty8Wz9RPVrhpDHVlB/c0c15b28-2d40-484b-b7d1-211c664a1a48.jpg");
+  position:relative;
+  isolation:isolate;
+  background-color:#c8dbea;
+  background-image:linear-gradient(120deg,rgba(15,48,86,.21),rgba(29,80,125,.24)),var(--home-school-photo);
+  background-size:cover;
+  background-position:center 44%;
+  background-attachment:fixed;
+}
+main.home-school-glass > section:not(.ref-sky){
+  position:relative;
+  background:rgba(238,246,254,.70)!important;
+  -webkit-backdrop-filter:blur(5px) saturate(1.08);
+  backdrop-filter:blur(5px) saturate(1.08);
+}
+main.home-school-glass > .ref-sky{
+  background:linear-gradient(100deg,rgba(13,47,85,.28),rgba(32,87,128,.10));
+  padding:67px 0 76px;
+  min-height:410px;
+  display:flex;
+  align-items:center;
+}
+main.home-school-glass > .ref-sky::before{
+  background:linear-gradient(105deg,rgba(240,248,255,.18),transparent 69%);
+  z-index:0;
+}
+main.home-school-glass > .ref-sky .container{
+  position:relative;
+  z-index:1;
+  padding:39px clamp(24px,4.5vw,59px);
+  margin-block:0;
+  border:1px solid rgba(255,255,255,.76);
+  border-radius:27px;
+  background:rgba(241,249,255,.73);
+  -webkit-backdrop-filter:blur(16px) saturate(1.1);
+  backdrop-filter:blur(16px) saturate(1.1);
+  box-shadow:0 20px 55px rgba(12,40,74,.18),inset 0 1px 0 rgba(255,255,255,.66);
+}
+main.home-school-glass .ref-sky .ref-kicker{color:#336d9e;font-size:clamp(.72rem,1vw,.87rem);letter-spacing:.13em}
+main.home-school-glass .ref-sky h1{color:#173f72;max-width:840px;text-shadow:0 1px 0 rgba(255,255,255,.30)}
+main.home-school-glass .ref-sky .ref-underline{background:#ffca47}
+main.home-school-glass .ref-home-actions a{box-shadow:0 8px 22px rgba(15,52,87,.11)}
+main.home-school-glass .ref-home-actions a + a{color:#174a7c;background:rgba(255,255,255,.64);border-color:rgba(255,255,255,.8)}
+/* Vidro na área de apresentação e cartões sem ocultar as fotografias. */
+main.home-school-glass .ref-values-card,
+main.home-school-glass .home-agenda-day,
+main.home-school-glass .editorial-story,
+main.home-school-glass .ref-quick-card,
+main.home-school-glass .ref-priority-card{
+  background-color:rgba(255,255,255,.86);
+  -webkit-backdrop-filter:blur(9px);
+  backdrop-filter:blur(9px);
+  border-color:rgba(255,255,255,.88);
+  box-shadow:0 11px 30px rgba(19,56,96,.12);
+}
+main.home-school-glass .ref-quick-section{background:rgba(231,241,250,.63)!important}
+main.home-school-glass .ref-values{background:rgba(244,249,253,.57)!important}
+main.home-school-glass .ref-priorities{background:rgba(232,243,251,.69)!important}
+main.home-school-glass .ref-signup-teaser{background:rgba(230,243,255,.80)!important}
+main.home-school-glass .home-editorial{background:rgba(243,249,255,.82)!important}
+main.home-school-glass .home-agenda-teaser{background:rgba(234,244,253,.74)!important}
+main.home-school-glass .home-archive-preview{background:rgba(246,250,255,.79)!important}
+@supports not ((backdrop-filter:blur(1px)) or (-webkit-backdrop-filter:blur(1px))){
+  main.home-school-glass > section:not(.ref-sky){background:rgba(248,251,255,.94)!important}
+  main.home-school-glass > .ref-sky .container{background:rgba(246,251,255,.95)}
+}
+@media(max-width:760px){
+  main.home-school-glass{background-attachment:scroll;background-position:54% top}
+  main.home-school-glass > .ref-sky{min-height:340px;padding:25px 0 42px}
+  main.home-school-glass > .ref-sky .container{
+    width:calc(100% - 30px);
+    padding:29px 22px 31px;
+    border-radius:21px;
+    background:rgba(242,249,255,.79);
+    -webkit-backdrop-filter:blur(12px);
+    backdrop-filter:blur(12px);
+  }
+  main.home-school-glass .ref-sky h1{font-size:clamp(2.05rem,7.1vw,3rem)}
+  main.home-school-glass > section:not(.ref-sky){background:rgba(241,248,254,.83)!important}
+}
+@media(prefers-reduced-transparency:reduce){
+  main.home-school-glass > .ref-sky .container{background:rgba(248,251,255,.97);-webkit-backdrop-filter:none;backdrop-filter:none}
+  main.home-school-glass > section:not(.ref-sky){background:rgba(246,250,254,.97)!important;-webkit-backdrop-filter:none;backdrop-filter:none}
+}
