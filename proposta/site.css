@@ -3718,3 +3718,57 @@ main#conteudo > .page-hero.family-photo-hero.apee-reference-panorama.contact-mat
     backdrop-filter:none!important;
   }
 }
+
+/* 2026-11-09 · Cabeçalhos móveis: fotografias completas como em Documentos.
+   Desktop (min-width:761px) intocado. Sem deformação ou cortes no plano principal. */
+@media(max-width:760px){
+ main#conteudo > .page-hero.family-photo-hero:is(.agenda-photo-hero,.contact-matched-hero){
+   position:relative!important;
+   isolation:isolate!important;
+   overflow:hidden!important;
+   background-color:#f8fbff!important;
+   background-repeat:no-repeat!important;
+   background-size:cover!important;
+   background-position:center!important;
+ }
+ main#conteudo > .page-hero.family-photo-hero:is(.agenda-photo-hero,.contact-matched-hero) picture{
+   display:contents!important;
+ }
+ main#conteudo > .page-hero.family-photo-hero:is(.agenda-photo-hero,.contact-matched-hero) img.family-photo-hero-image{
+   position:absolute!important;
+   inset:0!important;
+   display:block!important;
+   width:100%!important;
+   height:100%!important;
+   min-width:0!important;
+   max-width:none!important;
+   max-height:none!important;
+   object-fit:contain!important;
+   object-position:center center!important;
+   aspect-ratio:auto!important;
+   transform:none!important;
+   filter:none!important;
+ }
+ main#conteudo > .page-hero.family-photo-hero.agenda-photo-hero{
+   background-image:url('/imagens/cabecalho-agenda-panoramico-20261109.png')!important;
+ }
+ main#conteudo > .page-hero.family-photo-hero.contact-matched-hero{
+   background-image:url('/imagens/cabecalho-contactos-panoramico-20261109.jpeg')!important;
+ }
+ main#conteudo > .page-hero.family-photo-hero:is(.agenda-photo-hero,.contact-matched-hero) .family-photo-hero-text{
+   position:relative!important;z-index:3!important;
+ }
+ main#conteudo > .page-hero.family-photo-hero:is(.agenda-photo-hero,.contact-matched-hero)::before{
+   z-index:2!important;
+ }
+ /* Notícias: imagem de cabeçalho só em ecrãs móveis. */
+ main#conteudo > .page-hero.apee-news-mobile-image{
+   position:relative!important;isolation:isolate!important;overflow:hidden!important;
+   background:#f8fbff url('/imagens/cartoes/documentos-atas.webp') center/cover no-repeat!important;
+ }
+ main#conteudo > .page-hero.apee-news-mobile-image::before{
+   content:"";position:absolute;inset:0;z-index:1;
+   background:linear-gradient(90deg,rgba(248,251,255,.98),rgba(248,251,255,.9) 48%,rgba(248,251,255,.45));
+ }
+ main#conteudo > .page-hero.apee-news-mobile-image .container{position:relative;z-index:2}
+}
