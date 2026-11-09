@@ -2637,16 +2637,17 @@ main#conteudo > .page-hero.family-photo-hero .family-photo-hero-text p{
   }
 }
 
-/* Contactos: área de texto um pouco mais ampla, sem espaço vazio exagerado. */
+/* Contactos: área de texto 40px mais ampla, sem excesso de vazio. */
 @media(min-width:901px){
   .contact-channels-grid > .contact-card{
-    min-height:0;
-    padding-bottom:28px;
+    min-height:420px;
+    padding-bottom:26px;
   }
   .contact-channels-grid .contact-card:not(.contact-whatsapp-card) > a{
     margin-bottom:0;
   }
   .contact-channels-grid .contact-whatsapp-card > a.contact-whatsapp-join{
     margin-bottom:0;
+    transform:translateY(-7px);
   }
 }
