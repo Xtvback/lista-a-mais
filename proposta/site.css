@@ -5772,3 +5772,13 @@ main#conteudo .about-lead-mark.about-lead-logo img{
     margin-left:max(24px,calc((100% - 1190px)/2))!important;
   }
 }
+
+
+/* CONTACTOS · alinhar título e descrição com a coluna de conteúdo · desktop · 20261110-v16 */
+@media(min-width:761px){
+  html body main#conteudo > .page-hero.family-photo-hero.contact-matched-hero.apee-reference-panorama > .container.family-photo-hero-text{
+    left:max(24px,calc((100% - 1190px)/2))!important;
+    right:auto!important;
+    margin:0!important;
+  }
+}
