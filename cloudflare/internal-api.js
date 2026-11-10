@@ -55,7 +55,7 @@ export async function internalRoute(path,body,env){
   return json({numbers:rows.results.map(x=>x.member_number)});
  }
  if(path==='/internal/cards/upload'){
-  if(typeof body.member_number!=='string'||!/^\\w[\\w-]{0,39}$/.test(body.member_number)||typeof body.content_base64!=='string'||body.content_base64.length>2400000||body.content_base64.length<12)return json({error:'Cartão inválido.'},400);
+  if(typeof body.member_number!=='string'||!/^\w[\w-]{0,39}$/.test(body.member_number)||typeof body.content_base64!=='string'||body.content_base64.length>2400000||body.content_base64.length<12)return json({error:'Cartão inválido.'},400);
   let pdf;try{pdf=Uint8Array.from(atob(body.content_base64),x=>x.charCodeAt(0))}catch{return json({error:'PDF inválido.'},400)}
   if(pdf.length>1800000||new TextDecoder().decode(pdf.slice(0,5))!=='%PDF-')return json({error:'PDF inválido ou demasiado grande.'},400);
   const member=await env.DB.prepare("SELECT member_number FROM members WHERE member_number=? AND status='active'").bind(body.member_number).first();
