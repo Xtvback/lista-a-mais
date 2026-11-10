@@ -118,7 +118,7 @@ export default {async fetch(req,env){
  if(path.startsWith('/internal/')){
   if(!internalAuthorized(req,env,path))return json({error:'Acesso reservado.'},401);
   if(req.method!=='POST')return json({error:'Método inválido.'},405);
-  try{return await internalRoute(path,await readBody(req,path==='/internal/documents/upload'?2500000:20000),env)}catch(e){return json({error:'Pedido interno não concluído.'},[400,413,415].includes(e.status)?e.status:503)}
+  try{return await internalRoute(path,await readBody(req,(path==='/internal/documents/upload'||path==='/internal/cards/upload')?2500000:20000),env)}catch(e){return json({error:'Pedido interno não concluído.'},[400,413,415].includes(e.status)?e.status:503)}
  }
  if(env.RELEASE_ENABLED!=='true')return json({error:'Espaço Associado ainda em preparação.'},503,headers);
  if(req.method==='GET'&&(path==='/'||path==='/espaco-associado.html'))return new Response(page,{headers:{'content-type':'text/html; charset=utf-8','cache-control':'no-store','referrer-policy':'no-referrer','x-content-type-options':'nosniff','content-security-policy':"default-src 'none'; script-src 'unsafe-inline'; style-src 'unsafe-inline'; img-src https://apeebairrodorestelo.com; connect-src 'self'; base-uri 'none'; form-action 'self'; frame-ancestors 'none'"}});
