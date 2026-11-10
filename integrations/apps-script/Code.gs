@@ -94,9 +94,17 @@ function apeeBridgeTick() {
   try {var cfg=apeeConfig_(), members=apeeSync_(cfg); apeeMail_(cfg); apeeInvites_(cfg,members);} finally {lock.releaseLock();}
 }
 function installApeeBridge() {
-  // No email is sent during installation. No pre-existing trigger is removed.
+  // Execute uma vez no editor Google para instalar o acionador de 1 minuto.
+  // A instalacao nao envia emails; preserva todos os outros acionadores.
   var cfg=apeeConfig_(); apeeSync_(cfg);
-  if(!ScriptApp.getProjectTriggers().some(function(t){return t.getHandlerFunction()==='apeeBridgeTick';})) ScriptApp.newTrigger('apeeBridgeTick').timeBased().everyMinutes(5).create();
+  var oldTriggers=ScriptApp.getProjectTriggers().filter(function(t){
+    return t.getHandlerFunction()==='apeeBridgeTick';
+  });
+  // Criar antes de remover os antigos evita ficar sem sincronizacao se falhar a criacao.
+  var newTrigger=ScriptApp.newTrigger('apeeBridgeTick').timeBased().everyMinutes(1).create();
+  if(!newTrigger) throw new Error('Nao foi possivel instalar o acionador de 1 minuto.');
+  oldTriggers.forEach(function(t){ScriptApp.deleteTrigger(t);});
+  console.log('Acionador apeeBridgeTick: 1 em 1 minuto; antigos substituidos: '+oldTriggers.length);
 }
 
 function testApeeMail() {
