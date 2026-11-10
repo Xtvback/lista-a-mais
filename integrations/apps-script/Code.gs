@@ -8,7 +8,7 @@ function apeeConfig_() {
 }
 function apeeApi_(cfg, path, body) {
   var response = UrlFetchApp.fetch(cfg.origin + path, {method:'post', contentType:'application/json', headers:{Authorization:'Bearer ' + cfg.secret}, payload:JSON.stringify(body), muteHttpExceptions:true, followRedirects:false});
-  if (response.getResponseCode() !== 200) throw new Error('Pedido APEE não concluído (' + response.getResponseCode() + ').');
+  if (response.getResponseCode() !== 200) throw new Error('Pedido APEE não concluído (' + response.getResponseCode() + '): '+String(response.getContentText()).slice(0,240));
   return JSON.parse(response.getContentText());
 }
 function apeeDigest_(value) {
