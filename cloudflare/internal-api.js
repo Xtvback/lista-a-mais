@@ -45,7 +45,7 @@ export async function internalRoute(path,body,env){
   const list=body.members.map(m=>({number:m.member_number,name:m.full_name,email:typeof m.email==='string'?m.email.trim().toLowerCase():''}));
   if(list.some(m=>typeof m.number!=='string'||!/^\w[\w-]{0,39}$/.test(m.number)||typeof m.name!=='string'||!m.name.trim()||m.name.length>200||m.email.length>254||!m.email.includes('@'))||new Set(list.map(m=>m.number)).size!==list.length||new Set(list.map(m=>m.email)).size!==list.length)return json({error:'Lista inválida ou duplicada.'},400);
   const current=(await env.DB.prepare('SELECT member_number,email FROM members').all()).results;
-  if(current.length+list.filter(m=>!current.some(c=>c.member_number===m.number)).length>50)return json({error:'Limite de associados configurado atingido.'},409);
+  if(current.length+list.filter(m=>!current.some(c=>c.member_number===m.number)).length>1000)return json({error:'Limite de associados configurado atingido.'},409);
   if(list.some(m=>current.some(c=>(c.member_number===m.number&&c.email!==m.email)||(c.email===m.email&&c.member_number!==m.number))))return json({error:'Identidade em conflito. Requer revisão.'},409);
   if(list.length){try{await env.DB.batch(list.map(m=>env.DB.prepare('INSERT INTO members(member_number,full_name,email) VALUES(?,?,?) ON CONFLICT(member_number) DO UPDATE SET full_name=excluded.full_name WHERE members.email=excluded.email').bind(m.number,m.name,m.email)))}catch{return json({error:'Conflito na sincronização. Requer revisão.'},409)}}
   return json({ok:true,received:list.length});
