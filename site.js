@@ -323,12 +323,18 @@ if(b&&m){
 })();
 
 
-/* Donativos · link atualizado para evitar página antiga em cache · 2026-11-10 */
+/* Donativos · manter o URL canónico, sem parâmetros artificiais. */
 (function(){
-  const updated='/doacoes.html?versao=donativos-desktop-20261110-v2';
   document.querySelectorAll('#mainMenu a[href], .foot-links a[href]').forEach(link=>{
     try {
-      if(new URL(link.href,document.baseURI).pathname==='/doacoes.html') link.setAttribute('href',updated);
+      if(new URL(link.href,document.baseURI).pathname==='/doacoes.html') {
+        link.setAttribute('href','/doacoes.html');
+      }
     } catch (_) {}
   });
+  if(location.pathname==='/doacoes.html' && new URLSearchParams(location.search).has('versao')){
+    const url=new URL(location.href);
+    url.searchParams.delete('versao');
+    history.replaceState(history.state,'',url.pathname+url.search+url.hash);
+  }
 })();
