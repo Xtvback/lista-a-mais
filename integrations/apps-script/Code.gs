@@ -91,9 +91,9 @@ function apeeInvites_(cfg,members) {
 }
 
 /** Copia apenas cartões em falta para a área privada correspondente, sem reenviar emails. */
-function apeeCards_(cfg,members) {
+function apeeCards_(cfg,members,testNumber) {
   var response=apeeApi_(cfg,'/internal/cards/missing',{});
-  var pending=response.numbers || [];
+  var pending=testNumber?[testNumber]:(response.numbers || []);
   if(!Array.isArray(pending)||pending.length>50) throw new Error('Lista de cartões pendentes inválida.');
   if(!pending.length) return;
   var registered={};
@@ -154,4 +154,23 @@ function authorizeApeeBridge() {
   MailApp.getRemainingDailyQuota();
   ScriptApp.getProjectTriggers();
   console.log('Permissões verificadas: '+members.length+' associados. Nenhum email foi enviado nem foi criado um acionador.');
+}
+
+
+/** Teste de ponta a ponta: não envia emails nem modifica um cartão existente. */
+function verifyApeeBridge() {
+  var cfg=apeeConfig_(), members=apeeReadMembers_(cfg), p=PropertiesService.getScriptProperties();
+  var statuses={sent:0,pending:0,missing:0}, perMember=[];
+  members.forEach(function(m){
+    var key='APEE_INVITED_'+apeeDigest_(cfg.origin+'|'+m.member_number+'|'+m.email+(cfg.inviteCampaign==='1'?'':'|'+cfg.inviteCampaign));
+    var val=p.getProperty(key)||'';
+    var status=val.indexOf('sent:')===0?'sent':val.indexOf('pending:')===0?'pending':'missing';
+    statuses[status]++;
+    perMember.push(m.member_number+':'+status);
+  });
+  console.log('APEE: '+members.length+' associados; convites campanha '+cfg.inviteCampaign+': '+JSON.stringify(statuses)+'; detalhes '+perMember.join(', '));
+  console.log('APEE: quota restante de email hoje: '+MailApp.getRemainingDailyQuota()+'; ativados='+cfg.send+'; convites='+cfg.invite);
+  if(!members.some(function(m){return m.member_number==='0015';})) throw new Error('Associado de teste não encontrado.');
+  apeeCards_(cfg,members,'0015');
+  console.log('APEE: teste de PDF 0015 concluído sem substituição do cartão existente.');
 }
