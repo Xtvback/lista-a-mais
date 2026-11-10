@@ -50,6 +50,19 @@ export async function internalRoute(path,body,env){
   if(list.length){try{await env.DB.batch(list.map(m=>env.DB.prepare('INSERT INTO members(member_number,full_name,email) VALUES(?,?,?) ON CONFLICT(member_number) DO UPDATE SET full_name=excluded.full_name WHERE members.email=excluded.email').bind(m.number,m.name,m.email)))}catch{return json({error:'Conflito na sincronização. Requer revisão.'},409)}}
   return json({ok:true,received:list.length});
  }
+ if(path==='/internal/cards/missing'){
+  const rows=await env.DB.prepare("SELECT m.member_number FROM members m LEFT JOIN member_cards c ON c.member_number=m.member_number WHERE m.status='active' AND c.member_number IS NULL ORDER BY m.member_number LIMIT 50").all();
+  return json({numbers:rows.results.map(x=>x.member_number)});
+ }
+ if(path==='/internal/cards/upload'){
+  if(typeof body.member_number!=='string'||!/^\\w[\\w-]{0,39}$/.test(body.member_number)||typeof body.content_base64!=='string'||body.content_base64.length>2400000||body.content_base64.length<12)return json({error:'Cartão inválido.'},400);
+  let pdf;try{pdf=Uint8Array.from(atob(body.content_base64),x=>x.charCodeAt(0))}catch{return json({error:'PDF inválido.'},400)}
+  if(pdf.length>1800000||new TextDecoder().decode(pdf.slice(0,5))!=='%PDF-')return json({error:'PDF inválido ou demasiado grande.'},400);
+  const member=await env.DB.prepare("SELECT member_number FROM members WHERE member_number=? AND status='active'").bind(body.member_number).first();
+  if(!member)return json({error:'Associado inexistente ou inativo.'},404);
+  const inserted=await env.DB.prepare("INSERT OR IGNORE INTO member_cards(member_number,pdf_base64) VALUES(?,?)").bind(body.member_number,body.content_base64).run();
+  return json({ok:true,stored:inserted.meta.changes===1});
+ }
  if(path==='/internal/documents/upload'){
   if(!/^[\w-]{1,80}$/.test(body.id)||typeof body.title!=='string'||!body.title.trim()||body.title.length>200||typeof body.content_base64!=='string'||body.content_base64.length>2400000)return json({error:'Documento inválido ou demasiado grande.'},400);
   let binary;try{binary=Uint8Array.from(atob(body.content_base64),c=>c.charCodeAt(0))}catch{return json({error:'Documento inválido.'},400)}
