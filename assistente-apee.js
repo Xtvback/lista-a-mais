@@ -46,6 +46,29 @@ const style=el('style');style.textContent=`
 @media(max-width:760px){#apee-assistente-abrir{bottom:calc(102px + env(safe-area-inset-bottom));right:12px;padding:11px 13px;font-size:12px}.apee-assistente{right:8px;bottom:calc(157px + env(safe-area-inset-bottom));width:calc(100vw - 16px);max-width:calc(100% - 16px);max-height:calc(100dvh - 170px);border-radius:16px}}
 @media(max-width:375px){#apee-assistente-abrir{padding:9px 11px}}
 @media(max-width:760px){.apee-assistente .apee-assistente-form{min-width:0;max-width:100%;overflow:hidden}.apee-assistente .apee-assistente-input{font-size:16px!important;width:100%;max-width:100%;min-width:0}.apee-assistente .apee-assistente-send{font-size:14px;flex-shrink:0}.apee-assistente .apee-assistente-foot{overflow-wrap:anywhere}.apee-assistente[data-open="true"]{box-sizing:border-box}.apee-assistente-aberto .mobile-bottom-nav.mobile-bottom-nav--apee{visibility:hidden!important;pointer-events:none!important}}
+@media(max-width:760px){
+  .apee-assistente[data-open="true"]{
+    position:fixed!important;
+    inset:auto!important;
+    top:var(--apee-vv-top,0px)!important;right:0!important;bottom:auto!important;left:0!important;
+    width:100%!important;max-width:100%!important;
+    height:var(--apee-vv-height,100dvh)!important;max-height:var(--apee-vv-height,100dvh)!important;
+    margin:0!important;border:0!important;border-radius:0!important;
+    padding:0!important;box-sizing:border-box!important;
+    display:flex!important;flex-direction:column!important;
+    z-index:2147483646!important;
+  }
+  .apee-assistente-head{flex:0 0 auto;min-width:0;padding-top:calc(13px + env(safe-area-inset-top))}
+  .apee-assistente-body{flex:1 1 auto;min-height:0!important;overflow-x:hidden;overflow-y:auto}
+  .apee-assistente-choices{min-width:0;width:100%}
+  .apee-assistente-choices button{max-width:100%;box-sizing:border-box;text-align:left;white-space:normal}
+  .apee-assistente-form{flex:0 0 auto;width:100%;box-sizing:border-box;gap:8px}
+  .apee-assistente-input{font-size:16px!important;min-width:0!important}
+  .apee-assistente-send{flex:0 0 auto!important;max-width:32%!important}
+  .apee-assistente-foot{flex:0 0 auto;padding-bottom:calc(10px + env(safe-area-inset-bottom))}
+  body.apee-assistente-aberto,html.apee-assistente-aberto{overflow:hidden!important;overscroll-behavior:none!important}
+  body.apee-assistente-aberto #apee-assistente-abrir{visibility:hidden!important;pointer-events:none!important}
+}
 @media(prefers-reduced-motion:reduce){.apee-assistente *{scroll-behavior:auto!important}}
 `;document.head.appendChild(style);
 const open=el('button');open.id='apee-assistente-abrir';open.type='button';open.setAttribute('aria-label','Abrir Assistente APEE');open.setAttribute('aria-expanded','false');open.textContent='💬 Assistente APEE';
@@ -91,7 +114,18 @@ async function ask(q){
  if(score>0&&best){message('Resposta automática: '+best.answer);link(best.link,best.label)}
  else{message('Não tenho informação confirmada sobre essa questão. Consulta os contactos oficiais da APEE.');link('contactos.html','Contactar a APEE')}
 }
-function toggle(v){document.body.classList.toggle('apee-assistente-aberto',v);panel.dataset.open=String(v);open.setAttribute('aria-expanded',String(v));if(v){if(!greeted){greeted=true;message('Olá! 👋 Sou o Assistente Virtual da APEE Bairro do Restelo. Posso ajudar a encontrar informações no site.');const choices=el('div','apee-assistente-choices');prompts.forEach(q=>{const b=el('button','apee-assistente-question',q);b.type='button';b.addEventListener('click',()=>ask(q));choices.append(b)});body.append(choices)}input.focus()}else open.focus()}
+function syncVisibleViewport(){
+  if(!window.matchMedia('(max-width:760px)').matches||panel.dataset.open!=='true')return;
+  const v=window.visualViewport;
+  if(!v)return;
+  panel.style.setProperty('--apee-vv-top',Math.round(v.offsetTop)+'px');
+  panel.style.setProperty('--apee-vv-height',Math.round(v.height)+'px');
+}
+if(window.visualViewport){
+  window.visualViewport.addEventListener('resize',syncVisibleViewport,{passive:true});
+  window.visualViewport.addEventListener('scroll',syncVisibleViewport,{passive:true});
+}
+function toggle(v){document.documentElement.classList.toggle('apee-assistente-aberto',v);document.body.classList.toggle('apee-assistente-aberto',v);panel.dataset.open=String(v);syncVisibleViewport();open.setAttribute('aria-expanded',String(v));if(v){if(!greeted){greeted=true;message('Olá! 👋 Sou o Assistente Virtual da APEE Bairro do Restelo. Posso ajudar a encontrar informações no site.');const choices=el('div','apee-assistente-choices');prompts.forEach(q=>{const b=el('button','apee-assistente-question',q);b.type='button';b.addEventListener('click',()=>ask(q));choices.append(b)});body.append(choices)}if(!window.matchMedia('(max-width:760px)').matches)input.focus()}else open.focus({preventScroll:true})}
 open.addEventListener('click',()=>toggle(panel.dataset.open!=='true'));close.addEventListener('click',()=>toggle(false));document.addEventListener('keydown',e=>{if(e.key==='Escape'&&panel.dataset.open==='true')toggle(false)});
 form.addEventListener('submit',e=>{e.preventDefault();e.stopImmediatePropagation();const q=input.value;input.value='';ask(q)},true);
 })();
