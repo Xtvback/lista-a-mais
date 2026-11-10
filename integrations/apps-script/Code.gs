@@ -41,14 +41,16 @@ function apeeReadMembers_(cfg) {
     if (!m.member_number || !m.full_name || !m.email) throw new Error('Registo enviado incompleto.');
     members.push(m);
   }
-  if (members.length > 50) throw new Error('Limite configurado atingido. Requer revisão.');
+  if (members.length > 1000) throw new Error('Limite configurado atingido. Requer revisão.');
   return members;
 }
 function apeeSync_(cfg) {
   var members = apeeReadMembers_(cfg), p = PropertiesService.getScriptProperties();
   var digest = apeeDigest_(cfg.origin + JSON.stringify(members));
   if (p.getProperty('APEE_LAST_SYNC') !== digest) {
-    apeeApi_(cfg, '/internal/members/sync', {members:members});
+    for(var offset=0;offset<members.length;offset+=30) {
+      apeeApi_(cfg, '/internal/members/sync', {members:members.slice(offset,offset+30)});
+    }
     p.setProperty('APEE_LAST_SYNC',digest);
   }
   return members;
