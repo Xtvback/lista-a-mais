@@ -89,9 +89,43 @@ function apeeInvites_(cfg,members) {
     } catch(err) { throw new Error('Convite com entrega não confirmada. Rever o registo privado antes de reenviar.'); }
   }
 }
+
+/** Copia apenas cartões em falta para a área privada correspondente, sem reenviar emails. */
+function apeeCards_(cfg,members) {
+  var response=apeeApi_(cfg,'/internal/cards/missing',{});
+  var pending=response.numbers || [];
+  if(!Array.isArray(pending)||pending.length>50) throw new Error('Lista de cartões pendentes inválida.');
+  if(!pending.length) return;
+  var registered={};
+  members.forEach(function(m){registered[m.member_number]=true;});
+  var url='https://sheets.googleapis.com/v4/spreadsheets/'+encodeURIComponent(cfg.sheet)+'/values/'+encodeURIComponent('Registo_Cartoes!B:F');
+  var sheet=UrlFetchApp.fetch(url,{headers:{Authorization:'Bearer '+ScriptApp.getOAuthToken()},muteHttpExceptions:true,followRedirects:false});
+  if(sheet.getResponseCode()!==200) throw new Error('Leitura de cartões falhou ('+sheet.getResponseCode()+').');
+  var rows=(JSON.parse(sheet.getContentText()).values||[]), links={};
+  if(!rows[0]||rows[0][0]!=='Número permanente'||rows[0][4]!=='Estado') throw new Error('Colunas de cartões alteradas.');
+  for(var j=1;j<rows.length;j++) {
+    if(rows[j][4]==='Enviado' && registered[rows[j][0]]) links[String(rows[j][0])]=String(rows[j][3]||'');
+  }
+  for(var i=0;i<Math.min(pending.length,3);i++) {
+    var number=String(pending[i]);
+    if(!/^[0-9]{4,6}$/.test(number)||!registered[number]||!links[number]) throw new Error('Cartão pendente sem registo válido: '+number);
+    var match=/^https:\/\/drive\.google\.com\/file\/d\/([A-Za-z0-9_-]{15,})\//.exec(links[number]);
+    if(!match) throw new Error('Ligação de PDF inválida para '+number);
+    var pdf=UrlFetchApp.fetch('https://www.googleapis.com/drive/v3/files/'+encodeURIComponent(match[1])+'?alt=media',{
+      headers:{Authorization:'Bearer '+ScriptApp.getOAuthToken()},muteHttpExceptions:true,followRedirects:false
+    });
+    if(pdf.getResponseCode()!==200) throw new Error('Leitura privada do PDF falhou ('+pdf.getResponseCode()+') para '+number);
+    var bytes=pdf.getBlob().getBytes();
+    if(bytes.length<8||bytes.length>1800000||String.fromCharCode(bytes[0],bytes[1],bytes[2],bytes[3],bytes[4])!=='%PDF-') throw new Error('PDF inválido para '+number);
+    var result=apeeApi_(cfg,'/internal/cards/upload',{member_number:number,content_base64:Utilities.base64Encode(bytes)});
+    if(!result.ok) throw new Error('Não foi possível copiar o cartão '+number);
+    console.log('Cartão de associado '+number+': '+(result.stored?'copiado':'já existente'));
+  }
+}
+
 function apeeBridgeTick() {
   var lock=LockService.getScriptLock(); if(!lock.tryLock(1000)) return;
-  try {var cfg=apeeConfig_(), members=apeeSync_(cfg); apeeMail_(cfg); apeeInvites_(cfg,members);} finally {lock.releaseLock();}
+  try {var cfg=apeeConfig_(), members=apeeSync_(cfg); apeeCards_(cfg,members); apeeMail_(cfg); apeeInvites_(cfg,members);} finally {lock.releaseLock();}
 }
 function installApeeBridge() {
   // Execute uma vez no editor Google para instalar o acionador de 1 minuto.
