@@ -123,6 +123,7 @@ function syncVisibleViewport(){
 }
 if(window.visualViewport){
   window.visualViewport.addEventListener('resize',syncVisibleViewport,{passive:true});
+  window.addEventListener('resize',syncVisibleViewport,{passive:true});
   window.visualViewport.addEventListener('scroll',syncVisibleViewport,{passive:true});
 }
 function toggle(v){document.documentElement.classList.toggle('apee-assistente-aberto',v);document.body.classList.toggle('apee-assistente-aberto',v);panel.dataset.open=String(v);syncVisibleViewport();open.setAttribute('aria-expanded',String(v));if(v){if(!greeted){greeted=true;message('Olá! 👋 Sou o Assistente Virtual da APEE Bairro do Restelo. Posso ajudar a encontrar informações no site.');const choices=el('div','apee-assistente-choices');prompts.forEach(q=>{const b=el('button','apee-assistente-question',q);b.type='button';b.addEventListener('click',()=>ask(q));choices.append(b)});body.append(choices)}if(!window.matchMedia('(max-width:760px)').matches)input.focus()}else open.focus({preventScroll:true})}
