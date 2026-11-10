@@ -29,22 +29,23 @@ const style=el('style');style.textContent=`
 .apee-assistente[data-open="true"]{display:flex}
 .apee-assistente-head{display:flex;align-items:center;gap:11px;background:#155ba9;color:#fff;padding:14px 16px;flex-shrink:0}
 .apee-assistente-logo{background:#f4c947;color:#153b68;font-weight:900;border-radius:50%;width:39px;height:39px;display:grid;place-items:center;font-size:12px;letter-spacing:-.3px;flex-shrink:0}
-.apee-assistente-head-text{flex:1}.apee-assistente-head-text strong{display:block;font-size:15px}.apee-assistente-head-text small{display:block;opacity:.9;font-size:11px}
+.apee-assistente-head-text{flex:1;min-width:0}.apee-assistente-head-text strong{display:block;font-size:15px}.apee-assistente-head-text small{display:block;opacity:.9;font-size:11px}
 .apee-assistente-close{background:transparent;border:0;color:#fff;font:25px system-ui;cursor:pointer;padding:1px 7px}
 .apee-assistente-body{padding:15px;overflow-y:auto;overscroll-behavior:contain;min-height:140px;display:flex;flex-direction:column;gap:13px}
-.apee-assistente-bubble{max-width:94%;padding:12px 14px;border-radius:14px;white-space:pre-line;overflow-wrap:anywhere}
+.apee-assistente-bubble{min-width:0;max-width:94%;padding:12px 14px;border-radius:14px;white-space:pre-line;overflow-wrap:anywhere}
 .apee-assistente-bot{background:#edf4fb;align-self:flex-start}
 .apee-assistente-user{background:#155ba9;color:#fff;align-self:flex-end}
 .apee-assistente-links{display:flex;gap:7px;flex-wrap:wrap;align-self:flex-start}
-.apee-assistente-links a,.apee-assistente-question{background:#fff;color:#155ba9;border:1px solid #b8cfe9;border-radius:12px;padding:9px 11px;font:700 12px "DM Sans",system-ui;cursor:pointer;text-decoration:none;line-height:1.35}
+.apee-assistente-links a,.apee-assistente-question{overflow-wrap:anywhere;background:#fff;color:#155ba9;border:1px solid #b8cfe9;border-radius:12px;padding:9px 11px;font:700 12px "DM Sans",system-ui;cursor:pointer;text-decoration:none;line-height:1.35}
 .apee-assistente-links a:hover,.apee-assistente-question:hover{background:#f1f7ff}
 .apee-assistente-choices{display:flex;flex-wrap:wrap;gap:7px}
-.apee-assistente-form{display:flex;gap:8px;padding:11px 13px;border-top:1px solid #d9e6f1;background:#fff;flex-shrink:0}
-.apee-assistente-input{min-width:0;flex:1;border:1px solid #b8cfe9;border-radius:12px;padding:10px;font:14px "DM Sans",system-ui;color:#173858}
-.apee-assistente-send{background:#155ba9;color:#fff;border:0;border-radius:12px;padding:8px 13px;font-weight:750;cursor:pointer}
+.apee-assistente-form{display:flex;gap:8px;min-width:0;width:100%;box-sizing:border-box;padding:11px 13px;border-top:1px solid #d9e6f1;background:#fff;flex-shrink:0}
+.apee-assistente-input{min-width:0;flex:1;border:1px solid #b8cfe9;border-radius:12px;padding:10px;font:16px "DM Sans",system-ui;color:#173858}
+.apee-assistente-send{flex:0 0 auto;white-space:nowrap;min-width:0;background:#155ba9;color:#fff;border:0;border-radius:12px;padding:8px 13px;font-weight:750;cursor:pointer}
 .apee-assistente-foot{font-size:10px;padding:0 13px 11px;color:#5c6f82;background:#fff}
-@media(max-width:760px){#apee-assistente-abrir{bottom:calc(102px + env(safe-area-inset-bottom));right:12px;padding:11px 13px;font-size:12px}.apee-assistente{right:8px;bottom:calc(157px + env(safe-area-inset-bottom));width:calc(100vw - 16px);max-height:calc(100dvh - 170px);border-radius:16px}}
+@media(max-width:760px){#apee-assistente-abrir{bottom:calc(102px + env(safe-area-inset-bottom));right:12px;padding:11px 13px;font-size:12px}.apee-assistente{right:8px;bottom:calc(157px + env(safe-area-inset-bottom));width:calc(100vw - 16px);max-width:calc(100% - 16px);max-height:calc(100dvh - 170px);border-radius:16px}}
 @media(max-width:375px){#apee-assistente-abrir{padding:9px 11px}}
+@media(max-width:760px){.apee-assistente .apee-assistente-form{min-width:0;max-width:100%;overflow:hidden}.apee-assistente .apee-assistente-input{font-size:16px!important;width:100%;max-width:100%;min-width:0}.apee-assistente .apee-assistente-send{font-size:14px;flex-shrink:0}.apee-assistente .apee-assistente-foot{overflow-wrap:anywhere}.apee-assistente[data-open="true"]{box-sizing:border-box}.apee-assistente-aberto .mobile-bottom-nav.mobile-bottom-nav--apee{visibility:hidden!important;pointer-events:none!important}}
 @media(prefers-reduced-motion:reduce){.apee-assistente *{scroll-behavior:auto!important}}
 `;document.head.appendChild(style);
 const open=el('button');open.id='apee-assistente-abrir';open.type='button';open.setAttribute('aria-label','Abrir Assistente APEE');open.setAttribute('aria-expanded','false');open.textContent='💬 Assistente APEE';
@@ -90,7 +91,7 @@ async function ask(q){
  if(score>0&&best){message('Resposta automática: '+best.answer);link(best.link,best.label)}
  else{message('Não tenho informação confirmada sobre essa questão. Consulta os contactos oficiais da APEE.');link('contactos.html','Contactar a APEE')}
 }
-function toggle(v){panel.dataset.open=String(v);open.setAttribute('aria-expanded',String(v));if(v){if(!greeted){greeted=true;message('Olá! 👋 Sou o Assistente Virtual da APEE Bairro do Restelo. Posso ajudar a encontrar informações no site.');const choices=el('div','apee-assistente-choices');prompts.forEach(q=>{const b=el('button','apee-assistente-question',q);b.type='button';b.addEventListener('click',()=>ask(q));choices.append(b)});body.append(choices)}input.focus()}else open.focus()}
+function toggle(v){document.body.classList.toggle('apee-assistente-aberto',v);panel.dataset.open=String(v);open.setAttribute('aria-expanded',String(v));if(v){if(!greeted){greeted=true;message('Olá! 👋 Sou o Assistente Virtual da APEE Bairro do Restelo. Posso ajudar a encontrar informações no site.');const choices=el('div','apee-assistente-choices');prompts.forEach(q=>{const b=el('button','apee-assistente-question',q);b.type='button';b.addEventListener('click',()=>ask(q));choices.append(b)});body.append(choices)}input.focus()}else open.focus()}
 open.addEventListener('click',()=>toggle(panel.dataset.open!=='true'));close.addEventListener('click',()=>toggle(false));document.addEventListener('keydown',e=>{if(e.key==='Escape'&&panel.dataset.open==='true')toggle(false)});
 form.addEventListener('submit',e=>{e.preventDefault();e.stopImmediatePropagation();const q=input.value;input.value='';ask(q)},true);
 })();
