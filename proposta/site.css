@@ -5751,3 +5751,24 @@ main#conteudo .about-lead-mark.about-lead-logo img{
     transform:none!important;
   }
 }
+
+
+/* APEE · alinhamento vertical da leitura: cabeçalhos desktop com a coluna de conteúdo · 20261110 */
+@media (min-width:761px) {
+  /* Na Associação, remover o recuo especial de 950px e alinhar com o contentor de 1190px. */
+  html body main#conteudo > .page-hero.association-mobile-hero > .container.association-mobile-hero-text {
+    left:max(24px,calc((100% - 1190px)/2))!important;
+  }
+  /* Alinhar os títulos e descrições dos restantes cabeçalhos com os títulos das secções abaixo.
+     Sem tocar na disposição especial dos Contactos, nas fotografias ou na versão mobile. */
+  html body main#conteudo > .page-hero.projects-mobile-hero > .container.projects-mobile-hero-text,
+  html body main#conteudo.public-partners > .page-hero.partners-mobile-hero > .container.partners-mobile-hero-text,
+  html body main#conteudo > .page-hero.news-mobile-hero > .container.news-mobile-hero-text,
+  html body main#conteudo > .page-hero.history-mobile-hero > .container.history-mobile-hero-text,
+  html body main#conteudo.donor-page > .page-hero.donations-mobile-hero > .container.donations-mobile-hero-text,
+  html body main#conteudo > .page-hero.registration-mobile-hero > .container.registration-mobile-hero-text,
+  html body main#conteudo > .page-hero.family-photo-hero.apee-reference-panorama:not(.contact-matched-hero) > .container.family-photo-hero-text,
+  html body main#conteudo.phase3-documents > .page-hero.documents-photo-hero > .container.family-photo-hero-text {
+    margin-left:max(24px,calc((100% - 1190px)/2))!important;
+  }
+}
