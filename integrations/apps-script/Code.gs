@@ -111,11 +111,9 @@ function apeeCards_(cfg,members,testNumber) {
     if(!/^[0-9]{4,6}$/.test(number)||!registered[number]||!links[number]) throw new Error('Cartão pendente sem registo válido: '+number);
     var match=/^https:\/\/drive\.google\.com\/file\/d\/([A-Za-z0-9_-]{15,})\//.exec(links[number]);
     if(!match) throw new Error('Ligação de PDF inválida para '+number);
-    var pdf=UrlFetchApp.fetch('https://www.googleapis.com/drive/v3/files/'+encodeURIComponent(match[1])+'?alt=media',{
-      headers:{Authorization:'Bearer '+ScriptApp.getOAuthToken()},muteHttpExceptions:true,followRedirects:false
-    });
-    if(pdf.getResponseCode()!==200) throw new Error('Leitura privada do PDF falhou ('+pdf.getResponseCode()+') para '+number);
-    var bytes=pdf.getBlob().getBytes();
+    var bytes;
+    try { bytes=DriveApp.getFileById(match[1]).getBlob().getBytes(); }
+    catch(e) { throw new Error('Leitura privada do PDF falhou para '+number+': '+String(e).slice(0,160)); }
     if(bytes.length<8||bytes.length>1800000||String.fromCharCode(bytes[0],bytes[1],bytes[2],bytes[3],bytes[4])!=='%PDF-') throw new Error('PDF inválido para '+number);
     var result=apeeApi_(cfg,'/internal/cards/upload',{member_number:number,content_base64:Utilities.base64Encode(bytes)});
     if(!result.ok) throw new Error('Não foi possível copiar o cartão '+number);
