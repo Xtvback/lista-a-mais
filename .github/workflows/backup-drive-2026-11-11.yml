@@ -1,0 +1,34 @@
+name: APEE Backup Fonte — Ramo de Segurança
+on:
+  push:
+    branches:
+      - backup/site-2026-11-11-integral
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  source-backup:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Obter ficheiros e histórico completo
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+      - name: Arquivar ficheiros e histórico sem alterar produção
+        run: |
+          set -euo pipefail
+          mkdir -p backup-output
+          git archive --format=tar HEAD | gzip -9 > backup-output/APEE-codigo-fonte-completo.tar.gz
+          git bundle create backup-output/APEE-historico-git.bundle --all
+          (cd backup-output && sha256sum APEE-codigo-fonte-completo.tar.gz APEE-historico-git.bundle > SHA256SUMS.txt)
+          git rev-parse HEAD > backup-output/COMMIT.txt
+          git branch --all > backup-output/RAMOS.txt
+      - name: Exportar artefacto de backup
+        uses: actions/upload-artifact@v4
+        with:
+          name: APEE-FONTE-GITHUB-2026-11-11
+          path: backup-output/
+          if-no-files-found: error
+          retention-days: 7
+          compression-level: 0
