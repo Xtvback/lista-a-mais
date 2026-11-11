@@ -1,0 +1,46 @@
+name: APEE — Backup a cada alteração do site
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  backup-site:
+    if: github.repository == 'Xtvback/lista-a-mais'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Obter a versão publicada (sem credenciais)
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+          persist-credentials: false
+      - name: Arquivar, conferir e registar a versão
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p backup-output
+          git archive --format=tar HEAD | gzip -9 > backup-output/APEE_site_codigo.tar.gz
+          tar -tzf backup-output/APEE_site_codigo.tar.gz >/dev/null
+          git rev-parse HEAD > backup-output/COMMIT.txt
+          date -u '+%Y-%m-%dT%H:%M:%SZ' > backup-output/DATA_UTC.txt
+          git show --format= --name-only HEAD > backup-output/ALTERACOES.txt
+          (cd backup-output && sha256sum APEE_site_codigo.tar.gz > SHA256SUMS.txt)
+          {
+            echo 'BACKUP AUTOMATICO APEE — SITE PUBLICO'
+            echo 'Origem: Xtvback/lista-a-mais / main'
+            echo "Commit: $(cat backup-output/COMMIT.txt)"
+            echo "Data UTC: $(cat backup-output/DATA_UTC.txt)"
+            echo 'Integridade: tar verificado; SHA-256 em SHA256SUMS.txt'
+            echo 'Esta copia inclui apenas os ficheiros Git versionados.'
+            echo 'Nao inclui dados privados Cloudflare D1, Jotform, Google Sheets, segredos ou emails.'
+            echo 'Nao envia emails nem altera a producao.'
+          } > backup-output/LOG_BACKUP.txt
+      - name: Guardar backup para recolha na Drive privada
+        uses: actions/upload-artifact@v4
+        with:
+          name: APEE-site-${{ github.sha }}
+          path: backup-output/
+          if-no-files-found: error
+          retention-days: 30
+          compression-level: 0
