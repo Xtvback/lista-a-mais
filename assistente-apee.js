@@ -74,7 +74,7 @@ const style=el('style');style.textContent=`
 const open=el('button');open.id='apee-assistente-abrir';open.type='button';open.setAttribute('aria-label','Abrir Assistente APEE');open.setAttribute('aria-expanded','false');open.textContent='💬 Assistente APEE';
 const panel=el('section','apee-assistente');panel.setAttribute('role','dialog');panel.setAttribute('aria-label','Assistente virtual APEE');panel.setAttribute('aria-modal','false');panel.dataset.open='false';
 const header=el('div','apee-assistente-head'),logo=el('span','apee-assistente-logo'),titles=el('div','apee-assistente-head-text');
-const logoImg=el('img');logoImg.src='/_external/d2ol7oe51mr4n9.cloudfront.net/user_3EbWYhy0t8ty8Wz9RPVrhpDHVlB/6c0a90e1-f63f-4e2c-8a73-48d8610f6db5.jpg';logoImg.alt='Logótipo oficial da APEE Bairro do Restelo';logoImg.style.cssText='width:100%;height:100%;object-fit:contain;border-radius:50%;display:block';logo.append(logoImg);
+const logoImg=el('img');logoImg.src='https://apeebairrodorestelo.com/imagens/logo-apee-oficial-2026.jpg';logoImg.alt='Logótipo oficial da APEE Bairro do Restelo';logoImg.style.cssText='width:100%;height:100%;object-fit:contain;border-radius:50%;display:block';logo.append(logoImg);
 titles.innerHTML='<strong>Assistente APEE</strong><small>Perguntas sobre a escola · IA experimental</small>';
 const close=el('button','apee-assistente-close','×');close.type='button';close.setAttribute('aria-label','Fechar chat');
 header.append(logo,titles,close);
